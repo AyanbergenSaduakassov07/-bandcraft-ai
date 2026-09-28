@@ -11,9 +11,8 @@ import {
   stagger,
   utils,
 } from "animejs";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { CRITERIA, CRITERION_LABELS } from "@bandcraft/shared";
-import { Button } from "@/components/ui/button";
 import { revealStagger, scoreSpring } from "@/lib/motion";
 
 const motionOK = () => !matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -126,51 +125,59 @@ export function CriteriaCube() {
   );
 }
 
-const FEEDBACK = [
-  { crit: CRITERIA[0], band: 7, margin: 0.5, quote: "“Universities should do both”", note: "Your position is clear from the introduction and holds to the end. Body 2 asserts more than it argues: add one concrete example." },
-  { crit: CRITERIA[1], band: 6, margin: 0.5, quote: "“Furthermore… Moreover… Furthermore…”", note: "Three stacked linkers in one paragraph. Let the ideas connect themselves; keep one linker, use reference words for the rest." },
-  { crit: CRITERIA[2], band: 6, margin: 1, quote: "“do a job”", note: "Imprecise. Try “pursue a career” or “perform a role”. Two spelling slips in less common words cost you here." },
-  { crit: CRITERIA[3], band: 7, margin: 0.5, quote: "“If students were taught…, they would…”", note: "Good control of conditionals and relative clauses. Article errors recur (“the society”), but rarely block meaning." },
+const CARDS = [
+  { eyebrow: "Evidence first", title: "It quotes your essay before it scores it.", art: "“ ”", href: "#how", dark: false },
+  { eyebrow: "Four criteria", title: "Four bands, not one vague number.", art: "TR CC LR GRA", href: "#criteria", dark: true },
+  { eyebrow: "Every task", title: "Charts, letters and essays.", art: "1A 1G 2", href: "#top", dark: false },
+  { eyebrow: "Honest margins", title: "A band and how sure we are.", art: "± 0.5", href: "#how", dark: true },
+  { eyebrow: "Daily practice", title: "Small drills. Real streaks.", art: "12", href: "#practice", dark: false },
 ];
 
-/** Apple-style horizontal gallery: native scroll-snap, paddles for pointer users. */
-export function FeedbackGallery() {
+/** Apple's "Get to know" row: tall light and dark cards, snap scrolling, round paddles, a + per card. */
+export function GetToKnow() {
   const track = useRef<HTMLDivElement>(null);
   const page = (dir: 1 | -1) => {
     const el = track.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: motionOK() ? "smooth" : "auto" });
+    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: motionOK() ? "smooth" : "auto" });
   };
   return (
-    <div>
+    <section className="bg-muted/60 py-24">
+      <h2 className="mx-auto max-w-6xl px-4 text-4xl font-black sm:text-6xl">Get to know BandCraft.</h2>
       <div
         ref={track}
-        className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-[max(1rem,calc((100vw_-_72rem)/2))] scroll-px-[max(1rem,calc((100vw_-_72rem)/2))] pb-6 [scrollbar-width:none]"
+        className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-[max(1rem,calc((100vw_-_72rem)/2))] pb-6 [scrollbar-width:none] scroll-px-[max(1rem,calc((100vw_-_72rem)/2))]"
       >
-        {FEEDBACK.map((f) => (
+        {CARDS.map((c) => (
           <article
-            key={f.crit}
-            className="flex min-h-[26rem] w-[82vw] max-w-[24rem] shrink-0 snap-center flex-col rounded-[1.75rem] bg-card p-8 shadow-soft ring-1 ring-border sm:snap-start"
+            key={c.eyebrow}
+            className={`relative flex h-[30rem] w-[78vw] max-w-[21rem] shrink-0 snap-start flex-col overflow-hidden rounded-[1.75rem] p-8 ${
+              c.dark ? "dark bg-background text-foreground" : "bg-card text-card-foreground"
+            }`}
           >
-            <p className="text-sm font-semibold text-primary">{CRITERION_LABELS[f.crit]}</p>
-            <p className="mt-3 flex items-baseline gap-2 font-display font-bold">
-              <span className="text-5xl">{f.band}</span>
-              <span className="text-xl text-muted-foreground">± {f.margin}</span>
+            <p className="text-sm font-bold">{c.eyebrow}</p>
+            <h3 className="mt-2 text-[1.7rem] leading-tight font-extrabold">{c.title}</h3>
+            <p aria-hidden className="text-brand-gradient mt-auto pr-12 font-display text-6xl leading-none font-black">
+              {c.art}
             </p>
-            <blockquote className="mt-6 text-xl font-semibold tracking-[-0.015em]">{f.quote}</blockquote>
-            <p className="mt-auto pt-6 text-muted-foreground">{f.note}</p>
+            <a
+              href={c.href}
+              aria-label={`More about: ${c.eyebrow}`}
+              className="absolute right-6 bottom-6 grid size-9 place-items-center rounded-full bg-foreground text-background transition-transform duration-150 hover:scale-110"
+            >
+              <Plus className="size-5" strokeWidth={3} />
+            </a>
           </article>
         ))}
       </div>
       <div className="mx-auto mt-2 flex max-w-6xl justify-end gap-3 px-4">
-        <Button variant="secondary" size="icon" className="rounded-full shadow-none" aria-label="Previous" onClick={() => page(-1)}>
-          <ChevronLeft />
-        </Button>
-        <Button variant="secondary" size="icon" className="rounded-full shadow-none" aria-label="Next" onClick={() => page(1)}>
-          <ChevronRight />
-        </Button>
+        <button type="button" aria-label="Previous" onClick={() => page(-1)} className="grid size-9 place-items-center rounded-full bg-foreground/10 hover:bg-foreground/15">
+          <ChevronLeft className="size-5" />
+        </button>
+        <button type="button" aria-label="Next" onClick={() => page(1)} className="grid size-9 place-items-center rounded-full bg-foreground/10 hover:bg-foreground/15">
+          <ChevronRight className="size-5" />
+        </button>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -188,6 +195,10 @@ export function ScrollReveals({ children }: { children: React.ReactNode }) {
     const anims: { revert: () => unknown }[] = [];
     const q = (s: string) => root.querySelector<HTMLElement>(`[data-anim="${s}"]`);
 
+    root.querySelectorAll<HTMLElement>('[data-anim="pop"]').forEach((el) => {
+      utils.set(el, { opacity: 0, translateY: 40, scale: 0.96 });
+      anims.push(animate(el, { opacity: 1, translateY: 0, scale: 1, ease: landing, autoplay: once(el) }));
+    });
     const swatches = q("swatches");
     if (swatches) {
       utils.set(swatches.children, { opacity: 0, scale: 0.6 });
