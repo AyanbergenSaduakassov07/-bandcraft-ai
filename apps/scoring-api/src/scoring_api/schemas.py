@@ -109,3 +109,39 @@ class DraftResponse(BaseModel):
     features: FeatureVector
     rubric: RubricResult
     latency_ms: int
+
+
+class PathValues(BaseModel):
+    """The independent estimates the margin comes from, exposed so a band is never a black box."""
+
+    gemini: list[float] = Field(
+        description="Raw Gemini band per pass (two when a second pass ran)."
+    )
+    calibrated: float
+    deterministic: float = Field(description="Features-only model; no language model involved.")
+    ensemble: float
+
+
+class FinalCriterion(BaseModel):
+    band: int = Field(ge=0, le=9, description="Calibrated Criterion Band.")
+    margin: float = Field(ge=0, description="Half-width of the interval, in bands.")
+    paths: PathValues
+    evidence: list[EvidenceSpan]
+
+
+class BandEstimate(BaseModel):
+    band: float
+    margin: float
+
+
+class FinalResponse(BaseModel):
+    task_type: TaskType
+    overall: BandEstimate
+    criteria: dict[Criterion, FinalCriterion]
+    second_pass: bool = Field(
+        description="Ensemble and raw Gemini disagreed by more than a band, so Gemini scored again."
+    )
+    gemini_models: list[str]
+    calibration_version: str
+    features: FeatureVector
+    latency_ms: int

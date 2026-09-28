@@ -27,7 +27,8 @@ npm run dev -w @bandcraft/web                # http://localhost:3000, design sys
 cd apps/scoring-api
 uv sync
 GEMINI_API_KEY=... uv run uvicorn scoring_api.main:app --reload   # http://localhost:8000/docs
-uv run pytest                      # unit tests; live Gemini gold run: uv run pytest -m gemini
+uv run --group train pytest        # unit tests; live Gemini gold run: uv run pytest -m gemini
+uv run python -m scoring_api.record_gold   # record Gemini runs for the Gold Set (resumable)
 ```
 
 ## Checks
@@ -38,6 +39,13 @@ cd apps/scoring-api && uv run ruff check . && uv run black --check . && uv run m
 ```
 
 CI runs the same on every push. There's no deploy step yet.
+
+## Scoring API
+
+- `POST /score/draft`: Features plus raw Gemini Criterion Bands with evidence spans (stages 1-3).
+- `POST /score/final`: calibrated Criterion Bands, overall band, a margin of error per score, and the evidence spans (stages 4-5). It returns 503 until a calibration has been trained.
+
+Calibration is fitted by the **calibrate** GitHub Actions workflow (Actions → calibrate → Run workflow). It writes `apps/scoring-api/artifacts/calibration/<version>/` and a report in `docs/benchmarks/`, then opens a PR ([ADR-0003](docs/adr/0003-small-cpu-fits-in-github-actions.md)).
 
 ## Constraints
 

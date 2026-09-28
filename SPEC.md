@@ -42,15 +42,26 @@ Invariants:
 
 ### 4. Calibration
 
-- **In:** the raw Criterion Bands from each Scoring Run, and the Features.
-- **Does:** map raw bands onto the examiner scale, using a mapping fitted on Reference Scripts (fitted on Kaggle when it needs training, per ADR-0002).
-- **Out:** calibrated Criterion Bands for each Scoring Run, plus the calibration's residual error for each Criterion.
+- **In:** the raw Criterion Bands from each Scoring Run.
+- **Does:** maps each raw band onto the examiner scale with a swappable calibrator (`isotonic` or `linear`, chosen by name) fitted on the Gold Set.
+- **Out:** a calibrated value for each Criterion.
+- **Fitted:** in the `calibrate` GitHub Actions workflow ([ADR-0003](docs/adr/0003-small-cpu-fits-in-github-actions.md)). It's stored as JSON and refit as the Gold Set grows.
 
-### 5. Ensembling and consistency check
+### 5. Ensembling, cross-check and margin of error
 
-- **In:** the calibrated Criterion Bands from every Scoring Run.
-- **Does:** combine the runs into one Criterion Band per Criterion. Check that runs agree, that bands are consistent with the Features (for example, a Script under the Word Floor can't top Task Achievement/Response), and that the Overall Band is derived correctly.
-- **Out:** a Band Estimate for each Criterion and for the Overall Band. The Margin of Error combines the disagreement between runs with the calibration's residual error, and widens whenever a consistency check fails.
+- **In:** Features and the raw Criterion Bands.
+- **Paths for each Criterion:**
+  - raw Gemini
+  - calibrated Gemini
+  - a **deterministic** ridge model over Features only
+  - an **ensemble** LightGBM model over Features plus all four Gemini bands
+- **Cross-check:** if the ensemble and raw Gemini differ by more than 1 band on any Criterion, a **second Gemini pass** runs, and both passes become paths. Disagreements are never averaged away silently.
+- **Criterion Band:** the mean of calibrated and ensemble, rounded half up to a whole band.
+- **Margin of error for each Criterion:** `sqrt((spread / 2)² + residual²)`, rounded up to the half-band grid and clamped to [0.5, 3.0].
+  - `spread` is the range across all paths on *this essay*.
+  - `residual` is the model's leave-one-out MAE for that Criterion.
+- **Overall:** the IELTS rounding of the four Criterion Bands. Its margin is the mean criterion margin, rounded up. It isn't shrunk, because criterion errors are correlated.
+- **Out:** `POST /score/final` returns each calibrated Criterion Band with its margin and paths, the overall Band Estimate, and the evidence spans from stage 3.
 
 ### 6. Feedback generation
 
