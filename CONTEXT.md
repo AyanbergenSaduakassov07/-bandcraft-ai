@@ -72,6 +72,14 @@ _Avoid_: Normalisation, adjustment
 A Script with a band assigned by a qualified examiner, used for Calibration and evaluation.
 _Avoid_: Gold data, sample essay, ground truth
 
+**Gold Set**:
+The fixed collection of labelled Scripts that every accuracy claim is measured against. Today it holds only author-labelled synthetic Scripts. Reference Scripts join it as they're sourced, and results are reported separately by provenance.
+_Avoid_: Test set, benchmark, ground truth
+
+**Evidence Span**:
+A passage quoted from the Script to justify a Criterion Band, located by character offsets. A quote that can't be found in the Script is unverified and doesn't count as evidence.
+_Avoid_: Citation, highlight, reference
+
 ## Constraints
 
 - All language-model calls go through the Gemini API on the free tier. See [ADR-0001](docs/adr/0001-gemini-free-tier-only.md).

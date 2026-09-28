@@ -1,0 +1,17 @@
+{
+  "id": "t2-social-media-b6.5",
+  "task_type": "task2",
+  "prompt": "Many people believe that social media has had a negative effect on young people. To what extent do you agree or disagree? Write at least 250 words.",
+  "script": "Social media platforms such as Instagram and TikTok have become a central part of teenagers' lives. While these platforms offer some benefits, I largely agree that their overall effect on young people has been negative.\n\nThe most serious problem is the impact on mental health. Teenagers constantly compare themselves with influencers who present an edited, unrealistic version of their lives, and this often leads to low self-esteem and anxiety. In addition, cyberbullying has become more common, because it is easy for people to post cruel comments anonymously, and victims cannot escape it even when they are at home.\n\nAnother negative effect is on concentration and sleep. Many young people check their phones late at night, and the endless scrolling that these apps are designed to encourage means they get less rest than they need. As a result their performance at school can suffer. Teachers in my country often complains that students find it difficult to focus on a long text because they are used to short videos.\n\nOn the other hand, it would be unfair to say social media has no advantages. It allows young people to keep in touch with friends, to find communities who shares their interests and to learn about the world. During the pandemic, for example, it helped many students to feel less isolated.\n\nIn conclusion, although social media can connect people and provide information, I believe its effects on mental health, sleep and concentration make it more harmful than helpful for young people. Parents and schools should therefore teach teenagers to use it in a more balanced way.",
+  "gold": {
+    "overall": 6.5,
+    "criteria": {
+      "task_achievement_response": 7,
+      "coherence_cohesion": 6,
+      "lexical_resource": 7,
+      "grammatical_range_accuracy": 6
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

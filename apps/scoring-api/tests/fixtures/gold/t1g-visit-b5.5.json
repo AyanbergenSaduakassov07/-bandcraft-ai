@@ -1,0 +1,17 @@
+{
+  "id": "t1g-visit-b5.5",
+  "task_type": "task1_general",
+  "prompt": "A friend from another country is planning to visit your city for a week. Write a letter to your friend. In your letter:\n- suggest where they could stay\n- recommend some things to do\n- tell them what they should bring\nWrite at least 150 words. You do NOT need to write any addresses. Begin your letter as follows: Dear ...,",
+  "script": "Dear Sarah,\n\nI am so happy that you will come to Almaty next month! I want to give you some advices for your trip.\n\nAbout the place to stay, I think you should stay in a hotel in the city centre, because it is near to everything. There is a nice hotel near the Panfilov park, it is not very expensive and the rooms is clean. Of course you can also stay in my flat but it is small and far from centre.\n\nThere are many things to do in Almaty. You must visit the mountains, for example Medeu and Shymbulak, the views are amazing and you can take a cable car. Also you should try our national food like beshbarmak and baursak, I will take you to my favourite restaurant. In the evening we can walk on Arbat street.\n\nAbout what to bring, the weather in the mountains is cold even in summer so bring a warm jacket and comfortable shoes. Also bring some cash because some small shops dont accept cards.\n\nI can't wait to see you!\n\nBest wishes,\nAliya",
+  "gold": {
+    "overall": 5.5,
+    "criteria": {
+      "task_achievement_response": 6,
+      "coherence_cohesion": 5,
+      "lexical_resource": 6,
+      "grammatical_range_accuracy": 5
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

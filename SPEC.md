@@ -35,7 +35,7 @@ Invariants:
 
 ### 3. Gemini rubric scoring
 
-- **In:** the Script, the Prompt, the Features, and the Band Descriptors for the Task Type.
+- **In:** the Script, the Prompt, and the Band Descriptors for the Task Type. It deliberately gets no Features: stages 2 and 3 run in parallel, and keeping counts out of the prompt avoids anchoring the model. Features and model bands meet in stages 4–5.
 - **Does:** each Scoring Run asks Gemini for a Criterion Band on all four Criteria, as structured JSON, each with evidence quoted from the Script.
 - **Out:** raw Criterion Bands plus evidence for each Scoring Run. Output that fails the schema is retried and never repaired by guesswork.
 - **Budget:** the number of Scoring Runs per Script is bounded by free-tier rate limits (ADR-0001).

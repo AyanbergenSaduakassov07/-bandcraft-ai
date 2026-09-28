@@ -1,0 +1,17 @@
+{
+  "id": "t2-tuition-b4.0",
+  "task_type": "task2",
+  "prompt": "Some people believe that university students should pay the full cost of their studies, while others think that the government should pay for them. Discuss both views and give your own opinion. Write at least 250 words.",
+  "script": "Nowadays, many people think university is very expensive. Some people say students must pay all money and other people say goverment must pay. I will discuss both side.\n\nFirst, students should pay because they get the good job after university. When they have the degree they earn a lot of money so it is fair they pay. Also if student pay, they will study hard becouse the money is them own money.\n\nBut other people think goverment should pay. Education is very important for the country. If the goverment pay, more people can go to university and the country will be develop. Poor family can not pay the fees and this is not fair for they. My brother he want to study medicine but it cost too much money.\n\nIn my opinion goverment should pay because education is important for everybody and everybody need the education. In conclusion, both side have good reasons but i think goverment should pay.",
+  "gold": {
+    "overall": 4.0,
+    "criteria": {
+      "task_achievement_response": 4,
+      "coherence_cohesion": 4,
+      "lexical_resource": 4,
+      "grammatical_range_accuracy": 4
+    }
+  },
+  "quality": "weak",
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

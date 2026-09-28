@@ -1,0 +1,17 @@
+{
+  "id": "t1g-laptop-b7.5",
+  "task_type": "task1_general",
+  "prompt": "You recently bought a laptop from an online shop, but when it arrived it was damaged. Write a letter to the shop. In your letter:\n- describe the laptop you bought\n- explain what the problem is\n- say what you would like the shop to do\nWrite at least 150 words. You do NOT need to write any addresses. Begin your letter as follows: Dear Sir or Madam,",
+  "script": "Dear Sir or Madam,\n\nI am writing to complain about a laptop I ordered from your website on 12 March (order number 58231), which arrived in an unusable condition.\n\nThe item was a 14-inch Asus Zenbook in silver, with 16 GB of memory, which I bought for 520 euros specifically because your listing described it as lightweight and suitable for travel. I need it for a work trip that begins at the end of this month.\n\nUnfortunately, when I opened the parcel, it was clear that it had been badly packed. There was no protective padding inside the box, and the laptop's lid was dented in one corner. More seriously, the screen has a crack running across it, and although the computer switches on, the display flickers constantly, making it impossible to use.\n\nGiven the circumstances, I would be grateful if you could send a replacement by express delivery, at no extra cost, so that it reaches me before I travel. If this is not possible, I would ask for a full refund, including the delivery charge, and for a courier to collect the damaged laptop.\n\nI look forward to your prompt reply.\n\nYours faithfully,\nDaniyar Seitkali",
+  "gold": {
+    "overall": 7.5,
+    "criteria": {
+      "task_achievement_response": 8,
+      "coherence_cohesion": 7,
+      "lexical_resource": 8,
+      "grammatical_range_accuracy": 7
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "t2-work-family-b5.0",
+  "task_type": "task2",
+  "prompt": "In many countries, people are spending more time at work and less time with their families. What are the causes of this? What can be done to solve this problem? Write at least 250 words.",
+  "script": "In these days, many people work more hours and they spend less time with there family. There are some reasons for this problem and also there are some solutions.\n\nThe first reason is money. Life is very expensive now, for example the houses and food is more expensive than before, so people need to work more to pay for everything. Another reason is the companies. Many companies want workers to stay late in the office and if they don't stay they can lose there job. Also, the technology make people work at home, because they answer emails in the evening and in the weekend.\n\nThere are some solutions for this problem. Firstly, the government can make a law that people can not work more than 40 hours in one week. This will help people because they will have more free time. Secondly, companies should give workers more holidays and flexible time, so parents can take the children from school. Finally, people should turn off there phone after work and spend time with family, for example they can eat dinner together or go to the park. Families are very important for children and also for the parents.\n\nTo sum up, people work more because of money, companies and technology. I think the government and companies should do more to help people, and people also should change there habits. If we do this, families will be more happy and the society will be better.",
+  "gold": {
+    "overall": 5.0,
+    "criteria": {
+      "task_achievement_response": 5,
+      "coherence_cohesion": 5,
+      "lexical_resource": 5,
+      "grammatical_range_accuracy": 5
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

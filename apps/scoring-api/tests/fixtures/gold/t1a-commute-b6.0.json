@@ -1,0 +1,17 @@
+{
+  "id": "t1a-commute-b6.0",
+  "task_type": "task1_academic",
+  "prompt": "The table below shows how people in one city travelled to work in 2000 and 2020, as a percentage of all commuters. Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.\n\nData (% of commuters, 2000 then 2020):\nCar: 45, 30\nBus: 25, 20\nWalking: 20, 15\nMetro: 5, 15\nBicycle: 5, 20",
+  "script": "The table shows the ways people travelled to work in one city in 2000 and 2020.\n\nOverall, the car was the most popular way of travelling in both years, but it became less popular, while cycling and the metro became more popular.\n\nIn 2000, 45% of people used a car to go to work, which was almost half of all commuters. The bus was the second most common with 25%, and walking was 20%. Only 5% of people used the metro and the same percentage cycled.\n\nIn 2020 the situation was changed. The percentage of car users decreased to 30%, and the bus also fell slightly to 20%. On the other hand, the number of people cycling increased a lot, from 5% to 20%, so it became equal with the bus. The metro also grew from 5% to 15%. Walking decreased a little, from 20% to 15%.\n\nIn conclusion, people in this city used cars less and used bicycles and metro more in 2020 than in 2000.",
+  "gold": {
+    "overall": 6.0,
+    "criteria": {
+      "task_achievement_response": 6,
+      "coherence_cohesion": 6,
+      "lexical_resource": 6,
+      "grammatical_range_accuracy": 6
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

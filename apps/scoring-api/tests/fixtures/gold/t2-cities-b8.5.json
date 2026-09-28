@@ -1,0 +1,17 @@
+{
+  "id": "t2-cities-b8.5",
+  "task_type": "task2",
+  "prompt": "Cities are becoming increasingly crowded. Some people say the solution is to move businesses and residents to the countryside. To what extent do you agree or disagree? Write at least 250 words.",
+  "script": "As urban populations continue to swell, congestion, soaring rents and poor air quality have become defining features of city life. One proposed remedy is to relocate businesses and residents to the countryside. While I accept that decentralisation has a role to play, I disagree that it offers a genuine solution on its own.\n\nThe appeal of the idea is easy to understand. Dispersing employers would ease the daily commute that clogs city roads, and the lower cost of rural land could allow families to live in larger, more affordable homes. The shift to remote working during the pandemic showed that many office-based roles do not, in fact, require a physical presence in the city centre, and some regional towns have since experienced a modest revival as professionals have moved out.\n\nYet the limitations are considerable. Cities concentrate not only people but also the institutions that make modern life possible: specialist hospitals, universities, cultural venues and dense labour markets in which workers can change jobs without moving house. Recreating this infrastructure across the countryside would be prohibitively expensive, and without it relocated residents would simply find themselves isolated. There is also an environmental paradox: scattering the population across rural areas tends to increase car dependency and consume farmland and natural habitats, which may leave the country worse off overall.\n\nA more realistic approach is to make cities work better rather than to empty them. Investment in public transport, higher-density affordable housing and mixed-use neighbourhoods, where people can live near their workplaces, addresses the causes of overcrowding directly, while targeted support for regional centres can relieve pressure at the margins.\n\nIn short, moving people and businesses to the countryside may help in specific cases, but as a general strategy it is costly and self-defeating; well-planned cities are the better answer.",
+  "gold": {
+    "overall": 8.5,
+    "criteria": {
+      "task_achievement_response": 9,
+      "coherence_cohesion": 8,
+      "lexical_resource": 9,
+      "grammatical_range_accuracy": 8
+    }
+  },
+  "quality": "strong",
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

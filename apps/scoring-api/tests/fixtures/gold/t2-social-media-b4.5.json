@@ -1,0 +1,17 @@
+{
+  "id": "t2-social-media-b4.5",
+  "task_type": "task2",
+  "prompt": "Many people believe that social media has had a negative effect on young people. To what extent do you agree or disagree? Write at least 250 words.",
+  "script": "Today social media is every where and young people use it all the time. Some people think it have negative effect on young people. I am agree with this opinion.\n\nsocial media is bad for young people because they spend to much time on it. They look instagram and tiktok all day and they dont do homework and they dont sleep. my friend he use phone until 3 in the night and in the morning he is very tired in the lesson. Also they dont talk with family, they only look the phone.\n\nSocial media also is bad because there is many fake news and bad people. young people believe every thing what they see and this is dangerous. Some people make bullying on internet and the children feel very sad and they have depression. Also they compare them self with the bloggers who have beautiful life and they think there life is bad.\n\nBut social media have also good side, you can talk with friends and find information for study. But i think bad side is more big then good side.\n\nIn conclusion social media is very bad for young people because they spend to much time and there is fake news and bullying. Parents must control there children and dont give them phone every time.",
+  "gold": {
+    "overall": 4.5,
+    "criteria": {
+      "task_achievement_response": 5,
+      "coherence_cohesion": 4,
+      "lexical_resource": 5,
+      "grammatical_range_accuracy": 4
+    }
+  },
+  "quality": "weak",
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

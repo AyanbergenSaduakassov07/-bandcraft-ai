@@ -1,0 +1,17 @@
+{
+  "id": "t1a-internet-b5.0",
+  "task_type": "task1_academic",
+  "prompt": "The table below shows the percentage of households with internet access in Kazakhstan, Poland and Brazil in 2005, 2010, 2015 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.\n\nData (households with internet access, %):\nKazakhstan: 2005 10, 2010 30, 2015 65, 2020 88\nPoland: 2005 30, 2010 55, 2015 75, 2020 90\nBrazil: 2005 15, 2010 35, 2015 50, 2020 70",
+  "script": "The table show the percentage of households which have internet in Kazakhstan, Poland and Brazil from 2005 to 2020.\n\nIn Kazakhstan, in 2005 there was 10% of households with internet. In 2010 it was 30%. In 2015 it increase to 65% and in 2020 it was 88%.\n\nIn Poland, in 2005 it was 30%. In 2010 it was 55% and in 2015 it was 75%. In 2020 it was 90%, it is the highest.\n\nIn Brazil in 2005 the percentage was 15%. In 2010 it increased to 35%. In 2015 it was 50% and in 2020 it reach 75%.\n\nPoland was the higher in all years. Kazakhstan was lower than Brazil in 2005 but after that Kazakhstan was more high than Brazil. All countries increased.",
+  "gold": {
+    "overall": 5.0,
+    "criteria": {
+      "task_achievement_response": 5,
+      "coherence_cohesion": 5,
+      "lexical_resource": 5,
+      "grammatical_range_accuracy": 5
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

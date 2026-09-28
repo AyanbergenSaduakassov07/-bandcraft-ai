@@ -1,0 +1,17 @@
+{
+  "id": "t1g-visit-b6.5",
+  "task_type": "task1_general",
+  "prompt": "A friend from another country is planning to visit your city for a week. Write a letter to your friend. In your letter:\n- suggest where they could stay\n- recommend some things to do\n- tell them what they should bring\nWrite at least 150 words. You do NOT need to write any addresses. Begin your letter as follows: Dear ...,",
+  "script": "Dear Tom,\n\nIt was great to hear that you've finally booked your trip to Astana! Here are a few tips to help you make the most of your week.\n\nAs for accommodation, I'd recommend staying somewhere on the left bank, near the Baiterek tower. Most of the modern sights are within walking distance there, and there are plenty of apartments which you can rent for a reasonable price. I'd offer you my sofa, but my flat is being renovated at the moment, so it's quite chaotic.\n\nThere's lots to keep you busy. You should definitely go up the Baiterek for the view over the city, and the Khan Shatyr shopping centre is worth a visit, if only to see the giant tent-like building. If you're interested in history, the National Museum has an excellent collection of gold jewellery. On the weekend we could also take a day trip to Burabay, a beautiful lake area about three hours away.\n\nAs for what to pack, the weather here can change very quickly, so bring a warm jacket even though it's May, and don't forget sunglasses, as the wind can be very strong and dusty.\n\nLet me know your flight details and I'll meet you at the airport.\n\nAll the best,\nErmek",
+  "gold": {
+    "overall": 6.5,
+    "criteria": {
+      "task_achievement_response": 7,
+      "coherence_cohesion": 6,
+      "lexical_resource": 7,
+      "grammatical_range_accuracy": 6
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "t2-languages-b7.5",
+  "task_type": "task2",
+  "prompt": "Some people think that children should begin learning a foreign language at primary school rather than at secondary school. Do the advantages of this outweigh the disadvantages? Write at least 250 words.",
+  "script": "Across the world, governments are debating how early children should begin studying a second language. I believe that introducing foreign languages at primary level brings benefits that clearly outweigh the drawbacks, provided that schools are properly resourced.\n\nThe strongest argument for an early start concerns how young children acquire language. Pupils of six or seven tend to absorb pronunciation and intonation almost effortlessly, largely because they are less self-conscious than adolescents and more willing to imitate. An early start also simply provides more time: a child who begins at seven will have had around ten years of exposure by the time they leave school, compared with five or six for someone who begins at twelve. In an economy where employers increasingly expect bilingual candidates, this head start can be decisive.\n\nThere are, admittedly, some genuine concerns. The primary curriculum is already crowded, and adding another subject may reduce the time available for literacy and numeracy, which remain the foundation of all later learning. A more practical problem is staffing. In rural areas especially, there may be few teachers who speak the language confidently, and a poor model at this stage can fix errors that are hard to undo later.\n\nHowever, these problems are matters of implementation rather than reasons to abandon the idea. Short, frequent sessions built around songs and games need not displace core subjects, and investment in teacher training, or even well-designed online materials, can compensate for staff shortages.\n\nOverall, while an early start places demands on schools, the advantages for children's fluency and future prospects are considerable, so I believe primary schools should introduce foreign languages as long as they receive the support they need.",
+  "gold": {
+    "overall": 7.5,
+    "criteria": {
+      "task_achievement_response": 8,
+      "coherence_cohesion": 7,
+      "lexical_resource": 8,
+      "grammatical_range_accuracy": 7
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}
