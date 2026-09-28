@@ -11,7 +11,7 @@ import {
   stagger,
   utils,
 } from "animejs";
-import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import { CRITERIA, CRITERION_LABELS } from "@bandcraft/shared";
 import { revealStagger, scoreSpring } from "@/lib/motion";
 
@@ -88,24 +88,24 @@ export function CriteriaCube() {
               {FACES.map((f, i) => (
                 <div
                   key={f.crit}
-                  className={`absolute inset-0 flex flex-col justify-end rounded-lg border border-white/15 p-6 text-left text-white [backface-visibility:hidden] ${i % 2 ? "bg-[#0b1f33]" : "bg-brand-700"}`}
+                  className="absolute inset-0 flex flex-col justify-end rounded-lg border border-border bg-linear-to-br from-card to-muted p-6 text-left text-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.9)] [backface-visibility:hidden]"
                   style={{ transform: `rotateY(${i * 90}deg) translateZ(calc(var(--s) / 2))` }}
                 >
-                  <span className="font-display text-5xl font-bold text-brand-300">0{i + 1}</span>
+                  <span className="text-6xl font-bold tracking-[-0.04em] text-primary">0{i + 1}</span>
                   <span className="mt-2 text-lg leading-tight font-semibold">{CRITERION_LABELS[f.crit]}</span>
                 </div>
               ))}
               {[90, -90].map((x) => (
                 <div
                   key={x}
-                  className="bg-brand-gradient absolute inset-0 rounded-lg"
+                  className="absolute inset-0 rounded-lg bg-primary"
                   style={{ transform: `rotateX(${x}deg) translateZ(calc(var(--s) / 2))` }}
                 />
               ))}
             </div>
           </div>
           <div>
-            <h2 className="text-4xl font-bold tracking-[-0.03em] sm:text-5xl">Four criteria. Equal weight.</h2>
+            <h2 className="text-5xl font-bold tracking-[-0.035em] sm:text-6xl">Four criteria. Equal weight.</h2>
             <ol className="mt-8 space-y-5">
               {FACES.map((f, i) => (
                 <li
@@ -125,56 +125,93 @@ export function CriteriaCube() {
   );
 }
 
-const CARDS = [
-  { eyebrow: "Evidence first", title: "It quotes your essay before it scores it.", art: "“ ”", href: "#how", dark: false },
-  { eyebrow: "Four criteria", title: "Four bands, not one vague number.", art: "TR CC LR GRA", href: "#criteria", dark: true },
-  { eyebrow: "Every task", title: "Charts, letters and essays.", art: "1A 1G 2", href: "#top", dark: false },
-  { eyebrow: "Honest margins", title: "A band and how sure we are.", art: "± 0.5", href: "#how", dark: true },
-  { eyebrow: "Daily practice", title: "Small drills. Real streaks.", art: "12", href: "#practice", dark: false },
+const SLIDES = [
+  { kicker: "Four criteria", title: "Four bands, judged the way examiners mark.", art: "TR · CC · LR · GRA" },
+  { kicker: "Evidence first", title: "It quotes your essay before it scores it.", art: "“ … ”" },
+  { kicker: "Honest margins", title: "A band, and exactly how sure we are.", art: "6.5 ± 0.5" },
+  { kicker: "Every task", title: "Charts, letters and essays. Task 1 and Task 2.", art: "1A · 1G · 2" },
 ];
+const SLIDE_MS = 5000;
 
-/** Apple's "Get to know" row: tall light and dark cards, snap scrolling, round paddles, a + per card. */
-export function GetToKnow() {
+/** Apple's "Get the highlights": autoplaying slides, progress pills that fill, a liquid-glass play/pause. */
+export function Highlights() {
+  const [index, setIndex] = useState(0);
+  const [playing, setPlaying] = useState(true);
   const track = useRef<HTMLDivElement>(null);
-  const page = (dir: 1 | -1) => {
+
+  useEffect(() => {
+    if (!motionOK()) setPlaying(false);
+  }, []);
+  const [onScreen, setOnScreen] = useState(false);
+  useEffect(() => {
     const el = track.current;
-    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: motionOK() ? "smooth" : "auto" });
-  };
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  // Like Apple's gallery: only advance while the user can see it.
+  const running = playing && onScreen;
+  useEffect(() => {
+    if (!running) return;
+    const id = setTimeout(() => setIndex((i) => (i + 1) % SLIDES.length), SLIDE_MS);
+    return () => clearTimeout(id);
+  }, [index, running]);
+  useEffect(() => {
+    const el = track.current;
+    const slide = el?.children[index] as HTMLElement | undefined;
+    if (el && slide) el.scrollTo({ left: slide.offsetLeft - el.offsetLeft - (el.clientWidth - slide.clientWidth) / 2, behavior: motionOK() ? "smooth" : "auto" });
+  }, [index]);
+
   return (
-    <section className="bg-muted/60 py-24">
-      <h2 className="mx-auto max-w-6xl px-4 text-4xl font-black sm:text-6xl">Get to know BandCraft.</h2>
-      <div
-        ref={track}
-        className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-[max(1rem,calc((100vw_-_72rem)/2))] pb-6 [scrollbar-width:none] scroll-px-[max(1rem,calc((100vw_-_72rem)/2))]"
-      >
-        {CARDS.map((c) => (
+    <section id="highlights" className="scroll-mt-24 py-24">
+      <h2 className="mx-auto max-w-6xl px-4 text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Get the highlights.</h2>
+      <div ref={track} className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-hidden px-[8vw]" aria-live="polite">
+        {SLIDES.map((s, i) => (
           <article
-            key={c.eyebrow}
-            className={`relative flex h-[30rem] w-[78vw] max-w-[21rem] shrink-0 snap-start flex-col overflow-hidden rounded-[1.75rem] p-8 ${
-              c.dark ? "dark bg-background text-foreground" : "bg-card text-card-foreground"
-            }`}
+            key={s.kicker}
+            aria-hidden={i !== index}
+            className="relative flex aspect-[4/5] w-[84vw] max-w-5xl shrink-0 snap-center flex-col justify-between overflow-hidden rounded-[2rem] bg-muted p-8 sm:aspect-[16/9] sm:p-14"
           >
-            <p className="text-sm font-bold">{c.eyebrow}</p>
-            <h3 className="mt-2 text-[1.7rem] leading-tight font-extrabold">{c.title}</h3>
-            <p aria-hidden className="text-brand-gradient mt-auto pr-12 font-display text-6xl leading-none font-black">
-              {c.art}
+            <div aria-hidden className="absolute -top-1/3 -right-1/4 size-[70%] rounded-full bg-brand-300/20 blur-3xl" />
+            <div className="relative">
+              <p className="text-sm font-semibold text-primary">{s.kicker}</p>
+              <h3 className="mt-3 max-w-xl text-3xl leading-tight font-bold tracking-[-0.025em] sm:text-5xl">{s.title}</h3>
+            </div>
+            <p aria-hidden className="relative bg-linear-to-r from-[#0b1f33] to-[#1565c0] bg-clip-text text-5xl font-bold tracking-[-0.04em] text-transparent sm:text-8xl">
+              {s.art}
             </p>
-            <a
-              href={c.href}
-              aria-label={`More about: ${c.eyebrow}`}
-              className="absolute right-6 bottom-6 grid size-9 place-items-center rounded-full bg-foreground text-background transition-transform duration-150 hover:scale-110"
-            >
-              <Plus className="size-5" strokeWidth={3} />
-            </a>
           </article>
         ))}
       </div>
-      <div className="mx-auto mt-2 flex max-w-6xl justify-end gap-3 px-4">
-        <button type="button" aria-label="Previous" onClick={() => page(-1)} className="grid size-9 place-items-center rounded-full bg-foreground/10 hover:bg-foreground/15">
-          <ChevronLeft className="size-5" />
-        </button>
-        <button type="button" aria-label="Next" onClick={() => page(1)} className="grid size-9 place-items-center rounded-full bg-foreground/10 hover:bg-foreground/15">
-          <ChevronRight className="size-5" />
+      <div className="mt-8 flex items-center justify-center gap-3">
+        <div className="surface-glass flex h-12 items-center gap-2.5 rounded-full px-5 shadow-soft">
+          {SLIDES.map((s, i) => (
+            <button
+              key={s.kicker}
+              type="button"
+              aria-label={`Show highlight: ${s.kicker}`}
+              aria-current={i === index}
+              onClick={() => setIndex(i)}
+              className={`relative h-2 overflow-hidden rounded-full bg-foreground/20 transition-[width] duration-300 ${i === index ? "w-12" : "w-2"}`}
+            >
+              {i === index && (
+                <span
+                  key={`${index}-${running}`}
+                  className="absolute inset-0 origin-left rounded-full bg-foreground"
+                  style={running ? { animation: `highlight-progress ${SLIDE_MS}ms linear forwards` } : { width: "100%" }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={() => setPlaying((p) => !p)}
+          aria-label={playing ? "Pause highlights" : "Play highlights"}
+          className="surface-glass grid size-12 place-items-center rounded-full shadow-soft"
+        >
+          {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
         </button>
       </div>
     </section>

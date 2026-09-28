@@ -6,40 +6,39 @@ Page-specific overrides go in `design-system/pages/<page>.md` and win over this 
 
 ## Lineage
 
-Three references, and what each one contributed. Nothing is copied wholesale.
+The landing page is **white first, with blue as the accent**. Its base is Apple's and Meta's product pages, with Xbox's product-stage ideas used sparingly. Duolingo is no longer the base.
 
-| Source | What we took | What we left |
-|---|---|---|
-| **Duolingo** | Hero layout (art left, the ask and two stacked full-width buttons right, subject strip below), heavy rounded lowercase section headlines, the pressable button with a visible ledge, floating keycap tiles, the lesson path, streaks | The owl mascot, the green palette, its Feather typeface |
-| **Apple (apple.com + HIG)** | Glass sticky nav with a pill CTA, huge tight-tracked headlines, words that light up as you scroll, sticky scrollytelling, "Get the highlights" stat tiles, horizontal snap galleries with round arrow buttons, footnoted claims, 8pt spacing, restraint | SF Pro itself (licensing), product photography we don't have |
-| **Meta (meta.com)** | Full-bleed cinematic dark stage for the one big moment, centred headline with a blue pill CTA, a visible pause control on moving media | Product video we don't have |
-| **ailingo.click** | Structure only: dashboard sidebar, XP/progress widgets, streak heatmap, trust badges next to the hero | Its red palette |
+| Source | What we took |
+|---|---|
+| **Apple** | White pages, generous air, huge tight headlines, the scroll-lit statement, the sticky criteria cube, the autoplaying highlights gallery with progress pills and pause, the tech-specs table, the task comparison, footnoted claims, glass controls |
+| **Meta** | A confident centred closing call to action with one blue pill, and a visible pause control on anything that moves |
+| **Xbox Series X** | The product as a lit object on a stage. Here that's the floating Band Report certificate with its holographic seal |
+| **Speak / YC-grade startups** | The floating pill nav, the "New" announcement pill, a split hero, a product card showing real output, the FAQ |
+| **IELTS checkers** (Cathoven, AI4IELTS, Writing9) | The common promise of per-criterion feedback. We differ by showing the evidence and the margin instead of a single confident score |
 
-The product-specific idea: **the margin of error is part of the answer.** Every visual decision below supports showing a band and how sure we are about it together.
+The product-specific idea stays the same: **the margin of error is part of the answer.**
+
+## Logo
+
+The mark is three rising band bars in a rounded `#1565C0` square, with a cyan dot where the score lands. The wordmark reads "BandCraft", with "AI" in grey. The source is `apps/web/src/components/landing/logo.tsx`, and the favicon is `app/icon.svg`.
 
 ## Color
 
-The palette is fixed and comes from the logo: an icy background, the blue gradient of the head mark, and the deep-blue wordmark.
+The landing page is white. Blue appears on buttons, links, one headline phrase, numerals and the logo, and nowhere else.
 
-| Token | Light | Dark | Role |
-|---|---|---|---|
-| `--background` | `#EAF7FC` | `#071A2E` | Page |
-| `--card` | `#FFFFFF` | `#0D2A44` | Surfaces |
-| `--foreground` | `#0B1F33` | `#EAF7FC` | Ink |
-| `--muted-foreground` | `#4A6178` | `#9DB7CD` | Secondary text |
-| `--primary` | `#0D47A1` (700) | `#64B5F6` (300) | Buttons, links, the band numeral |
-| `--brand-500` | `#1E88E5` | same | Graphics: bars, charts, focus ring |
-| `--brand-300` | `#64B5F6` | same | Heatmap mid-tones, cube numerals |
-| `--brand-cyan` | `#29B6F6` | same | Border beam, dark-mode ring |
-| `--destructive` | `#C62828` | `#FF8A80` | Errors (not in the logo; needed) |
-| `--success` | `#1B7F4B` | `#5FD49A` | Confirmations (not in the logo; needed) |
+| Token | Light | Role |
+|---|---|---|
+| `--background`, `--card` | `#FFFFFF` | Page and cards |
+| `--muted` | `#F5F5F7` | Alternate sections, the footer. Neutral grey, never tinted blue |
+| `--border` | `#E5E7EB` | Hairlines |
+| `--foreground` | `#0B1F33` | Ink |
+| `--muted-foreground` | `#5B6472` | Secondary text |
+| `--primary` | `#1565C0` | Buttons and links. White text on it reaches 5.75:1 |
+| `--brand-500` / `--brand-300` / `--brand-cyan` | `#1E88E5` / `#64B5F6` / `#29B6F6` | Small accents: the logo dot, focus rings, glows |
 
-Rules:
-
-- **Why primary is the 700 shade, not the 500.** White on `#1E88E5` is 3.68:1, which fails AA for button text. `#0D47A1` gives 8.63:1. The 500 shade goes on graphics, where 3:1 is the bar.
-- **Dark mode is not an inversion.** Primary flips to the light 300 shade with dark text on it (7.93:1). Borders become 12% white instead of a grey.
-- **The logo gradient** (300 → 500 → 700) is for the brand mark and the cube's caps only. Stat numerals use a narrower 500 → 700 gradient so every part of the glyph clears 3:1. Bars, progress and charts are solid `brand-500`.
-- **Contrast is checked in CI.** `apps/web/scripts/check-contrast.mjs` reads the pairs straight from `globals.css`, in both themes, and runs as part of `npm run lint`. There are 30 pairs, and all pass.
+- **Criterion highlights** in the demo use four functional hues (sky, amber, emerald, violet), so the four criteria can be told apart in the essay text. They mark evidence only, never decoration.
+- **The dark theme** (`.dark`) is kept for the `/design` catalog. The landing page doesn't use it.
+- **Contrast check:** `apps/web/scripts/check-contrast.mjs` runs in `npm run lint`, and every pair passes in both themes.
 
 ## Type
 
@@ -53,10 +52,10 @@ Rules:
 | Body | Onest | 16 / 400, line-height 1.5 | 0 |
 | Callout | Onest | 14 / 400 | 0 |
 | Caption | Onest | 12 / 500 | 0 |
-| **Display headlines + numerals** | **Nunito** | 36–72 / 800–900 (spec-strip numerals 300) | −0.02em |
+| **Display headlines + numerals** | **Onest** | 36–72 / 700 | −0.035 to −0.045em |
 
 - **Onest for everything with words.** It's the closest free, Cyrillic-complete match to Apple's SF: neutral grotesk, tight at display sizes with negative tracking. Cyrillic matters because Kazakh and Russian interfaces are on the roadmap.
-- **Nunito for display.** Heavy and rounded, the closest free Cyrillic-complete match to Duolingo's voice. It carries headlines, bands, streaks and the spec-strip numerals (in a light 300 there, for the premium spec-sheet look). Onest keeps body text calm and SF-like.
+- **One family, Onest,** for everything. It's the closest free, Cyrillic-complete match to Apple's SF. Display sizes use tight negative tracking.
 - Headings use `text-wrap: balance`. Body lines stay under 65ch.
 - There are no uppercase letter-spaced eyebrows above sections. Section titles are sentence case, Apple style.
 
@@ -82,17 +81,14 @@ Rules:
 
 ## 3D
 
-- **The hero scene is all IELTS:**
-  - a band medal ("BAND 7.5 ± 0.5", drawn on the face from a canvas)
-  - lined essay sheets (Task 2) and a pencil
-  - a 3D bar chart (Task 1 Academic), whose bars grow in on a spring
-  - an envelope (Task 1 General)
-  - a stopwatch with a running hand (the 60-minute exam)
-  - a graduation cap, and an extruded check mark
+- **The hero object** is a floating Band Report certificate, built in three.js:
+  - a guilloche security-print face showing "Overall 7.5 ± 0.5" and four criterion boxes, marked "Not an official IELTS result"
+  - an iridescent foil seal
+  - a lacquered fountain pen
+  - a point light that sweeps a gloss across the paper
 
-  It takes the mascot's slot in a Duolingo-style hero, and pairs with a pause button (Meta).
-- **Performance budget:** standard materials only (no glass transmission, which renders the scene twice). The pixel ratio is capped at 1.5, and the canvas is sized to the hero column, not the viewport. The render loop stops when offscreen, when the tab is hidden, or when paused. three.js is dynamically imported.
-- **Keycaps:** the rubric tiles (TR, CC, LR, GRA, ±, ¶) are plain CSS with a coloured ledge, floating on a compositor-only `translate` keyframe.
+  It is deliberately not a replica of the official IELTS Test Report Form.
+- **Performance budget:** Neutral tone mapping keeps the paper white. The pixel ratio is capped at 1.5, and the canvas is sized to the hero column. The render loop stops when offscreen, when the tab is hidden, or when paused. three.js is dynamically imported.
 - **The criteria cube** is plain CSS 3D, `aria-hidden`, with the same content in the list beside it.
 
 ## Motion
