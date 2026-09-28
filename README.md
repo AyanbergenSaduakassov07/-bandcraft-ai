@@ -1,122 +1,48 @@
-BandCraftAI
-Automated IELTS Writing evaluator built for Central Asian learners.
-BandCraftAI scores IELTS Writing Task 1 and Task 2 responses against official Cambridge marking criteria and returns structured, actionable feedback — instantly. Built with n8n automation workflows and deployed via Netlify.
+# BandCraft AI
 
-🟡 Live deployment temporarily unavailable (domain renewal pending). Previously live at bandcraftaii.netlify.app.
+IELTS Writing scoring and feedback. Every band comes with an explicit margin of error.
 
+BandCraft AI scores Task 1 (Academic and General Training) and Task 2 responses on the four official IELTS Writing criteria and returns criterion-level feedback. It's an independent product, not affiliated with IELTS, the British Council, IDP or Cambridge.
 
-What it does
+> **Rebuild in progress.** This repo replaces the earlier n8n + Netlify prototype (history before `db776f8`). The accuracy and usage figures quoted for that prototype don't carry over; the new pipeline reports its own numbers against the gold set in `apps/scoring-api/tests/fixtures/gold/`.
 
-Accepts a user-submitted IELTS Writing Task 1 or Task 2 essay
-Evaluates across all 4 official Cambridge band descriptors:
+## Layout
 
-Task Achievement / Task Response
-Coherence & Cohesion
-Lexical Resource
-Grammatical Range & Accuracy
+```
+apps/web            Next.js 15 (App Router, TS strict, Tailwind v4, shadcn/ui). /design is the living design system.
+apps/scoring-api    FastAPI scoring service (Python, uv).
+packages/shared     Rubric constants and the ScoreResult contract shared by both apps.
+design-system/      MASTER.md: tokens, motion, and the reasoning behind them.
+docs/adr/           Architecture decisions.
+CONTEXT.md          Domain glossary. Start here.
+SPEC.md             The 6-stage scoring pipeline.
+```
 
+## Run it
 
-Returns a band score (0–9) per criterion + overall estimated band
-Generates personalised, criterion-specific feedback in plain English
-Calibrated specifically for Central Asian learner writing patterns
+```bash
+npm install                                  # web + shared
+npm run dev -w @bandcraft/web                # http://localhost:3000, design system at /design
 
-Accuracy: 95% alignment with official Cambridge examiner scores across 500+ test essays.
-Users: 100+ active learners via Elevate Academy, deployed across 10+ partner schools in Kazakhstan.
+cd apps/scoring-api
+uv sync
+GEMINI_API_KEY=... uv run fastapi dev src/scoring_api/main.py   # http://localhost:8000/docs
+```
 
-Tech stack
-LayerToolAutomation & logicn8n (self-hosted / cloud)AI scoring engineLLM via n8n AI nodes (prompt-engineered against Cambridge criteria)FrontendHTML / CSS / JS (static, Netlify-hosted)DeploymentNetlify
+## Checks
 
-Repo structure
-bandcraftai/
-├── workflows/
-│   ├── task1_evaluator.json       # n8n workflow — Task 1 scoring
-│   └── task2_evaluator.json       # n8n workflow — Task 2 scoring
-├── frontend/
-│   ├── index.html                 # Submission form
-│   ├── result.html                # Feedback display page
-│   └── style.css
-├── prompts/
-│   ├── task1_system_prompt.txt    # Cambridge criteria prompt — Task 1
-│   └── task2_system_prompt.txt    # Cambridge criteria prompt — Task 2
-├── samples/
-│   └── sample_essays.md          # Example inputs + expected outputs
-├── .gitignore
-├── LICENSE
-└── README.md
+```bash
+npm run lint && npm run typecheck            # web: ESLint + WCAG contrast check on tokens, tsc
+cd apps/scoring-api && uv run ruff check . && uv run black --check . && uv run mypy src tests && uv run pytest
+```
 
-Getting started
-Prerequisites
+CI runs the same on every push. There's no deploy step yet.
 
-n8n (cloud or self-hosted)
-An API key for your chosen LLM provider (OpenAI, Anthropic, etc.)
-A static hosting account (Netlify free tier works)
+## Constraints
 
-Setup
+- All model calls go through the Gemini API free tier ([ADR-0001](docs/adr/0001-gemini-free-tier-only.md)).
+- All fine-tuning runs on Kaggle, never locally ([ADR-0002](docs/adr/0002-fine-tuning-on-kaggle-only.md)).
 
-Clone the repo
+## License
 
-bash   git clone https://github.com/ayansaduakassov/bandcraftai.git
-   cd bandcraftai
-
-Import n8n workflows
-
-Open your n8n instance
-Go to Workflows → Import from file
-Import workflows/task1_evaluator.json and workflows/task2_evaluator.json
-
-
-Configure credentials
-
-In n8n, add your LLM API key under Credentials
-Set your n8n webhook URL as the form action in frontend/index.html
-
-
-Deploy frontend
-
-Connect the frontend/ folder to Netlify (drag-and-drop or GitHub integration)
-Set your n8n webhook URL as an environment variable or directly in the HTML
-
-
-Activate workflows
-
-In n8n, activate both workflows
-Test with a sample essay from samples/sample_essays.md
-
-
-
-
-How the scoring works
-The evaluation engine uses a structured prompt chain built around the official Cambridge IELTS band descriptors. Each essay is passed through four independent scoring passes — one per criterion — and results are aggregated into a final band estimate.
-The system prompt encodes examiner-level rubric logic and was iteratively refined against 500+ manually scored essays to reach 95% agreement with official Cambridge scores.
-Prompt files are in /prompts/ — you can inspect and modify the scoring logic directly.
-
-Sample output
-Essay: Task 2 — "Some people believe that universities should focus on 
-providing academic skills rather than preparing students for employment..."
-
-Task Response:        7.0  — Addresses the task clearly. Position is sustained 
-                             throughout. Some ideas underdeveloped in body 2.
-Coherence & Cohesion: 6.5  — Logical progression overall. Overuse of "however" 
-                             and "furthermore" reduces cohesive variety.
-Lexical Resource:     6.5  — Adequate range. Some imprecise word choices 
-                             (e.g., "do job" → "perform tasks / pursue careers").
-Grammatical Range:    7.0  — Mix of complex structures used accurately. 
-                             Minor article errors throughout.
-
-Estimated Band:       6.5
-
-Roadmap
-
- Add Task 1 Academic (graph/chart description) support
- Band 9 exemplar comparison feature
- Kazakh language interface
- Export feedback as PDF report
- Webhook-based integration with Telegram bot for mobile access
-
-
-About
-Built by Ayanbergen Saduakassov — civil engineering student, founder of Elevate Academy, and AI developer based in Astana, Kazakhstan.
-BandCraftAI was developed to address a specific gap: generic IELTS tools are not calibrated for the writing patterns and common errors of Central Asian learners. This tool is.
-
-License
-MIT — see LICENSE for details.
+MIT, see [LICENSE](LICENSE).
