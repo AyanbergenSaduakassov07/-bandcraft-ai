@@ -64,6 +64,14 @@ _Avoid_: Metric, signal, stat
 One independent pass of the language model assigning Criterion Bands to a Script against the Band Descriptors.
 _Avoid_: Sample, call, inference, attempt
 
+**Scoring Path**:
+One independent estimate of a Criterion Band: raw Gemini, calibrated Gemini, the Features-only model, or the ensemble. The Margin of Error comes from how far the paths disagree on a given Script.
+_Avoid_: Model, predictor, signal
+
+**Second Pass**:
+A fresh Scoring Run triggered when the ensemble and raw Gemini disagree by more than one band, instead of averaging the disagreement away.
+_Avoid_: Retry (a retry repeats a failed call; a Second Pass asks for another judgement)
+
 **Calibration**:
 The mapping from raw model-assigned bands to bands that match examiner-scored reference Scripts.
 _Avoid_: Normalisation, adjustment

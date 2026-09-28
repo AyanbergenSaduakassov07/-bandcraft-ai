@@ -1,15 +1,18 @@
 import logging
 import os
 from functools import lru_cache, partial
+from pathlib import Path
 from typing import Annotated
 
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException
 from google import genai
 
+from scoring_api.ensemble import Bundle
+from scoring_api.final import final_score
 from scoring_api.pipeline import Scorer, draft_score
 from scoring_api.rubric import RubricError, score_with_fallback
-from scoring_api.schemas import DraftRequest, DraftResponse
+from scoring_api.schemas import DraftRequest, DraftResponse, FinalResponse
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
@@ -48,6 +51,25 @@ def get_scorer() -> Scorer:
     return partial(score_with_fallback, client=_client(), models=scoring_models())
 
 
+ARTIFACTS = Path(__file__).resolve().parents[2] / "artifacts" / "calibration"
+
+
+@lru_cache(maxsize=1)
+def get_bundle() -> Bundle:
+    """CALIBRATION_DIR pins a version; otherwise the newest artifact folder (names sort by date)."""
+    pinned = os.environ.get("CALIBRATION_DIR")
+    candidates = (
+        [Path(pinned)]
+        if pinned
+        else sorted(p for p in ARTIFACTS.glob("*") if (p / "bundle.json").exists())
+    )
+    if not candidates:
+        raise HTTPException(
+            status_code=503, detail="No calibration trained yet: run the calibrate workflow"
+        )
+    return Bundle.load(candidates[-1])
+
+
 @app.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok"}
@@ -60,6 +82,20 @@ async def score_draft(
     """Internal: Features plus raw, uncalibrated Gemini Criterion Bands with evidence spans."""
     try:
         return await draft_score(req, scorer)
+    except RubricError as e:
+        log.error("rubric scoring failed: %s", e)
+        raise HTTPException(status_code=502, detail=str(e)) from e
+
+
+@app.post("/score/final", response_model=FinalResponse)
+async def score_final(
+    req: DraftRequest,
+    scorer: Annotated[Scorer, Depends(get_scorer)],
+    bundle: Annotated[Bundle, Depends(get_bundle)],
+) -> FinalResponse:
+    """Calibrated Criterion Bands, overall band, a margin per score, and the evidence spans."""
+    try:
+        return await final_score(req, scorer, bundle)
     except RubricError as e:
         log.error("rubric scoring failed: %s", e)
         raise HTTPException(status_code=502, detail=str(e)) from e

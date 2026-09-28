@@ -1,0 +1,43 @@
+name: calibrate
+
+# Fits stage 4-5 models on the Gold Set and opens a PR with the versioned artifacts and benchmark
+# report. Free on GitHub's machines for this public repo; nothing runs on a developer laptop (ADR-0003).
+on:
+  workflow_dispatch:
+    inputs:
+      calibrator:
+        description: Calibrator to fit
+        type: choice
+        options: [isotonic, linear]
+        default: isotonic
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  fit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/scoring-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --locked --group train
+      - name: Fit, cross-validate and write the benchmark report
+        run: uv run --group train python -m scoring_api.train --calibrator "${{ inputs.calibrator }}"
+      - name: Open a PR with the artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="calibration/${{ github.run_id }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add artifacts/calibration ../../docs/benchmarks
+          git commit -m "Calibration ${{ github.run_id }} (${{ inputs.calibrator }})"
+          git push -u origin "$branch"
+          gh pr create --title "Calibration ${{ github.run_id }}" \
+            --body "Fitted by the calibrate workflow run ${{ github.run_id }}. Benchmark report in docs/benchmarks/." \
+            --base main --head "$branch"
