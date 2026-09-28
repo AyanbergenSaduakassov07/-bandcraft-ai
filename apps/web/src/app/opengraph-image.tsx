@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "BandCraft AI: know your IELTS Writing band, and how sure we are";
+export const alt = "BandCraft AI: discover the truth about your IELTS Writing band";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -29,10 +29,10 @@ export default async function OpengraphImage() {
           <div style={{ fontSize: 56, fontWeight: 700, letterSpacing: -3 }}>bandcraft</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-          <div style={{ fontSize: 68, fontWeight: 700, letterSpacing: -3, lineHeight: 1.02 }}>Know your IELTS Writing band.</div>
-          <div style={{ fontSize: 68, fontWeight: 700, letterSpacing: -3, lineHeight: 1.02, color: "#1565c0" }}>And how sure we are.</div>
+          <div style={{ fontSize: 68, fontWeight: 700, letterSpacing: -3, lineHeight: 1.02 }}>Discover the truth about</div>
+          <div style={{ fontSize: 68, fontWeight: 700, letterSpacing: -3, lineHeight: 1.02, color: "#1565c0" }}>your IELTS Writing band.</div>
         </div>
-        <div style={{ fontSize: 28, color: "#5b6472" }}>Four official criteria · evidence quoted · a margin of error on every band</div>
+        <div style={{ fontSize: 28, color: "#5b6472" }}>All four official criteria · the evidence behind every band · an honest margin of error</div>
       </div>
     ),
     { ...size, fonts: font ? [{ name: "Onest", data: font, weight: 700, style: "normal" }] : undefined },

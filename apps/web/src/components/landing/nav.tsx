@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { HAS_DEMO, PRIMARY_CTA } from "./cta";
 import { Logo } from "./logo";
 
 const LINKS = [
-  ["Demo", "#demo"],
-  ["How it works", "#how"],
+  // Without a live sample the CTA itself goes to "How it works", so the link would duplicate it.
+  ...(HAS_DEMO ? ([["Demo", "#demo"], ["How it works", "#how"]] as const) : []),
   ["Criteria", "#criteria"],
-  ["Specs", "#specs"],
   ["FAQ", "#faq"],
 ] as const;
 
@@ -42,8 +42,8 @@ export function Nav() {
             </li>
           ))}
         </ul>
-        <a href="#demo" className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-[filter] duration-150 hover:brightness-110">
-          Try the live sample
+        <a href={PRIMARY_CTA.href} className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-[filter] duration-150 hover:brightness-110">
+          {PRIMARY_CTA.short}
         </a>
       </nav>
     </div>

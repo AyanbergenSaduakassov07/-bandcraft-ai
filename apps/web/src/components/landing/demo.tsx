@@ -58,7 +58,7 @@ export function Demo() {
     <section id="demo" className="scroll-mt-24 px-4 py-24">
       <div className="mx-auto max-w-6xl">
         <p className="text-sm font-semibold text-primary">Live sample</p>
-        <h2 className="mt-2 max-w-2xl text-4xl font-bold tracking-[-0.035em] sm:text-5xl">See exactly why it gave that band.</h2>
+        <h2 className="mt-2 max-w-2xl text-4xl font-bold tracking-[-0.035em] sm:text-5xl">See exactly why your essay got that band.</h2>
         <div role="tablist" aria-label="Sample essays" className="mt-8 inline-flex rounded-full bg-muted p-1">
           {TABS.slice(0, essays.length).map((t, i) => (
             <button

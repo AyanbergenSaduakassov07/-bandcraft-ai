@@ -10,7 +10,7 @@ The landing page is **white first, with blue as the accent**. Its base is Apple'
 
 | Source | What we took |
 |---|---|
-| **Apple** | White pages, generous air, huge tight headlines, the scroll-lit statement, the sticky criteria cube, the autoplaying highlights gallery with progress pills and pause, the tech-specs table, the task comparison, footnoted claims, glass controls |
+| **Apple** | White pages, generous air, huge tight headlines, the scroll-lit statement, the sticky criteria cube, the autoplaying highlights gallery with progress pills and pause, the task comparison, footnoted claims, glass controls |
 | **Meta** | A confident centred closing call to action with one blue pill, and a visible pause control on anything that moves |
 | **Xbox Series X** | The product as a lit object on a stage. Here that's the floating Band Report certificate with its holographic seal |
 | **Speak / YC-grade startups** | The floating pill nav, the "New" announcement pill, a split hero, a product card showing real output, the FAQ |
@@ -149,3 +149,13 @@ Everything is in `apps/web/src/components/ui/`.
 - Three equal icon + heading + text columns: none.
 - Uppercase eyebrow above every section: removed.
 - Emoji as icons: none. Lucide throughout, one stroke weight.
+
+## Voice
+
+We write for IELTS candidates who need a specific band for a university or a visa. They're anxious and pressed for time.
+
+- **Lead with what they get:** "See which criterion is dragging your band down", not "four-criterion scoring engine".
+- **Be honest out loud.** Name the limit ("an estimate, not your official score") before the reader has to ask. It's our differentiator, not a disclaimer.
+- **Keep numbers to facts about the product** (4 criteria, 0–9, ± margin). Never invent statistics, user counts or testimonials.
+- **Use strong calls to action:** "Watch it score an essay", never "Learn more" or "Get started".
+- **The headline was chosen by score.** "Discover the truth about your IELTS Writing band" scored 75/100 on the copywriting skill's headline scorer, against 30 for the previous line.

@@ -1,4 +1,4 @@
-import { Compare, Faq, FinalCta, SiteFooter, Specs } from "@/components/landing/closing";
+import { Compare, Faq, FinalCta, SiteFooter } from "@/components/landing/closing";
 import { Demo } from "@/components/landing/demo";
 import { Features } from "@/components/landing/features";
 import { Hero } from "@/components/landing/hero";
@@ -16,13 +16,12 @@ export default function Home() {
           <Features />
         </ScrollReveals>
         <section className="px-4 py-32 text-center sm:py-44">
-          <Statement>A band score without a margin is a guess. BandCraft AI shows its evidence, its band, and how sure it is.</Statement>
+          <Statement>Most checkers hand you one confident number. BandCraft AI hands you the evidence, the band, and how sure it is.</Statement>
         </section>
         <div id="criteria" className="scroll-mt-24 bg-muted/60">
           <CriteriaCube />
         </div>
         <Highlights />
-        <Specs />
         <ScrollReveals>
           <Compare />
         </ScrollReveals>
