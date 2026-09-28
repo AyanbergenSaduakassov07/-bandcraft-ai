@@ -1,71 +1,17 @@
-# ── Environment & secrets ──────────────────────────────────────────────────────
-.env
-.env.local
-.env.production
-.env*.local
-*.env
-
-# Never commit API keys, webhook URLs, or credentials
-config/secrets.json
-credentials.json
-**/credentials/**
-
-# ── n8n ────────────────────────────────────────────────────────────────────────
-# Exclude local n8n database and user data if self-hosted
-.n8n/
-n8n-data/
+node_modules/
+.DS_Store
+.env*
+!.env.example
+# python
+__pycache__/
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+# local data / secrets
 *.sqlite
 *.db
-
-# ── Node.js (if any scripts) ───────────────────────────────────────────────────
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-
-# ── Python (if any scripts) ───────────────────────────────────────────────────
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-.Python
-venv/
-env/
-.venv/
-*.egg-info/
-dist/
-build/
-.pytest_cache/
-
-# ── OS files ───────────────────────────────────────────────────────────────────
-.DS_Store
-.DS_Store?
-._*
-Thumbs.db
-desktop.ini
-
-# ── Editor / IDE ───────────────────────────────────────────────────────────────
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-*.swp
-*.swo
-*~
-
-# ── Netlify ────────────────────────────────────────────────────────────────────
-.netlify/
-netlify.toml.local
-
-# ── Logs & temp files ──────────────────────────────────────────────────────────
-logs/
-*.log
-tmp/
-temp/
-.cache/
-
-# ── Test data with real user essays ───────────────────────────────────────────
-# Keep sample_essays.md (anonymised) but exclude any real user submissions
-data/user_submissions/
-data/real_essays/
+credentials.json
+**/credentials/**
