@@ -9,6 +9,49 @@ type Three = typeof import("three");
 const INK = "#0b1f33";
 const BLUE = "#1565c0";
 
+/** The BandCraft mark on a canvas: same construction as logo.tsx (48-unit grid). */
+function drawMark(g: CanvasRenderingContext2D, x: number, y: number, size: number, fg: string, acc: string) {
+  const k = size / 48;
+  g.save();
+  g.translate(x, y);
+  g.scale(k, k);
+  g.fillStyle = fg;
+  g.beginPath();
+  g.roundRect(10, 6, 6.5, 36, 3.25);
+  g.fill();
+  g.lineWidth = 6.5;
+  g.strokeStyle = fg;
+  g.beginPath();
+  g.arc(27, 30, 10.2, 0, Math.PI * 2);
+  g.stroke();
+  g.strokeStyle = acc;
+  g.lineCap = "round";
+  g.beginPath();
+  g.arc(27, 30, 10.2, (-78 * Math.PI) / 180, (-22 * Math.PI) / 180);
+  g.stroke();
+  g.restore();
+}
+
+/** The logo's dial as data: 0–9 ring, blue to the band, cyan across band ± margin. */
+function drawGauge(g: CanvasRenderingContext2D, cx: number, cy: number, r: number, band: number, margin: number) {
+  const a = (v: number) => -Math.PI / 2 + (v / 9) * Math.PI * 2;
+  g.lineWidth = r * 0.28;
+  g.lineCap = "butt";
+  g.strokeStyle = "#eef1f5";
+  g.beginPath();
+  g.arc(cx, cy, r, 0, Math.PI * 2);
+  g.stroke();
+  g.strokeStyle = BLUE;
+  g.beginPath();
+  g.arc(cx, cy, r, a(0), a(band));
+  g.stroke();
+  g.strokeStyle = "#29b6f6";
+  g.lineCap = "round";
+  g.beginPath();
+  g.arc(cx, cy, r, a(band - margin), a(band + margin));
+  g.stroke();
+}
+
 /** The certificate face: guilloche security print, scores, and an honest disclaimer. Drawn once to a canvas. */
 function certificateTexture(THREE: Three, font: string) {
   const W = 1600;
@@ -37,9 +80,10 @@ function certificateTexture(THREE: Three, font: string) {
   g.lineWidth = 1;
   g.strokeRect(52, 52, W - 104, H - 104);
 
-  g.fillStyle = BLUE;
-  g.font = `600 34px ${font}`;
-  g.fillText("BANDCRAFT AI", 110, 150);
+  drawMark(g, 100, 96, 72, BLUE, "#29b6f6");
+  g.fillStyle = INK;
+  g.font = `700 44px ${font}`;
+  g.fillText("bandcraft", 170, 150);
   g.fillStyle = INK;
   g.font = `700 64px ${font}`;
   g.fillText("Writing Band Report", 110, 230);
@@ -56,6 +100,7 @@ function certificateTexture(THREE: Three, font: string) {
   g.fillStyle = BLUE;
   g.font = `600 64px ${font}`;
   g.fillText("± 0.5", 470, 600);
+  drawGauge(g, 830, 480, 110, 7.5, 0.5);
 
   const crit = [["Task Response", "7"], ["Coherence", "8"], ["Lexical", "7"], ["Grammar", "8"]];
   crit.forEach(([label, band], i) => {

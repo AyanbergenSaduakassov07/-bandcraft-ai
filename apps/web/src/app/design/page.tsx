@@ -20,7 +20,9 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Logo, LogoMark, LogoTile } from "@/components/landing/logo";
 import { ScrollReveals } from "@/components/landing/scroll-pieces";
+import { BandGauge } from "@/components/ui/band-gauge";
 import { SAMPLE_RESULT, ScoreCard } from "@/components/landing/score-card";
 
 export const metadata: Metadata = { title: "Design system · BandCraft AI" };
@@ -249,6 +251,36 @@ export default function DesignSystemPage() {
           Every base component in both themes. Tokens and rationale: design-system/MASTER.md.
         </p>
       </header>
+      <section className="mx-auto max-w-6xl px-4 pb-16">
+        <h2 className="text-2xl font-bold tracking-tight">Brand</h2>
+        <p className="mt-2 max-w-prose text-muted-foreground">
+          A lowercase b whose bowl is a score dial. The cyan arc is the margin of error. Rules: design-system/brand.md.
+        </p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="grid h-40 place-items-center rounded-3xl ring-1 ring-border">
+            <Logo />
+          </div>
+          <div className="grid h-40 place-items-center rounded-3xl bg-[#1565c0]">
+            <Logo tone="reversed" />
+          </div>
+          <div className="grid h-40 place-items-center rounded-3xl bg-[#0b1f33]">
+            <Logo tone="reversed" />
+          </div>
+        </div>
+        <div className="mt-4 flex flex-wrap items-end gap-6 rounded-3xl p-8 ring-1 ring-border">
+          <LogoTile className="size-24" />
+          <LogoTile className="size-12" />
+          <LogoTile className="size-8" />
+          <LogoMark className="size-16" />
+          <LogoMark className="size-6" />
+          <LogoMark tone="mono" className="size-10 text-foreground" />
+          <div className="ml-auto flex items-center gap-6">
+            <BandGauge band={4.5} margin={1} />
+            <BandGauge band={6.5} margin={0.5} />
+            <BandGauge band={8} margin={0.5} />
+          </div>
+        </div>
+      </section>
       <div className="grid lg:grid-cols-2">
         <div className="bg-background px-4 py-16 text-foreground sm:px-10">
           <p className="mb-10 text-sm font-medium text-muted-foreground">Light</p>

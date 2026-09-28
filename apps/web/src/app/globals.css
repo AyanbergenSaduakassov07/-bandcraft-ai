@@ -280,3 +280,8 @@
     transform: scaleX(1);
   }
 }
+
+/* Selection picks up the mark's margin arc. */
+::selection {
+  background: rgb(41 182 246 / 0.28);
+}

@@ -1,4 +1,5 @@
 import { CRITERIA, CRITERION_LABELS, type ScoreResult } from "@bandcraft/shared";
+import { BandGauge } from "@/components/ui/band-gauge";
 import { cn } from "@/lib/utils";
 
 export const SAMPLE_RESULT: ScoreResult = {
@@ -21,7 +22,9 @@ export function ScoreCard({ result, className }: { result: ScoreResult; classNam
   return (
     <div className={cn("w-full rounded-3xl p-6 sm:p-8", className)}>
       <p className="text-sm font-medium text-muted-foreground">Task 2 · Overall band</p>
-      <p className="mt-2 flex items-baseline gap-3">
+      <div className="mt-3 flex items-center gap-4">
+        <BandGauge band={overall.band} margin={overall.margin} label={false} className="size-16 shrink-0" />
+      <p className="flex items-baseline gap-3">
         <span data-band className="font-display text-6xl font-bold text-primary tabular-nums">
           {overall.band.toFixed(1)}
         </span>
@@ -29,6 +32,7 @@ export function ScoreCard({ result, className }: { result: ScoreResult; classNam
           ± {overall.margin.toFixed(1)}
         </span>
       </p>
+      </div>
       <ul className="mt-6 space-y-3">
         {CRITERIA.map((c) => (
           <li key={c}>
