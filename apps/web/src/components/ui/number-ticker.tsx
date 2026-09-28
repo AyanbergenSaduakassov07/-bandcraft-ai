@@ -1,12 +1,10 @@
 "use client"
 
+// Magic UI number-ticker, ported to anime.js so the app runs a single animation engine.
+// Counts up with the score spring when scrolled into view; jumps to the value under reduced motion.
+
 import { useEffect, useRef, type ComponentPropsWithoutRef } from "react"
-import {
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-} from "motion/react"
+import { animate, onScroll, spring } from "animejs"
 
 import { scoreSpring } from "@/lib/motion"
 import { cn } from "@/lib/utils"
@@ -14,7 +12,6 @@ import { cn } from "@/lib/utils"
 interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
   value: number
   startValue?: number
-  direction?: "up" | "down"
   delay?: number
   decimalPlaces?: number
 }
@@ -22,61 +19,42 @@ interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
 export function NumberTicker({
   value,
   startValue = 0,
-  direction = "up",
   delay = 0,
   className,
   decimalPlaces = 0,
   ...props
 }: NumberTickerProps) {
   const ref = useRef<HTMLSpanElement>(null)
-  const motionValue = useMotionValue(direction === "down" ? value : startValue)
-  const reduceMotion = useReducedMotion()
-  const springValue = useSpring(motionValue, scoreSpring)
-  const isInView = useInView(ref, { once: true, margin: "0px" })
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout> | null = null
-
-    if (isInView && reduceMotion) {
-      // No count-up: jump straight to the final value.
-      motionValue.jump(direction === "down" ? startValue : value)
-      springValue.jump(direction === "down" ? startValue : value)
-    } else if (isInView) {
-      timer = setTimeout(() => {
-        motionValue.set(direction === "down" ? startValue : value)
-      }, delay * 1000)
-    }
-
+    const el = ref.current
+    if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const format = (n: number) =>
+      Intl.NumberFormat("en-US", {
+        minimumFractionDigits: decimalPlaces,
+        maximumFractionDigits: decimalPlaces,
+      }).format(n)
+    const counter = { n: startValue }
+    el.textContent = format(startValue)
+    const anim = animate(counter, {
+      n: value,
+      delay: delay * 1000,
+      ease: spring(scoreSpring),
+      onUpdate: () => {
+        el.textContent = format(counter.n)
+      },
+      autoplay: onScroll({ target: el, enter: "bottom top", repeat: false }),
+    })
     return () => {
-      if (timer !== null) {
-        clearTimeout(timer)
-      }
+      anim.revert()
+      el.textContent = format(value)
     }
-  }, [motionValue, springValue, reduceMotion, isInView, delay, value, direction, startValue])
+  }, [value, startValue, delay, decimalPlaces])
 
-  useEffect(
-    () =>
-      springValue.on("change", (latest) => {
-        if (ref.current) {
-          ref.current.textContent = Intl.NumberFormat("en-US", {
-            minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlaces,
-          }).format(Number(latest.toFixed(decimalPlaces)))
-        }
-      }),
-    [springValue, decimalPlaces]
-  )
-
+  // Server render and no-JS show the final value.
   return (
-    <span
-      ref={ref}
-      className={cn(
-        "inline-block tabular-nums",
-        className
-      )}
-      {...props}
-    >
-      {startValue}
+    <span ref={ref} className={cn("inline-block tabular-nums", className)} {...props}>
+      {value.toFixed(decimalPlaces)}
     </span>
   )
 }
