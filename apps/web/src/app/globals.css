@@ -1,10 +1,230 @@
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* BandCraft AI design tokens. Rationale lives in /design-system/MASTER.md. */
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-onest);
+  --font-heading: var(--font-onest);
+  --font-display: var(--font-unbounded); /* numerals only: bands, streaks, XP */
+
+  /* Brand palette (fixed, from the logo). */
+  --color-brand-300: var(--brand-300);
+  --color-brand-500: var(--brand-500);
+  --color-brand-700: var(--brand-700);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-edge: var(--edge);
+  --color-success: var(--success);
+
+  /* shadcn semantic roles, mapped onto the palette. */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Radius: controls 14px, surfaces 24px, chips full. Not one radius everywhere. */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-4xl: 2.5rem;
+
+  /* Elevation: blue-tinted, never grey. */
+  --shadow-soft: 0 1px 2px rgb(11 31 51 / 0.06), 0 8px 24px -12px rgb(13 71 161 / 0.18);
+  --shadow-float: 0 2px 4px rgb(11 31 51 / 0.06), 0 24px 48px -16px rgb(13 71 161 / 0.35);
+
+  /* Motion. Springs live in src/lib/motion.ts. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.64, 0, 0.78, 0);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
 }
 
-main {
-  max-width: 40rem;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+:root {
+  --brand-300: #64b5f6;
+  --brand-500: #1e88e5;
+  --brand-700: #0d47a1;
+  --brand-cyan: #29b6f6;
+  --edge: #08306b; /* pressed-button ledge under primary */
+  --success: #1b7f4b;
+
+  --background: #eaf7fc;
+  --foreground: #0b1f33;
+  --card: #ffffff;
+  --card-foreground: #0b1f33;
+  --popover: #ffffff;
+  --popover-foreground: #0b1f33;
+  --primary: #0d47a1;
+  --primary-foreground: #ffffff;
+  --secondary: #d3ecf8;
+  --secondary-foreground: #0d47a1;
+  --muted: #dcf0f8;
+  --muted-foreground: #4a6178;
+  --accent: #d3ecf8;
+  --accent-foreground: #0b1f33;
+  --destructive: #c62828;
+  --border: #c7e1ee;
+  --input: #a9cde0;
+  --ring: #1e88e5;
+  --chart-1: #0d47a1;
+  --chart-2: #1e88e5;
+  --chart-3: #29b6f6;
+  --chart-4: #64b5f6;
+  --chart-5: #4a6178;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0b1f33;
+  --sidebar-primary: #0d47a1;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eaf7fc;
+  --sidebar-accent-foreground: #0d47a1;
+  --sidebar-border: #c7e1ee;
+  --sidebar-ring: #1e88e5;
+
+  --glass: rgb(255 255 255 / 0.62);
+  --glass-border: rgb(255 255 255 / 0.7);
+}
+
+.dark {
+  --edge: #1e6fb8;
+  --success: #5fd49a;
+
+  --background: #071a2e;
+  --foreground: #eaf7fc;
+  --card: #0d2a44;
+  --card-foreground: #eaf7fc;
+  --popover: #0d2a44;
+  --popover-foreground: #eaf7fc;
+  --primary: #64b5f6;
+  --primary-foreground: #071a2e;
+  --secondary: #12375a;
+  --secondary-foreground: #eaf7fc;
+  --muted: #0f3050;
+  --muted-foreground: #9db7cd;
+  --accent: #143c62;
+  --accent-foreground: #eaf7fc;
+  --destructive: #ff8a80;
+  --border: rgb(234 247 252 / 0.12);
+  --input: rgb(234 247 252 / 0.22);
+  --ring: #29b6f6;
+  --chart-1: #64b5f6;
+  --chart-2: #29b6f6;
+  --chart-3: #1e88e5;
+  --chart-4: #0d47a1;
+  --chart-5: #9db7cd;
+  --sidebar: #0d2a44;
+  --sidebar-foreground: #eaf7fc;
+  --sidebar-primary: #64b5f6;
+  --sidebar-primary-foreground: #071a2e;
+  --sidebar-accent: #143c62;
+  --sidebar-accent-foreground: #eaf7fc;
+  --sidebar-border: rgb(234 247 252 / 0.12);
+  --sidebar-ring: #29b6f6;
+
+  --glass: rgb(13 42 68 / 0.55);
+  --glass-border: rgb(234 247 252 / 0.14);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading;
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer utilities {
+  /* Glass is reserved for two surfaces: the score-reveal card and the sticky app bar. */
+  .surface-glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+  }
+  /* The head-mark gradient from the logo. Graphics only, never behind body text. */
+  .bg-brand-gradient {
+    background: linear-gradient(135deg, var(--brand-300) 0%, var(--brand-500) 55%, var(--brand-700) 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hero elements start hidden only when JS runs and motion is allowed; the timeline reveals them. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-hero] [data-reveal] {
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  /* Stat numerals. 500→700 only: both hold ≥3:1 on light surfaces at display sizes. */
+  .text-brand-gradient {
+    background: linear-gradient(120deg, var(--brand-500), var(--brand-700));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .dark .text-brand-gradient {
+    background-image: linear-gradient(120deg, var(--brand-300), var(--brand-cyan));
+  }
 }
