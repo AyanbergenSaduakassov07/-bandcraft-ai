@@ -15,7 +15,7 @@ from typing import Any
 import lightgbm as lgb
 import numpy as np
 
-from scoring_api.calibration import Calibrator, calibrator_from_dict
+from scoring_api.pipeline.calibration import Calibrator, calibrator_from_dict
 from scoring_api.schemas import CRITERIA, Criterion, FeatureVector, TaskType
 
 FEATURE_COLUMNS = [

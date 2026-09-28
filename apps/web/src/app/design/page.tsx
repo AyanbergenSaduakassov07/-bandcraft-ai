@@ -20,10 +20,10 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { Logo, LogoMark, LogoTile } from "@/components/landing/logo";
-import { ScrollReveals } from "@/components/landing/scroll-pieces";
-import { BandGauge } from "@/components/ui/band-gauge";
-import { SAMPLE_RESULT, ScoreCard } from "@/components/landing/score-card";
+import { Logo, LogoMark, LogoTile } from "@/components/brand/logo";
+import { ScrollReveals } from "@/components/motion/scroll-reveals";
+import { BandGauge } from "@/components/score/band-gauge";
+import { SAMPLE_RESULT, ScoreCard } from "@/components/score/score-card";
 
 export const metadata: Metadata = { title: "Design system · BandCraft AI" };
 
@@ -248,13 +248,13 @@ export default function DesignSystemPage() {
         </Link>
         <h1 className="mt-3 text-5xl font-black">Design system</h1>
         <p className="mt-3 max-w-prose text-lg text-muted-foreground">
-          Every base component in both themes. Tokens and rationale: design-system/MASTER.md.
+          Every base component in both themes. Tokens and rationale: docs/design-system/MASTER.md.
         </p>
       </header>
       <section className="mx-auto max-w-6xl px-4 pb-16">
         <h2 className="text-2xl font-bold tracking-tight">Brand</h2>
         <p className="mt-2 max-w-prose text-muted-foreground">
-          A lowercase b whose bowl is a score dial. The cyan arc is the margin of error. Rules: design-system/brand.md.
+          A lowercase b whose bowl is a score dial. The cyan arc is the margin of error. Rules: docs/design-system/brand.md.
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           <div className="grid h-40 place-items-center rounded-3xl ring-1 ring-border">

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { HAS_DEMO, PRIMARY_CTA } from "./cta";
-import { Logo } from "./logo";
+import { HAS_DEMO, PRIMARY_CTA } from "@/lib/cta";
+import { Logo } from "@/components/brand/logo";
 
 const LINKS = [
   // Without a live sample the CTA itself goes to "How it works", so the link would duplicate it.

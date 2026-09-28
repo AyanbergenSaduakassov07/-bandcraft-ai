@@ -1,9 +1,9 @@
 """Record real draft runs (features + raw Gemini rubric) for every Gold Script. Inference only.
 
-    uv run python -m scoring_api.record_gold --runs 1
+    uv run python -m scoring_api.training.record_gold --runs 1
 
 Resumable: essays that already have enough runs are skipped, so it can be re-run after the free-tier
-quota resets. Output: tests/fixtures/gold-raw/<id>.json, the input to scoring_api.train.
+quota resets. Output: tests/fixtures/gold-raw/<id>.json, the input to scoring_api.training.train.
 """
 
 import argparse
@@ -17,12 +17,12 @@ from pathlib import Path
 from google import genai
 
 from scoring_api.main import scoring_models
-from scoring_api.pipeline import draft_score
-from scoring_api.rubric import RubricError, score_with_fallback
+from scoring_api.pipeline.draft import draft_score
+from scoring_api.pipeline.rubric import RubricError, score_with_fallback
 from scoring_api.schemas import DraftRequest
 
 log = logging.getLogger(__name__)
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 
 
 async def record(runs: int, gold_dir: Path, out_dir: Path) -> tuple[int, int]:

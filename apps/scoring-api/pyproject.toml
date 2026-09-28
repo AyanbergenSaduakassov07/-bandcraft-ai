@@ -44,7 +44,7 @@ select = ["E", "F", "W", "I", "B", "UP", "S", "T20"]
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]
 # Prompt prose: rewrapping would change what the model sees.
-"src/scoring_api/prompts.py" = ["E501"]
+"src/scoring_api/pipeline/prompts.py" = ["E501"]
 
 [tool.black]
 line-length = 100

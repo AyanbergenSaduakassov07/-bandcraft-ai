@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* BandCraft AI design tokens. Rationale lives in /design-system/MASTER.md. */
+/* BandCraft AI design tokens. Rationale lives in /docs/design-system/MASTER.md. */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -253,11 +253,6 @@
   }
 }
 
-@keyframes border-beam {
-  to {
-    offset-distance: 100%;
-  }
-}
 
 /* Xbox-style light shafts: slow drift, compositor-only. */
 @keyframes beam-drift {

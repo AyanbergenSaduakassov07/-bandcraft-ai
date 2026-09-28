@@ -2,7 +2,8 @@
 
 import time
 
-from scoring_api.ensemble import (
+from scoring_api.pipeline.draft import Scorer, draft_score, normalise
+from scoring_api.pipeline.ensemble import (
     Bundle,
     final_band,
     margin,
@@ -10,8 +11,7 @@ from scoring_api.ensemble import (
     overall_margin,
     predict_paths,
 )
-from scoring_api.pipeline import Scorer, draft_score, normalise
-from scoring_api.rubric import overall_band
+from scoring_api.pipeline.rubric import overall_band
 from scoring_api.schemas import (
     CRITERIA,
     BandEstimate,

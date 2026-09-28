@@ -2,7 +2,7 @@
 
 Runs in the `calibrate` GitHub Actions workflow (ADR-0003):
 
-    python -m scoring_api.train --out artifacts/calibration/<version> \\
+    python -m scoring_api.training.train --out artifacts/calibration/<version> \\
         --report docs/benchmarks/<version>.md
 
 Inputs: tests/fixtures/gold/*.json (labels) and tests/fixtures/gold-raw/*.json (recorded runs).
@@ -20,8 +20,8 @@ from typing import Any
 
 import numpy as np
 
-from scoring_api.calibration import make_calibrator
-from scoring_api.ensemble import (
+from scoring_api.pipeline.calibration import make_calibrator
+from scoring_api.pipeline.ensemble import (
     Bundle,
     Ridge,
     ensemble_row,
@@ -32,11 +32,11 @@ from scoring_api.ensemble import (
     overall_margin,
     predict_paths,
 )
-from scoring_api.rubric import overall_band
+from scoring_api.pipeline.rubric import overall_band
 from scoring_api.schemas import CRITERIA, Criterion, DraftResponse, FeatureVector, TaskType
 
 log = logging.getLogger(__name__)
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 MIN_ESSAYS = 8
 
 

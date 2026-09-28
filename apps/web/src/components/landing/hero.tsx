@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Check, Pause, Play } from "lucide-react";
-import { CertificateScene } from "./certificate-scene";
-import { HAS_DEMO, PRIMARY_CTA } from "./cta";
+import { CertificateScene } from "@/components/three/certificate-scene";
+import { HAS_DEMO, PRIMARY_CTA } from "@/lib/cta";
 
 const FACTS = ["Task 1 and Task 2", "All four official criteria", "An honest margin on every band"];
 

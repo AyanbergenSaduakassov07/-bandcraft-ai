@@ -14,13 +14,24 @@ from conftest import load_gold
 from fastapi.testclient import TestClient
 
 from scoring_api import main
-from scoring_api.calibration import IsotonicCalibrator, LinearCalibrator, calibrator_from_dict
-from scoring_api.ensemble import Bundle, Paths, margin, needs_second_pass, overall_margin
-from scoring_api.features import extract_features
-from scoring_api.final import final_score
-from scoring_api.pipeline import normalise
+from scoring_api.pipeline.calibration import (
+    IsotonicCalibrator,
+    LinearCalibrator,
+    calibrator_from_dict,
+)
+from scoring_api.pipeline.draft import normalise
+from scoring_api.pipeline.ensemble import Bundle, Paths, margin, needs_second_pass, overall_margin
+from scoring_api.pipeline.features import extract_features
+from scoring_api.pipeline.final import final_score
 from scoring_api.schemas import CRITERIA, CriterionScore, DraftRequest, RubricResult, TaskType
-from scoring_api.train import Row, benchmark, fit_models, leave_one_out, render_report, residuals
+from scoring_api.training.train import (
+    Row,
+    benchmark,
+    fit_models,
+    leave_one_out,
+    render_report,
+    residuals,
+)
 
 OFFSETS = [1, 0, -1, 1, 0, 2]  # toy Gemini error pattern
 
@@ -87,7 +98,7 @@ def test_bundle_save_load_predicts_identically(tmp_path: Path) -> None:
     bundle.save(tmp_path)
     loaded = Bundle.load(tmp_path)
     row = toy_rows()[0]
-    from scoring_api.ensemble import predict_paths
+    from scoring_api.pipeline.ensemble import predict_paths
 
     a = predict_paths(bundle, row.features, row.task_type, row.gemini_runs)
     b = predict_paths(loaded, row.features, row.task_type, row.gemini_runs)

@@ -3,8 +3,8 @@
 import pytest
 from conftest import gold_by_id, load_gold
 
-from scoring_api.features import extract_features, paragraphs
-from scoring_api.pipeline import normalise
+from scoring_api.pipeline.draft import normalise
+from scoring_api.pipeline.features import extract_features, paragraphs
 from scoring_api.schemas import FeatureVector
 
 

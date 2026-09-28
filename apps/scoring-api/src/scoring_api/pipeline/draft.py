@@ -8,7 +8,7 @@ import time
 import unicodedata
 from collections.abc import Awaitable, Callable
 
-from scoring_api.features import extract_features
+from scoring_api.pipeline.features import extract_features
 from scoring_api.schemas import DraftRequest, DraftResponse, RubricResult, TaskType
 
 Scorer = Callable[[TaskType, str, str], Awaitable[RubricResult]]

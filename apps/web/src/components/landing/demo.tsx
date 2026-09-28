@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { CRITERION_LABELS, type Criterion } from "@bandcraft/shared";
 import { cn } from "@/lib/utils";
-import results from "./demo-results.json";
+import results from "@/content/demo-results.json";
 
 type Evidence = { quote: string; observation: string; start: number | null; end: number | null; verified: boolean };
 type Essay = {

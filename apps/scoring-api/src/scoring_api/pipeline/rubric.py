@@ -10,7 +10,7 @@ from google import genai
 from google.genai import errors, types
 from pydantic import BaseModel, ValidationError
 
-from scoring_api.prompts import SYSTEM_PROMPT, build_user_prompt
+from scoring_api.pipeline.prompts import SYSTEM_PROMPT, build_user_prompt
 from scoring_api.schemas import CRITERIA, CriterionScore, EvidenceSpan, RubricResult, TaskType
 
 log = logging.getLogger(__name__)
