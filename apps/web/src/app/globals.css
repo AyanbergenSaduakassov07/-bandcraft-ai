@@ -8,8 +8,8 @@
 
 @theme inline {
   --font-sans: var(--font-onest);
-  --font-heading: var(--font-nunito); /* heavy rounded display: the Duolingo voice */
-  --font-display: var(--font-nunito); /* numerals: bands, streaks, XP */
+  --font-heading: var(--font-onest);
+  --font-display: var(--font-onest);
 
   /* Brand palette (fixed, from the logo). */
   --color-brand-300: var(--brand-300);
@@ -62,8 +62,8 @@
   --radius-4xl: 2.5rem;
 
   /* Elevation: blue-tinted, never grey. */
-  --shadow-soft: 0 1px 2px rgb(11 31 51 / 0.06), 0 8px 24px -12px rgb(13 71 161 / 0.18);
-  --shadow-float: 0 2px 4px rgb(11 31 51 / 0.06), 0 24px 48px -16px rgb(13 71 161 / 0.35);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -12px rgb(0 0 0 / 0.12);
+  --shadow-float: 0 2px 6px rgb(0 0 0 / 0.04), 0 30px 60px -20px rgb(0 0 0 / 0.22);
 
   /* Motion. Springs live in src/lib/motion.ts. */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -73,48 +73,50 @@
   --duration-slow: 300ms;
 }
 
-:root {
+:root,
+.light {
   --brand-300: #64b5f6;
   --brand-500: #1e88e5;
   --brand-700: #0d47a1;
   --brand-cyan: #29b6f6;
-  --edge: #08306b; /* pressed-button ledge under primary */
+  --edge: #0d47a1; /* pressed-button ledge under primary */
   --success: #1b7f4b;
 
-  --background: #eaf7fc;
+  /* White first, blue as the accent. Neutral greys for surfaces, never tinted. */
+  --background: #ffffff;
   --foreground: #0b1f33;
   --card: #ffffff;
   --card-foreground: #0b1f33;
   --popover: #ffffff;
   --popover-foreground: #0b1f33;
-  --primary: #0d47a1;
+  --primary: #1565c0;
   --primary-foreground: #ffffff;
-  --secondary: #d3ecf8;
-  --secondary-foreground: #0d47a1;
-  --muted: #dcf0f8;
-  --muted-foreground: #4a6178;
-  --accent: #d3ecf8;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #0b1f33;
+  --muted: #f5f5f7;
+  --muted-foreground: #5b6472;
+  --accent: #eef4fc;
   --accent-foreground: #0b1f33;
   --destructive: #c62828;
-  --border: #c7e1ee;
-  --input: #a9cde0;
+  --border: #e5e7eb;
+  --input: #d1d5db;
   --ring: #1e88e5;
-  --chart-1: #0d47a1;
+  --chart-1: #1565c0;
   --chart-2: #1e88e5;
   --chart-3: #29b6f6;
   --chart-4: #64b5f6;
-  --chart-5: #4a6178;
+  --chart-5: #5b6472;
   --sidebar: #ffffff;
   --sidebar-foreground: #0b1f33;
-  --sidebar-primary: #0d47a1;
+  --sidebar-primary: #1565c0;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #eaf7fc;
-  --sidebar-accent-foreground: #0d47a1;
-  --sidebar-border: #c7e1ee;
+  --sidebar-accent: #f5f5f7;
+  --sidebar-accent-foreground: #0b1f33;
+  --sidebar-border: #e5e7eb;
   --sidebar-ring: #1e88e5;
 
-  --glass: rgb(248 252 254 / 0.8);
-  --glass-border: rgb(255 255 255 / 0.7);
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-border: rgb(0 0 0 / 0.08);
 }
 
 .dark {
@@ -174,8 +176,8 @@
   h2,
   h3 {
     @apply font-heading;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
   button:not(:disabled),
@@ -190,6 +192,25 @@
     background: var(--glass);
     border: 1px solid var(--glass-border);
     @apply backdrop-blur-xl backdrop-saturate-150;
+  }
+  /* Liquid glass (Apple 2025): translucent, blurred, saturated, with a specular top edge and inner depth.
+     Use on floating controls only: nav, capsules, media controls. */
+  .liquid-glass {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.05));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.35),
+      inset 0 -1px 0 rgb(255 255 255 / 0.06),
+      inset 0 0 24px rgb(100 181 246 / 0.08),
+      0 10px 40px -10px rgb(0 0 0 / 0.5);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    @apply backdrop-blur-2xl backdrop-saturate-200;
+  }
+  /* Chrome text for display numerals and titles. */
+  .text-chrome {
+    background: linear-gradient(180deg, #ffffff 0%, #cfe6f5 38%, #64b5f6 62%, #eaf7fc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   /* The head-mark gradient from the logo. Graphics only, never behind body text. */
   .bg-brand-gradient {
@@ -235,5 +256,27 @@
 @keyframes border-beam {
   to {
     offset-distance: 100%;
+  }
+}
+
+/* Xbox-style light shafts: slow drift, compositor-only. */
+@keyframes beam-drift {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateX(0) rotate(var(--r));
+  }
+  50% {
+    opacity: 0.85;
+    transform: translateX(2%) rotate(var(--r));
+  }
+}
+
+@keyframes highlight-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }

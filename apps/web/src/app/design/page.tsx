@@ -104,7 +104,7 @@ function Showcase({ theme }: { theme: "light" | "dark" }) {
         <p className="text-sm text-muted-foreground">The logo gradient. Reserved for the brand mark and the streak flame.</p>
       </Section>
 
-      <Section title="Type: Nunito for display, Onest for text" id={theme === "light" ? "type" : undefined}>
+      <Section title="Type: Onest" id={theme === "light" ? "type" : undefined}>
         <div className="space-y-3">
           {TYPE_SCALE.map(([label, cls, sample]) => (
             <div key={label} className="flex items-baseline gap-4">

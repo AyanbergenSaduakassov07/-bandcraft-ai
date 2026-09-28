@@ -4,7 +4,9 @@ import { readFileSync } from "node:fs";
 const css = readFileSync(new URL("../src/app/globals.css", import.meta.url), "utf8");
 
 function tokens(selector) {
-  const block = css.match(new RegExp(`\\n${selector} \\{([^}]*)\\}`))[1];
+  const start = css.indexOf(`\n${selector} {`);
+  if (start < 0) throw new Error(`token block not found: ${selector}`);
+  const block = css.slice(start, css.indexOf("}", start));
   return Object.fromEntries([...block.matchAll(/--([\w-]+):\s*(#[0-9a-f]{6})/gi)].map((m) => [m[1], m[2]]));
 }
 
@@ -40,7 +42,7 @@ const PAIRS = [
   ["chart-2", "card", 3],
 ];
 
-const root = tokens(":root");
+const root = tokens(":root,\n.light");
 const themes = { light: root, dark: { ...root, ...tokens(".dark") } };
 
 let failed = 0;
