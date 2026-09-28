@@ -1,4 +1,4 @@
-import { BandGauge } from "@/components/ui/band-gauge";
+import { BandGauge } from "@/components/score/band-gauge";
 
 function EvidenceArt() {
   return (

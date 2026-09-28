@@ -1,10 +1,17 @@
-import { Compare, Faq, FinalCta, SiteFooter } from "@/components/landing/closing";
+import { CriteriaCube } from "@/components/landing/criteria-cube";
 import { Demo } from "@/components/landing/demo";
+import { Faq } from "@/components/landing/faq";
 import { Features } from "@/components/landing/features";
+import { FinalCta } from "@/components/landing/final-cta";
 import { Hero } from "@/components/landing/hero";
+import { Highlights } from "@/components/landing/highlights";
 import { Nav } from "@/components/landing/nav";
-import { CriteriaCube, Highlights, ScrollReveals, Statement } from "@/components/landing/scroll-pieces";
+import { SiteFooter } from "@/components/landing/site-footer";
+import { Statement } from "@/components/landing/statement";
+import { TaskCompare } from "@/components/landing/task-compare";
+import { ScrollReveals } from "@/components/motion/scroll-reveals";
 
+/** The landing page, top to bottom. Each section lives in components/landing/<name>.tsx. */
 export default function Home() {
   return (
     <>
@@ -23,7 +30,7 @@ export default function Home() {
         </div>
         <Highlights />
         <ScrollReveals>
-          <Compare />
+          <TaskCompare />
         </ScrollReveals>
         <Faq />
         <FinalCta />

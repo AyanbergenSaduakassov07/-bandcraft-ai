@@ -8,10 +8,10 @@ from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException
 from google import genai
 
-from scoring_api.ensemble import Bundle
-from scoring_api.final import final_score
-from scoring_api.pipeline import Scorer, draft_score
-from scoring_api.rubric import RubricError, score_with_fallback
+from scoring_api.pipeline.draft import Scorer, draft_score
+from scoring_api.pipeline.ensemble import Bundle
+from scoring_api.pipeline.final import final_score
+from scoring_api.pipeline.rubric import RubricError, score_with_fallback
 from scoring_api.schemas import DraftRequest, DraftResponse, FinalResponse
 
 load_dotenv()

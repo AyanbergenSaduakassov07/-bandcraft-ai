@@ -1,7 +1,7 @@
 """Stage 4: calibration. Maps a raw Gemini band onto the examiner scale learned from the Gold Set.
 
 Calibrators are swappable (pick by name) and serialise to plain JSON, so the API never needs
-scikit-learn and never unpickles anything. Fitting happens in scoring_api.train (ADR-0003).
+scikit-learn and never unpickles anything. Fitting happens in scoring_api.training.train (ADR-0003).
 """
 
 from typing import Any, Protocol

@@ -1,10 +1,10 @@
 # Benchmarks
 
-Each `YYYYMMDD-<run id>.md` report here is written by the `calibrate` workflow (`python -m scoring_api.train`). It covers the stage 4-5 models fitted in that run and their leave-one-out results on the Gold Set.
+Each `YYYYMMDD-<run id>.md` report here is written by the `calibrate` workflow (`python -m scoring_api.training.train`). It covers the stage 4-5 models fitted in that run and their leave-one-out results on the Gold Set.
 
 ## How we measure
 
-- **Data:** the Gold Set (`apps/scoring-api/tests/fixtures/gold`), with recorded draft runs from `tests/fixtures/gold-raw` (`python -m scoring_api.record_gold`).
+- **Data:** the Gold Set (`apps/scoring-api/tests/fixtures/gold`), with recorded draft runs from `tests/fixtures/gold-raw` (`python -m scoring_api.training.record_gold`).
 - **Protocol:** leave-one-out cross-validation. Each essay is predicted by models that never saw it. With a set this small, anything else overstates accuracy.
 - **Metrics:**
   - overall-band MAE

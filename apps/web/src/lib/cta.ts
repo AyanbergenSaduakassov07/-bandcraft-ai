@@ -1,4 +1,4 @@
-import results from "./demo-results.json";
+import results from "@/content/demo-results.json";
 
 /** The live sample only renders once real engine output is recorded; every CTA follows that. */
 export const HAS_DEMO = results.essays.length > 0;

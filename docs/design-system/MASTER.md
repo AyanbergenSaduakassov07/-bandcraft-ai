@@ -131,9 +131,7 @@ Everything is in `apps/web/src/components/ui/`.
 - **shadcn/ui core** (radix-nova, restyled to these tokens): button, badge, card, input, textarea, label, progress, tabs, switch, tooltip.
 - **Registry** (from the source registries; 21st.dev's registry now requires an API key):
   - Magic UI `number-ticker`: stat tiles and streak count. It uses `scoreSpring` and jumps straight to the value under reduced motion.
-  - Magic UI `border-beam`: hero card only; recoloured cyan → 500, hidden under reduced motion.
   - Aceternity `bento-grid`: dashboard widgets; neutral colours replaced with tokens, and a missing `shadow-input` class replaced.
-  - Aceternity `3d-card`: hero only; rewritten with types, ease-out instead of linear, and a hover/motion gate.
 
 ## Content rules
 

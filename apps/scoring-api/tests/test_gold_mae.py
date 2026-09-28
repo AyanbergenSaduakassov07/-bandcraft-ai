@@ -21,9 +21,9 @@ from conftest import load_gold
 from google import genai
 
 from scoring_api.main import scoring_models
-from scoring_api.pipeline import draft_score
-from scoring_api.prompts import PROMPT_VERSION
-from scoring_api.rubric import RubricError, score_with_fallback
+from scoring_api.pipeline.draft import draft_score
+from scoring_api.pipeline.prompts import PROMPT_VERSION
+from scoring_api.pipeline.rubric import RubricError, score_with_fallback
 from scoring_api.schemas import CRITERIA, DraftRequest, DraftResponse
 
 log = logging.getLogger(__name__)

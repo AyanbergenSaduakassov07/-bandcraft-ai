@@ -9,13 +9,19 @@ BandCraft AI scores Task 1 (Academic and General Training) and Task 2 responses 
 ## Layout
 
 ```
-apps/web            Next.js 15 (App Router, TS strict, Tailwind v4, shadcn/ui). /design is the living design system.
-apps/scoring-api    FastAPI scoring service (Python, uv).
-packages/shared     Rubric constants and the ScoreResult contract shared by both apps.
-design-system/      MASTER.md: tokens, motion, and the reasoning behind them.
-docs/adr/           Architecture decisions.
-CONTEXT.md          Domain glossary. Start here.
-SPEC.md             The 6-stage scoring pipeline.
+.
+├── CONTEXT.md            Domain glossary. Start here: what a Script, Band Estimate or Margin of Error is.
+├── SPEC.md               The 6-stage scoring pipeline and the output contract.
+├── apps/
+│   ├── web/              The website (Next.js 15). Map: apps/web/README.md
+│   └── scoring-api/      The scoring service (FastAPI + Gemini). Map: apps/scoring-api/README.md
+├── packages/
+│   └── shared/           Rubric constants and the ScoreResult type, shared by both apps
+├── docs/
+│   ├── adr/              Architecture decisions: why things are the way they are
+│   ├── benchmarks/       Accuracy reports, one per calibration run
+│   └── design-system/    Brand, tokens, motion and voice (MASTER.md, brand.md)
+└── .github/workflows/    ci.yml (lint, types, tests on every push); calibrate.yml (fits models)
 ```
 
 ## Run it
@@ -28,7 +34,7 @@ cd apps/scoring-api
 uv sync
 GEMINI_API_KEY=... uv run uvicorn scoring_api.main:app --reload   # http://localhost:8000/docs
 uv run --group train pytest        # unit tests; live Gemini gold run: uv run pytest -m gemini
-uv run python -m scoring_api.record_gold   # record Gemini runs for the Gold Set (resumable)
+uv run python -m scoring_api.training.record_gold   # record Gemini runs for the Gold Set (resumable)
 ```
 
 ## Checks
@@ -50,7 +56,7 @@ Calibration is fitted by the **calibrate** GitHub Actions workflow (Actions → 
 ## Constraints
 
 - All model calls go through the Gemini API free tier ([ADR-0001](docs/adr/0001-gemini-free-tier-only.md)).
-- All fine-tuning runs on Kaggle, never locally ([ADR-0002](docs/adr/0002-fine-tuning-on-kaggle-only.md)).
+- Fine-tuning and GPU work runs on Kaggle ([ADR-0002](docs/adr/0002-fine-tuning-on-kaggle-only.md)). Small CPU fits run in GitHub Actions, never on a laptop ([ADR-0003](docs/adr/0003-small-cpu-fits-in-github-actions.md)).
 
 ## License
 

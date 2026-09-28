@@ -6,7 +6,7 @@ from conftest import gold_by_id
 from fastapi.testclient import TestClient
 
 from scoring_api.main import app, get_scorer
-from scoring_api.rubric import _Evidence, _Judgement, _to_score, locate, overall_band
+from scoring_api.pipeline.rubric import _Evidence, _Judgement, _to_score, locate, overall_band
 from scoring_api.schemas import CRITERIA, CriterionScore, EvidenceSpan, RubricResult, TaskType
 
 

@@ -1,5 +1,5 @@
 import { CRITERIA, CRITERION_LABELS, type ScoreResult } from "@bandcraft/shared";
-import { BandGauge } from "@/components/ui/band-gauge";
+import { BandGauge } from "@/components/score/band-gauge";
 import { cn } from "@/lib/utils";
 
 export const SAMPLE_RESULT: ScoreResult = {
