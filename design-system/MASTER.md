@@ -10,8 +10,9 @@ Three references, and what each one contributed. Nothing is copied wholesale.
 
 | Source | What we took | What we left |
 |---|---|---|
-| **Duolingo** | Confident blocks of colour, rounded shapes, the pressable button with a visible ledge, reward moments, streak and practice cadence | The owl-green palette, cartoon illustration, constant celebration |
+| **Duolingo** | Hero layout (art left, the ask and two stacked full-width buttons right, subject strip below), heavy rounded lowercase section headlines, the pressable button with a visible ledge, floating keycap tiles, the lesson path, streaks | The owl mascot, the green palette, its Feather typeface |
 | **Apple (apple.com + HIG)** | Glass sticky nav with a pill CTA, huge tight-tracked headlines, words that light up as you scroll, sticky scrollytelling, "Get the highlights" stat tiles, horizontal snap galleries with round arrow buttons, footnoted claims, 8pt spacing, restraint | SF Pro itself (licensing), product photography we don't have |
+| **Meta (meta.com)** | Full-bleed cinematic dark stage for the one big moment, centred headline with a blue pill CTA, a visible pause control on moving media | Product video we don't have |
 | **ailingo.click** | Structure only: dashboard sidebar, XP/progress widgets, streak heatmap, trust badges next to the hero | Its red palette |
 
 The product-specific idea: **the margin of error is part of the answer.** Every visual decision below supports showing a band and how sure we are about it together.
@@ -52,10 +53,10 @@ Rules:
 | Body | Onest | 16 / 400, line-height 1.5 | 0 |
 | Callout | Onest | 14 / 400 | 0 |
 | Caption | Onest | 12 / 500 | 0 |
-| **Numerals** | **Unbounded** | 48–96 / 700, tabular | 0 |
+| **Display headlines + numerals** | **Nunito** | 36–72 / 800–900 (spec-strip numerals 300) | −0.02em |
 
 - **Onest for everything with words.** It's the closest free, Cyrillic-complete match to Apple's SF: neutral grotesk, tight at display sizes with negative tracking. Cyrillic matters because Kazakh and Russian interfaces are on the roadmap.
-- **Unbounded for numbers only**: bands, margins, streaks, stat tiles. It's wide, rounded and confident, which is where the Duolingo energy lives. A band score is the product's reward moment, so it gets the characterful face; paragraphs don't.
+- **Nunito for display.** Heavy and rounded, the closest free Cyrillic-complete match to Duolingo's voice. It carries headlines, bands, streaks and the spec-strip numerals (in a light 300 there, for the premium spec-sheet look). Onest keeps body text calm and SF-like.
 - Headings use `text-wrap: balance`. Body lines stay under 65ch.
 - There are no uppercase letter-spaced eyebrows above sections. Section titles are sentence case, Apple style.
 
@@ -81,14 +82,18 @@ Rules:
 
 ## 3D
 
-- **The hero backdrop** is a three.js scene of eight shapes (icosahedron, torus, rounded cube, sphere, octahedron, torus knot, capsule) in two materials:
-  - icy glass: transmission, IOR 1.3–1.35
-  - clearcoated brand-blue solids
-  
-  They're lit by a procedural room environment, drift on sine waves, lean toward the pointer and lift with scroll. They sit in two clusters at the edges so the headline stays clear.
-- **three.js is dynamically imported** inside the effect, so it doesn't count toward the page's first-load JS. The scene stops its render loop when offscreen, skips WebGL if it's unavailable, and draws one still frame under reduced motion.
-- **The criteria cube** is plain CSS 3D (`preserve-3d`), one face per criterion. It's `aria-hidden`; the same content sits in the list beside it.
-- **The hero card** tilts with the pointer (Aceternity 3D card), but only on hover-capable devices with motion allowed.
+- **The hero scene is all IELTS:**
+  - a band medal ("BAND 7.5 ± 0.5", drawn on the face from a canvas)
+  - lined essay sheets (Task 2) and a pencil
+  - a 3D bar chart (Task 1 Academic), whose bars grow in on a spring
+  - an envelope (Task 1 General)
+  - a stopwatch with a running hand (the 60-minute exam)
+  - a graduation cap, and an extruded check mark
+
+  It takes the mascot's slot in a Duolingo-style hero, and pairs with a pause button (Meta).
+- **Performance budget:** standard materials only (no glass transmission, which renders the scene twice). The pixel ratio is capped at 1.5, and the canvas is sized to the hero column, not the viewport. The render loop stops when offscreen, when the tab is hidden, or when paused. three.js is dynamically imported.
+- **Keycaps:** the rubric tiles (TR, CC, LR, GRA, ±, ¶) are plain CSS with a coloured ledge, floating on a compositor-only `translate` keyframe.
+- **The criteria cube** is plain CSS 3D, `aria-hidden`, with the same content in the list beside it.
 
 ## Motion
 

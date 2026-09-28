@@ -1,21 +1,33 @@
-import Link from "next/link";
-import { CRITERIA, CRITERION_LABELS } from "@bandcraft/shared";
+import { FinalCta, SiteFooter, SpecStrip } from "@/components/landing/closing";
+import { FeatureRows } from "@/components/landing/feature-rows";
+import { Hero } from "@/components/landing/hero";
+import { RevealSection } from "@/components/landing/reveal-section";
+import { CriteriaCube, GetToKnow, ScrollReveals, Statement } from "@/components/landing/scroll-pieces";
+import { SiteNav } from "@/components/landing/site-nav";
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-2xl px-4 py-16">
-      <h1 className="text-[2rem] font-bold">BandCraft AI</h1>
-      <p className="mt-2 text-muted-foreground">
-        IELTS Writing band scores with an explicit margin of error.
-      </p>
-      <ul className="mt-6 list-disc space-y-1 pl-5">
-        {CRITERIA.map((c) => (
-          <li key={c}>{CRITERION_LABELS[c]}</li>
-        ))}
-      </ul>
-      <Link href="/design" className="mt-8 inline-block font-semibold text-primary underline-offset-4 hover:underline">
-        Design system →
-      </Link>
-    </main>
+    <>
+      <SiteNav />
+      <main id="top" className="overflow-x-clip">
+        <Hero />
+        <RevealSection />
+        <section className="px-4 py-32 text-center sm:py-44">
+          <Statement>
+            A band score without a margin is a guess. BandCraft AI shows its evidence, its band, and how sure it is.
+          </Statement>
+        </section>
+        <ScrollReveals>
+          <FeatureRows />
+        </ScrollReveals>
+        <div id="criteria" className="scroll-mt-14">
+          <CriteriaCube />
+        </div>
+        <GetToKnow />
+        <SpecStrip />
+        <FinalCta />
+      </main>
+      <SiteFooter />
+    </>
   );
 }

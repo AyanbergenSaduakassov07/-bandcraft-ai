@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Onest, Unbounded } from "next/font/google";
+import { Nunito, Onest } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
@@ -8,13 +8,14 @@ const onest = Onest({
   subsets: ["latin", "cyrillic"],
 });
 
-const unbounded = Unbounded({
-  variable: "--font-unbounded",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin", "cyrillic"],
+  weight: ["300", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
-  title: "BandCraft AI",
+  title: "BandCraft AI · IELTS Writing band scores",
   description: "IELTS Writing scoring and feedback",
 };
 
@@ -24,11 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${onest.variable} ${unbounded.variable}`} suppressHydrationWarning>
-      <head>
-        {/* Marks JS as available before first paint, so hero elements can start hidden. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-      </head>
+    <html lang="en" className={`${onest.variable} ${nunito.variable}`} suppressHydrationWarning>
       <body>
         <TooltipProvider>{children}</TooltipProvider>
       </body>
