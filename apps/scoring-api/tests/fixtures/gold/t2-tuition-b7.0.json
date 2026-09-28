@@ -1,0 +1,17 @@
+{
+  "id": "t2-tuition-b7.0",
+  "task_type": "task2",
+  "prompt": "Some people believe that university students should pay the full cost of their studies, while others think that the government should pay for them. Discuss both views and give your own opinion. Write at least 250 words.",
+  "script": "Whether higher education should be funded by students themselves or by the state is a question that divides opinion in many countries. While there are reasonable arguments for making graduates bear the cost, I believe that governments should cover most of it.\n\nThose who favour student-funded education argue that a degree is primarily a personal investment. Graduates typically earn considerably more over their lifetimes than people without qualifications, so it seems fair that they, rather than taxpayers who may never have attended university, should pay. Supporters also claim that students who pay fees are more motivated and choose their courses more carefully, since wasting a year has a real financial cost.\n\nOn the other hand, there are strong reasons for public funding. Firstly, society as a whole benefits from an educated workforce; doctors, engineers and teachers trained at universities provide services that everyone relies on. Secondly, high fees discourage talented young people from poorer families, which means that access to university depends on wealth rather than ability. In my own country, many capable school leavers choose not to apply because they are afraid of long-term debt.\n\nIn my view, the second argument is more convincing. Although graduates do gain personally, the wider benefits to the economy and to social mobility are too important to leave to individual budgets. A reasonable compromise might be for the state to pay tuition while students cover their living costs, perhaps through part-time work or low-interest loans.\n\nIn conclusion, although asking students to pay the full cost may seem fair at first, I believe that government funding is the better approach because it rewards ability instead of wealth and benefits the whole society.",
+  "gold": {
+    "overall": 7.0,
+    "criteria": {
+      "task_achievement_response": 7,
+      "coherence_cohesion": 7,
+      "lexical_resource": 7,
+      "grammatical_range_accuracy": 7
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "t2-languages-b5.5",
+  "task_type": "task2",
+  "prompt": "Some people think that children should begin learning a foreign language at primary school rather than at secondary school. Do the advantages of this outweigh the disadvantages? Write at least 250 words.",
+  "script": "Nowadays learning foreign languages is very popular and many parents want their children start to learn English or other language as early as possible. Some people think that primary school is the best time for this, in my opinion the advantages is more than disadvantages.\n\nFirst of all, young children can learn languages more easy than teenagers. Their brain is very flexible and they can remember new words quickly, also they can copy the pronunciation of the teacher very well. For example, my younger sister started English when she was seven and now her accent is much better than mine. Moreover, if children start early they have more years to practice, so when they finish school they can speak fluently and it is helpful for university and future career.\n\nHowever, there are some disadvantages. Primary school children already have many subjects, like maths and reading in their native language, so a foreign language can make them tired and stressed. Also, some schools in villages don't have good teachers of English, so the children can learn wrong pronunciation or grammar and it is difficult to change it later. In addition some parents think that the child can forget his own language.\n\nIn conclusion, although there is some problems like stress and lack of teachers, I believe that starting foreign language in primary school have more advantages, because children learn faster and have more time to practice. The government should train more teachers so all children can have this opportunity. I think this is the best way for our country.",
+  "gold": {
+    "overall": 5.5,
+    "criteria": {
+      "task_achievement_response": 6,
+      "coherence_cohesion": 5,
+      "lexical_resource": 6,
+      "grammatical_range_accuracy": 5
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

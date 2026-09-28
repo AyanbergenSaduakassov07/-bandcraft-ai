@@ -1,0 +1,17 @@
+{
+  "id": "t1g-laptop-b4.5",
+  "task_type": "task1_general",
+  "prompt": "You recently bought a laptop from an online shop, but when it arrived it was damaged. Write a letter to the shop. In your letter:\n- describe the laptop you bought\n- explain what the problem is\n- say what you would like the shop to do\nWrite at least 150 words. You do NOT need to write any addresses. Begin your letter as follows: Dear Sir or Madam,",
+  "script": "Dear Sir or Madam,\n\nI am writting to you about the laptop what i buy from your shop last week. It is a laptop Lenovo, black color, and it cost 400 dollars. I buy it for my study because i am student.\n\nWhen the laptop come to my home, the box was broken and the screen of the laptop have a big crack. Also the laptop dont turn on when i press the button. I try to charge it but nothing happen. I was very angry because i need it for my exams and i pay a lot of money.\n\nI want that you give me new laptop or give back my money. Please answer me quickly because it is very important for me. You can call me on my phone.\n\nYours faithfully,\nAida",
+  "gold": {
+    "overall": 4.5,
+    "criteria": {
+      "task_achievement_response": 5,
+      "coherence_cohesion": 4,
+      "lexical_resource": 5,
+      "grammatical_range_accuracy": 4
+    }
+  },
+  "quality": null,
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}

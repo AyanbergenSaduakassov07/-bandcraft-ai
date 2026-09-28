@@ -3,10 +3,24 @@ name = "scoring-api"
 version = "0.0.0"
 description = "BandCraft AI IELTS Writing scoring service"
 requires-python = ">=3.12"
-dependencies = ["fastapi"]
+dependencies = [
+    "en-core-web-sm",
+    "fastapi",
+    "google-genai>=2.25.0",
+    "pyspellchecker>=0.9.0",
+    "python-dotenv>=1.2.3",
+    "spacy>=3.8.16",
+    "uvicorn>=0.54.0",
+]
 
 [dependency-groups]
-dev = ["ruff", "black", "mypy", "pytest", "httpx"]
+dev = [
+    "ruff",
+    "black",
+    "mypy",
+    "pytest",
+    "httpx",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -24,6 +38,8 @@ select = ["E", "F", "W", "I", "B", "UP", "S", "T20"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]
+# Prompt prose: rewrapping would change what the model sees.
+"src/scoring_api/prompts.py" = ["E501"]
 
 [tool.black]
 line-length = 100
@@ -31,3 +47,12 @@ target-version = ["py312"]
 
 [tool.mypy]
 strict = true
+
+[tool.uv.sources]
+en-core-web-sm = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl" }
+
+[tool.pytest.ini_options]
+addopts = "-m 'not gemini'"
+markers = ["gemini: calls the real Gemini API (opt in with: pytest -m gemini)"]
+log_cli = true
+log_cli_level = "INFO"

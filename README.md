@@ -26,7 +26,8 @@ npm run dev -w @bandcraft/web                # http://localhost:3000, design sys
 
 cd apps/scoring-api
 uv sync
-GEMINI_API_KEY=... uv run fastapi dev src/scoring_api/main.py   # http://localhost:8000/docs
+GEMINI_API_KEY=... uv run uvicorn scoring_api.main:app --reload   # http://localhost:8000/docs
+uv run pytest                      # unit tests; live Gemini gold run: uv run pytest -m gemini
 ```
 
 ## Checks

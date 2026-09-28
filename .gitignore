@@ -16,3 +16,5 @@ __pycache__/
 credentials.json
 **/credentials/**
 .playwright-mcp/
+# generated gold-set reports
+apps/scoring-api/reports/

@@ -1,0 +1,17 @@
+{
+  "id": "t2-work-family-b8.0",
+  "task_type": "task2",
+  "prompt": "In many countries, people are spending more time at work and less time with their families. What are the causes of this? What can be done to solve this problem? Write at least 250 words.",
+  "script": "In many parts of the world, working hours have crept steadily upwards, and the time people spend with their families has shrunk accordingly. This trend has economic and technological roots, but it can be reversed if both employers and individuals take deliberate action.\n\nThe most obvious cause is financial pressure. In cities where housing costs have risen far faster than wages, many households need two full-time incomes, and often overtime as well, simply to cover rent or a mortgage. A second, less visible, cause is the way digital technology has blurred the boundary between the office and the home. Because employees can be reached by email or messaging apps at any hour, work increasingly spills into evenings and weekends, even for people whose contracts specify a standard working day. Finally, in competitive industries there is a culture of presenteeism, in which staying late is treated as evidence of commitment, regardless of whether it improves productivity.\n\nAddressing these causes requires action at several levels. Governments could follow the example of countries such as France, which have introduced a legal 'right to disconnect', allowing employees to ignore work messages outside their contracted hours. Employers, for their part, could judge staff on the results they achieve rather than the hours they log, and offer flexible schedules so that parents can, for instance, collect their children from school. At an individual level, families might agree on protected time, such as shared meals without phones, which is a modest step but a surprisingly effective one.\n\nIn conclusion, longer working hours stem mainly from economic pressure, constant connectivity and workplace culture. While no single measure will solve the problem, a combination of legal protection, smarter management and personal discipline could give families back the time they have lost.",
+  "gold": {
+    "overall": 8.0,
+    "criteria": {
+      "task_achievement_response": 8,
+      "coherence_cohesion": 8,
+      "lexical_resource": 8,
+      "grammatical_range_accuracy": 8
+    }
+  },
+  "quality": "strong",
+  "provenance": "synthetic; written for BandCraft AI; bands estimated by the author against the public IELTS band descriptors; not examiner-verified"
+}
