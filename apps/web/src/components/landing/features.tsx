@@ -1,3 +1,5 @@
+import { BandGauge } from "@/components/ui/band-gauge";
+
 function EvidenceArt() {
   return (
     <div className="flex h-full flex-col justify-center gap-3 px-8 text-left text-sm">
@@ -9,13 +11,16 @@ function EvidenceArt() {
 }
 
 function CriteriaArt() {
-  const bars = [["TR", 78], ["CC", 67], ["LR", 67], ["GRA", 78]] as const;
+  const crit = [["TR", 7], ["CC", 6], ["LR", 6], ["GRA", 7]] as const;
   return (
-    <div className="flex h-full items-end justify-center gap-5 px-8 pb-8">
-      {bars.map(([k, h]) => (
-        <div key={k} className="flex h-full w-12 flex-col items-center justify-end gap-2">
-          <div className="w-full rounded-t-md bg-primary" style={{ height: `${h}%`, opacity: 0.55 + h / 250 }} />
-          <span className="text-xs font-semibold text-muted-foreground">{k}</span>
+    <div className="grid h-full grid-cols-2 place-items-center gap-2 p-6">
+      {crit.map(([k, band]) => (
+        <div key={k} className="flex items-center gap-3">
+          <BandGauge band={band} margin={0.5} className="size-16" />
+          <span className="text-sm leading-tight">
+            <span className="block font-semibold text-foreground">{k}</span>
+            <span className="text-muted-foreground">± 0.5</span>
+          </span>
         </div>
       ))}
     </div>
@@ -24,18 +29,13 @@ function CriteriaArt() {
 
 function MarginArt() {
   return (
-    <div className="flex h-full flex-col justify-center px-8">
-      <div className="relative h-16">
-        <div className="absolute inset-x-0 top-1/2 h-px bg-border" />
-        <div className="absolute top-1/2 left-[61%] h-6 w-[22%] -translate-y-1/2 rounded-full bg-accent ring-1 ring-primary/30" />
-        <div className="absolute top-1/2 left-[72%] size-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary ring-4 ring-card" />
-        {[0, 3, 6, 9].map((n) => (
-          <span key={n} className="absolute top-full text-xs text-muted-foreground" style={{ left: `${(n / 9) * 100}%` }}>
-            {n}
-          </span>
-        ))}
+    <div className="flex h-full items-center justify-center gap-6 px-8">
+      <BandGauge band={6.5} margin={0.5} className="size-32" />
+      <div className="text-left">
+        <p className="text-sm text-muted-foreground">Margin of error</p>
+        <p className="text-3xl font-bold tracking-tight text-primary">± 0.5</p>
+        <p className="mt-1 text-sm text-muted-foreground">Likely 6.0 to 7.0</p>
       </div>
-      <p className="mt-8 text-center text-2xl font-bold">6.5 <span className="text-primary">± 0.5</span></p>
     </div>
   );
 }

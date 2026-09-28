@@ -20,7 +20,7 @@ The product-specific idea stays the same: **the margin of error is part of the a
 
 ## Logo
 
-The mark is three rising band bars in a rounded `#1565C0` square, with a cyan dot where the score lands. The wordmark reads "BandCraft", with "AI" in grey. The source is `apps/web/src/components/landing/logo.tsx`, and the favicon is `app/icon.svg`.
+The mark is a lowercase **b** whose bowl is a score dial, with a cyan arc for the margin of error. The wordmark is lowercase `bandcraft`. The full rules (construction, lockups, tones, minimum sizes, don'ts) are in **[brand.md](brand.md)**. The mark's dial doubles as the `BandGauge` data visual, so the logo and the core UI share one shape.
 
 ## Color
 
