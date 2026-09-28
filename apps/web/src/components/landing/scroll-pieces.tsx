@@ -43,10 +43,10 @@ export function Statement({ children }: { children: string }) {
 }
 
 const FACES = [
-  { crit: CRITERIA[0], blurb: "Did you answer the question you were given, fully?" },
-  { crit: CRITERIA[1], blurb: "Does it flow? Paragraphing, linking, referencing." },
-  { crit: CRITERIA[2], blurb: "Range and precision of vocabulary, collocation, spelling." },
-  { crit: CRITERIA[3], blurb: "Sentence variety and how often it goes wrong." },
+  { crit: CRITERIA[0], blurb: "Did you answer every part of the question you were given?" },
+  { crit: CRITERIA[1], blurb: "Does it flow? Clear paragraphs, natural linking, no repetition." },
+  { crit: CRITERIA[2], blurb: "Precise, varied vocabulary, correct collocations and spelling." },
+  { crit: CRITERIA[3], blurb: "A mix of sentence structures, used accurately." },
 ];
 
 /** Sticky scrollytelling: the cube turns one face per criterion as you scroll. */
@@ -105,7 +105,7 @@ export function CriteriaCube() {
             </div>
           </div>
           <div>
-            <h2 className="text-5xl font-bold tracking-[-0.035em] sm:text-6xl">Four criteria. Equal weight.</h2>
+            <h2 className="text-5xl font-bold tracking-[-0.035em] sm:text-6xl">Four criteria. Each one counts.</h2>
             <ol className="mt-8 space-y-5">
               {FACES.map((f, i) => (
                 <li
@@ -126,10 +126,10 @@ export function CriteriaCube() {
 }
 
 const SLIDES = [
-  { kicker: "Four criteria", title: "Four bands, judged the way examiners mark.", art: "TR · CC · LR · GRA" },
-  { kicker: "Evidence first", title: "It quotes your essay before it scores it.", art: "“ … ”" },
-  { kicker: "Honest margins", title: "A band, and exactly how sure we are.", art: "6.5 ± 0.5" },
-  { kicker: "Every task", title: "Charts, letters and essays. Task 1 and Task 2.", art: "1A · 1G · 2" },
+  { kicker: "Four criteria", title: "Find the one criterion holding your band back.", art: "TR · CC · LR · GRA" },
+  { kicker: "Evidence first", title: "Every score points to the sentences behind it.", art: "“ … ”" },
+  { kicker: "Honest margins", title: "No inflated numbers. Just your band and its range.", art: "6.5 ± 0.5" },
+  { kicker: "Every task", title: "Charts, letters and essays, Task 1 and Task 2.", art: "1A · 1G · 2" },
 ];
 const SLIDE_MS = 5000;
 
@@ -165,7 +165,7 @@ export function Highlights() {
 
   return (
     <section id="highlights" className="scroll-mt-24 py-24">
-      <h2 className="mx-auto max-w-6xl px-4 text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Get the highlights.</h2>
+      <h2 className="mx-auto max-w-6xl px-4 text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Built for the band you need.</h2>
       <div ref={track} className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-hidden px-[8vw]" aria-live="polite">
         {SLIDES.map((s, i) => (
           <article

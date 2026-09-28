@@ -1,40 +1,12 @@
 import Link from "next/link";
 import { BarChart3, FileText, Mail } from "lucide-react";
+import { HAS_DEMO, PRIMARY_CTA } from "./cta";
 import { Logo } from "./logo";
 
-const SPECS = [
-  ["Tasks", "Task 1 Academic (reports on charts, tables, maps, processes) · Task 1 General Training (letters) · Task 2 (essays)"],
-  ["Criteria", "Task Achievement or Task Response · Coherence and Cohesion · Lexical Resource · Grammatical Range and Accuracy"],
-  ["Output", "Overall band in half steps and four criterion bands, each with its margin of error"],
-  ["Evidence", "Verbatim quotes from your script, located by position; unverifiable quotes are flagged"],
-  ["Checks", "Word count against the minimum, paragraphing, spelling, agreement and article errors, linking-word overuse"],
-  ["Scoring model", "Gemini, prompted to cite evidence before it gives a band"],
-  ["Interface", "English; Kazakh and Russian planned"],
-];
-
-/** Apple-style tech specs: label and value rows split by hairlines. */
-export function Specs() {
-  return (
-    <section id="specs" className="scroll-mt-24 bg-muted/60 px-4 py-24">
-      <div className="mx-auto max-w-6xl">
-        <h2 className="text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Tech specs</h2>
-        <dl className="mt-10 border-t border-border">
-          {SPECS.map(([k, v]) => (
-            <div key={k} className="grid gap-2 border-b border-border py-6 sm:grid-cols-[14rem_1fr]">
-              <dt className="font-semibold">{k}</dt>
-              <dd className="text-muted-foreground">{v}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </section>
-  );
-}
-
 const TASKS = [
-  { icon: BarChart3, name: "Task 1 Academic", time: "20 minutes · at least 150 words", what: "Describe a chart, table, map or process. Scored on Task Achievement: an overview and the key features, with accurate data." },
-  { icon: Mail, name: "Task 1 General", time: "20 minutes · at least 150 words", what: "Write a letter for a purpose. Scored on Task Achievement: every bullet point covered, in the right tone." },
-  { icon: FileText, name: "Task 2", time: "40 minutes · at least 250 words", what: "Argue a position. Scored on Task Response: every part of the question answered, with ideas developed and supported. Counts double." },
+  { icon: BarChart3, name: "Task 1 Academic", time: "20 minutes · at least 150 words", what: "Describe a chart, table, map or process. We check for a clear overview, the key features, and data you reported accurately." },
+  { icon: Mail, name: "Task 1 General", time: "20 minutes · at least 150 words", what: "Write a letter with a purpose. We check that every bullet point is covered and your tone fits who you are writing to." },
+  { icon: FileText, name: "Task 2", time: "40 minutes · at least 250 words", what: "Argue a position. We check that you answered every part of the question and backed your ideas up. It counts double, so it matters most." },
 ];
 
 /** Apple's "Which one is right for you?" compare row. */
@@ -52,8 +24,8 @@ export function Compare() {
               <h3 className="mt-6 text-2xl font-bold tracking-tight">{t.name}</h3>
               <p className="mt-1 text-sm font-semibold text-primary">{t.time}</p>
               <p className="mt-4 text-muted-foreground">{t.what}</p>
-              <a href="#demo" className="mt-6 text-primary hover:underline">
-                See a scored sample ›
+              <a href={PRIMARY_CTA.href} className="mt-6 text-primary hover:underline">
+                {HAS_DEMO ? "See a scored essay" : "How we score it"} ›
               </a>
             </div>
           ))}
@@ -64,12 +36,13 @@ export function Compare() {
 }
 
 const FAQ = [
-  ["Is this an official IELTS score?", "No. BandCraft AI gives an automated estimate against the public band descriptors. It can differ from an examiner's band, which is exactly why every band comes with its margin of error."],
-  ["What does the margin of error mean?", "The range the examiner's band is likely to fall in. 6.5 ± 0.5 means we expect a 6.0, 6.5 or 7.0. It widens when the evidence in your essay is thin or our scoring runs disagree."],
-  ["Which tasks can I submit?", "Task 1 Academic (charts, tables, maps, processes), Task 1 General Training (letters) and Task 2 essays. Task 1 Academic works best when you paste the data you were given."],
-  ["How is it different from other IELTS checkers?", "It shows its working. Every band quotes the passages that earned it, checks those quotes against your text, and tells you how sure it is instead of printing one confident number."],
-  ["How accurate is it?", "We publish accuracy only against our gold set of labelled essays, with the model, prompt version and date. Until examiner-scored scripts are added, we don't quote a percentage."],
-  ["What happens to my essays?", "Your essay is sent to Google's Gemini model to be marked. Don't include personal details you wouldn't want processed."],
+  ["Is this my official IELTS score?", "No, and anyone who promises that is guessing. BandCraft AI gives you an estimate against the public band descriptors, with a margin of error that tells you how far the real result might be."],
+  ["What does 6.5 ± 0.5 actually mean?", "Expect somewhere from 6.0 to 7.0 on the day. When your essay gives strong evidence, the range is tight. When it doesn't, the range widens, and we say so instead of pretending."],
+  ["Can it help me get from 6.5 to 7?", "It shows which of the four criteria is holding your overall band down and quotes the sentences behind it, so you know exactly what to fix first. The practice is still yours."],
+  ["Which tasks can I submit?", "Task 1 Academic (charts, tables, maps and processes), Task 1 General Training (letters), and Task 2 essays. For Task 1 Academic, paste the data you were given so we can check your figures."],
+  ["How is this different from other IELTS checkers?", "Other checkers give you a number. We show our working: the evidence for every band, checked against your actual text, and an honest range instead of false precision."],
+  ["How accurate is it?", "We only publish accuracy measured against our labelled essay set, with the date and the model used. Until examiner-marked essays are added, you won't see a headline percentage from us."],
+  ["What happens to my essay?", "It is sent to Google's Gemini model to be scored. Leave out anything personal you wouldn't want processed."],
 ];
 
 /** FAQ on native <details>: keyboard and screen-reader support for free. */
@@ -77,7 +50,7 @@ export function Faq() {
   return (
     <section id="faq" className="scroll-mt-24 px-4 py-24">
       <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.6fr]">
-        <h2 className="text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Questions, answered.</h2>
+        <h2 className="text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Before you ask.</h2>
         <div className="divide-y divide-border border-y border-border">
           {FAQ.map(([q, a]) => (
             <details key={q} className="group py-5">
@@ -99,19 +72,19 @@ export function FinalCta() {
   return (
     <section id="final" className="relative isolate scroll-mt-24 overflow-hidden px-4 py-32 text-center">
       <div aria-hidden className="absolute top-1/2 left-1/2 -z-10 h-[36rem] w-[60rem] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,rgb(30_136_229/0.12),transparent)]" />
-      <h2 className="mx-auto max-w-3xl text-5xl leading-[1.02] font-bold tracking-[-0.045em] sm:text-7xl">Write. Get scored. Improve.</h2>
+      <h2 className="mx-auto max-w-3xl text-5xl leading-[1.02] font-bold tracking-[-0.045em] sm:text-7xl">Walk into the exam knowing where you stand.</h2>
       <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground sm:text-xl">
-        Task 1 or Task 2: a band for each criterion, the evidence behind it, and how sure we are.
+        Four criteria, the evidence behind every band, and an honest margin of error. No guesswork, no inflated scores.
       </p>
-      <a href="#demo" className="mt-10 inline-block rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-[0_10px_30px_-10px_rgb(21_101_192/0.6)] transition-[filter] duration-150 hover:brightness-110">
-        See it score an essay →
+      <a href={PRIMARY_CTA.href} className="mt-10 inline-block rounded-full bg-primary px-8 py-4 text-lg font-semibold text-primary-foreground shadow-[0_10px_30px_-10px_rgb(21_101_192/0.6)] transition-[filter] duration-150 hover:brightness-110">
+        {PRIMARY_CTA.label} →
       </a>
     </section>
   );
 }
 
 const DIRECTORY = [
-  ["Explore", [["Live sample", "#demo"], ["How it scores", "#how"], ["The four criteria", "#criteria"], ["Highlights", "#highlights"], ["Tech specs", "#specs"]]],
+  ["Explore", [...(HAS_DEMO ? [["Live sample", "#demo"] as const] : []), ["How it works", "#how"], ["The four criteria", "#criteria"], ["Highlights", "#highlights"]]],
   ["Tasks", [["Task 1 Academic", "#tasks"], ["Task 1 General", "#tasks"], ["Task 2", "#tasks"]]],
   ["Project", [["FAQ", "#faq"], ["Design system", "/design"]]],
 ] as const;

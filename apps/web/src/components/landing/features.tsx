@@ -41,9 +41,9 @@ function MarginArt() {
 }
 
 const FEATURES = [
-  { title: "Evidence first", body: "Before any band, it quotes the exact words in your essay that earned it. Quotes it can't find in your text don't count.", art: <EvidenceArt /> },
-  { title: "Four criteria", body: "Task Response, Coherence and Cohesion, Lexical Resource and Grammar are judged separately, the way examiners mark.", art: <CriteriaArt /> },
-  { title: "Honest margins", body: "Every band carries a ± range. When the evidence is thin or the runs disagree, the range gets wider and says so.", art: <MarginArt /> },
+  { title: "Proof, not opinions", body: "Every band quotes the sentences that earned it, so you know what to keep and what to fix. If a quote isn't in your essay, it doesn't count.", art: <EvidenceArt /> },
+  { title: "Four bands, not one", body: "Task Response, Coherence, Vocabulary and Grammar are scored separately, the way examiners mark. See which one is dragging your overall band down.", art: <CriteriaArt /> },
+  { title: "A number you can trust", body: "Every band comes with a ± range. 6.5 ± 0.5 means expect 6.0 to 7.0 on the day. Thin evidence means a wider range, and we tell you.", art: <MarginArt /> },
 ];
 
 /** Three-up feature row: image-first cards, short headings, short copy. */
@@ -51,7 +51,7 @@ export function Features() {
   return (
     <section id="how" className="scroll-mt-24 bg-muted/60 px-4 py-24">
       <div className="mx-auto max-w-6xl">
-        <h2 className="max-w-2xl text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Scored the way examiners think.</h2>
+        <h2 className="max-w-2xl text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Feedback you can act on.</h2>
       </div>
       <div className="mx-auto mt-12 grid max-w-6xl gap-8 md:grid-cols-3">
         {FEATURES.map((f) => (
