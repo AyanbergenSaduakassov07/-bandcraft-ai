@@ -18,3 +18,7 @@ credentials.json
 .playwright-mcp/
 # generated gold-set reports
 apps/scoring-api/reports/
+# local editor / agent tooling
+.claude/
+.obsidian/
+skills-lock.json
