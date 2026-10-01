@@ -136,6 +136,7 @@ class BandEstimate(BaseModel):
 
 class FinalResponse(BaseModel):
     task_type: TaskType
+    script: str = Field(description="The normalised Script; evidence offsets index into this.")
     overall: BandEstimate
     criteria: dict[Criterion, FinalCriterion]
     second_pass: bool = Field(

@@ -143,6 +143,7 @@ def test_score_final_endpoint_and_missing_calibration(
     assert ok.status_code == 200
     data = ok.json()
     assert set(data["criteria"]) == set(CRITERIA) and data["calibration_version"] == "test"
+    assert data["script"] == normalise(body["script"])  # evidence offsets index into this
 
     monkeypatch.setattr(main, "ARTIFACTS", tmp_path)
     monkeypatch.delenv("CALIBRATION_DIR", raising=False)

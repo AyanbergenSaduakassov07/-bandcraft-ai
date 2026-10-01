@@ -56,6 +56,7 @@ async def final_score(req: DraftRequest, scorer: Scorer, bundle: Bundle) -> Fina
     }
     return FinalResponse(
         task_type=req.task_type,
+        script=normalise(req.script),
         overall=BandEstimate(
             band=overall_band([criteria[c].band for c in CRITERIA]),
             margin=overall_margin([criteria[c].margin for c in CRITERIA]),
