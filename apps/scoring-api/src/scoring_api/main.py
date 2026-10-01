@@ -93,7 +93,7 @@ async def score_final(
     scorer: Annotated[Scorer, Depends(get_scorer)],
     bundle: Annotated[Bundle, Depends(get_bundle)],
 ) -> FinalResponse:
-    """Calibrated Criterion Bands, overall band, a margin per score, and the evidence spans."""
+    """Calibrated Criterion Bands, overall band, and the evidence spans."""
     try:
         return await final_score(req, scorer, bundle)
     except RubricError as e:

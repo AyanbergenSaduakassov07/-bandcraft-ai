@@ -1,4 +1,4 @@
-"""Stages 4-5 on top of the draft: calibrate, ensemble, cross-check, attach a real margin."""
+"""Stages 4-5 on top of the draft: calibrate, ensemble, cross-check."""
 
 import time
 
@@ -6,19 +6,17 @@ from scoring_api.pipeline.draft import Scorer, draft_score, normalise
 from scoring_api.pipeline.ensemble import (
     Bundle,
     final_band,
-    margin,
     needs_second_pass,
-    overall_margin,
     predict_paths,
 )
 from scoring_api.pipeline.rubric import overall_band
 from scoring_api.schemas import (
     CRITERIA,
-    BandEstimate,
     Criterion,
     DraftRequest,
     FinalCriterion,
     FinalResponse,
+    OverallBand,
     PathValues,
     RubricResult,
 )
@@ -43,7 +41,6 @@ async def final_score(req: DraftRequest, scorer: Scorer, bundle: Bundle) -> Fina
     criteria = {
         c: FinalCriterion(
             band=final_band(paths[c]),
-            margin=margin(paths[c], bundle.residual[c]),
             paths=PathValues(
                 gemini=paths[c].gemini,
                 calibrated=round(paths[c].calibrated, 2),
@@ -57,9 +54,8 @@ async def final_score(req: DraftRequest, scorer: Scorer, bundle: Bundle) -> Fina
     return FinalResponse(
         task_type=req.task_type,
         script=normalise(req.script),
-        overall=BandEstimate(
+        overall=OverallBand(
             band=overall_band([criteria[c].band for c in CRITERIA]),
-            margin=overall_margin([criteria[c].margin for c in CRITERIA]),
         ),
         criteria=criteria,
         second_pass=second,
