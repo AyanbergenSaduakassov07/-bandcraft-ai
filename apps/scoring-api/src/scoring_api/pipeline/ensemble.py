@@ -163,7 +163,8 @@ def predict_paths(
             gemini=[run[c] for run in gemini_runs],
             calibrated=float(bundle.calibrators[c].predict([gemini_mean[c]])[0]),
             deterministic=float(bundle.deterministic[c].predict(x_det)[0]),
-            ensemble=float(np.clip(bundle.ensemble[c].predict(x_ens)[0], 0.0, 9.0)),
+            # One row: OpenMP across every core only adds contention under concurrent requests.
+            ensemble=float(np.clip(bundle.ensemble[c].predict(x_ens, num_threads=1)[0], 0.0, 9.0)),
         )
         for c in CRITERIA
     }
