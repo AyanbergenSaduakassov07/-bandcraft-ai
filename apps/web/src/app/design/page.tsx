@@ -41,7 +41,7 @@ const SWATCHES = [
 ] as const;
 
 const TYPE_SCALE = [
-  ["Numeral 48", "font-display text-5xl font-bold tabular-nums", "7.0 ± 0.5"],
+  ["Numeral 48", "font-display text-5xl font-bold tabular-nums", "7.0"],
   ["Display 56", "text-[3.5rem] leading-none font-bold tracking-[-0.035em]", "Write better."],
   ["Title 32", "text-[2rem] font-bold tracking-[-0.022em]", "Task Response"],
   ["Heading 24", "text-2xl font-semibold tracking-[-0.015em]", "Coherence and Cohesion"],
@@ -132,11 +132,11 @@ function Showcase({ theme }: { theme: "light" | "dark" }) {
           <Button disabled>Scoring…</Button>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="outline" size="icon" aria-label="What is the margin?">
+              <Button variant="outline" size="icon" aria-label="What is a band?">
                 <Info />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>The true band lies within ± this value</TooltipContent>
+            <TooltipContent>IELTS scores each criterion from 0 to 9</TooltipContent>
           </Tooltip>
         </div>
       </Section>
@@ -162,7 +162,7 @@ function Showcase({ theme }: { theme: "light" | "dark" }) {
 
       <Section title="Badges">
         <div className="flex flex-wrap gap-2">
-          <Badge>Band 7 ± 0.5</Badge>
+          <Badge>Band 7</Badge>
           <Badge variant="secondary">Task 2</Badge>
           <Badge variant="outline">Academic</Badge>
           <Badge variant="destructive">Under word floor</Badge>
@@ -183,7 +183,7 @@ function Showcase({ theme }: { theme: "light" | "dark" }) {
             The Script with highlighted evidence.
           </TabsContent>
           <TabsContent value="history" className="pt-2 text-sm text-muted-foreground">
-            Past Band Estimates.
+            Past bands.
           </TabsContent>
         </Tabs>
       </Section>
@@ -254,7 +254,7 @@ export default function DesignSystemPage() {
       <section className="mx-auto max-w-6xl px-4 pb-16">
         <h2 className="text-2xl font-bold tracking-tight">Brand</h2>
         <p className="mt-2 max-w-prose text-muted-foreground">
-          A lowercase b whose bowl is a score dial. The cyan arc is the margin of error. Rules: docs/design-system/brand.md.
+          A lowercase b whose bowl is a score dial, with a cyan accent arc. Rules: docs/design-system/brand.md.
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           <div className="grid h-40 place-items-center rounded-3xl ring-1 ring-border">
@@ -275,9 +275,9 @@ export default function DesignSystemPage() {
           <LogoMark className="size-6" />
           <LogoMark tone="mono" className="size-10 text-foreground" />
           <div className="ml-auto flex items-center gap-6">
-            <BandGauge band={4.5} margin={1} />
-            <BandGauge band={6.5} margin={0.5} />
-            <BandGauge band={8} margin={0.5} />
+            <BandGauge band={4.5} />
+            <BandGauge band={6.5} />
+            <BandGauge band={8} />
           </div>
         </div>
       </section>
@@ -313,7 +313,7 @@ export default function DesignSystemPage() {
 const MOTION = [
   ["150 ms", "Hover, press, toggle. The button ledge compresses on press."],
   ["200 ms", "Tab and switch changes, tilt settle."],
-  ["300 ms", "Progress fill, the margin fading in after the band."],
+  ["300 ms", "Progress fill."],
   ["Spring 140 / 18", "Score reveal, 3D shapes arriving, swatches. The value overshoots slightly and lands."],
   ["Scroll-synced", "Statement words, the criteria cube. Tied to scroll position, eased so they never jitter."],
   ["Stagger 14–40 ms", "Heatmap cells from the centre, criterion bars in order, never all at once."],

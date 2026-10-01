@@ -7,12 +7,11 @@ export type Evidence = { quote: string; observation: string; start: number | nul
 export type FinalResponse = {
   task_type: TaskType;
   script: string;
-  overall: { band: number; margin: number };
+  overall: { band: number };
   criteria: Record<
     Criterion,
     {
       band: number;
-      margin: number;
       paths: { gemini: number[]; calibrated: number; deterministic: number; ensemble: number };
       evidence: Evidence[];
     }

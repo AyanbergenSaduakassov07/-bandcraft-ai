@@ -14,13 +14,13 @@ The landing page is **white first, with blue as the accent**. Its base is Apple'
 | **Meta** | A confident centred closing call to action with one blue pill, and a visible pause control on anything that moves |
 | **Xbox Series X** | The product as a lit object on a stage. Here that's the floating Band Report certificate with its holographic seal |
 | **Speak / YC-grade startups** | The floating pill nav, the "New" announcement pill, a split hero, a product card showing real output, the FAQ |
-| **IELTS checkers** (Cathoven, AI4IELTS, Writing9) | The common promise of per-criterion feedback. We differ by showing the evidence and the margin instead of a single confident score |
+| **IELTS checkers** (Cathoven, AI4IELTS, Writing9) | The common promise of per-criterion feedback. We differ by quoting the evidence behind every band |
 
-The product-specific idea stays the same: **the margin of error is part of the answer.**
+The product-specific idea stays the same: **every band shows its evidence.**
 
 ## Logo
 
-The mark is a lowercase **b** whose bowl is a score dial, with a cyan arc for the margin of error. The wordmark is lowercase `bandcraft`. The full rules (construction, lockups, tones, minimum sizes, don'ts) are in **[brand.md](brand.md)**. The mark's dial doubles as the `BandGauge` data visual, so the logo and the core UI share one shape.
+The mark is a lowercase **b** whose bowl is a score dial, with a cyan accent arc. The wordmark is lowercase `bandcraft`. The full rules (construction, lockups, tones, minimum sizes, don'ts) are in **[brand.md](brand.md)**. The mark's dial doubles as the `BandGauge` data visual, so the logo and the core UI share one shape.
 
 ## Color
 
@@ -82,7 +82,7 @@ The landing page is white. Blue appears on buttons, links, one headline phrase, 
 ## 3D
 
 - **The hero object** is a floating Band Report certificate, built in three.js:
-  - a guilloche security-print face showing "Overall 7.5 ± 0.5" and four criterion boxes, marked "Not an official IELTS result"
+  - a guilloche security-print face showing "Overall 7.5" and four criterion boxes, marked "Not an official IELTS result"
   - an iridescent foil seal
   - a lacquered fountain pen
   - a point light that sweeps a gloss across the paper
@@ -99,7 +99,7 @@ Tokens: `globals.css` (`--duration-*`, `--ease-*`) and `src/lib/motion.ts` (`dur
 |---|---|---|
 | fast | 150ms, ease-out | Hover, press, the button ledge |
 | base | 200ms | Tabs, switch thumb, tilt settle |
-| slow | 300ms | Progress fill, margin fade-in |
+| slow | 300ms | Progress fill |
 | `scoreSpring` | stiffness 140, damping 18, mass 1 | Score reveal, 3D shapes arriving, swatches |
 | `revealStagger` | 40ms | Criterion bars |
 | Heatmap stagger | 14ms from centre, grid-aware | Streak heatmap |
@@ -111,7 +111,6 @@ Tokens: `globals.css` (`--duration-*`, `--ease-*`) and `src/lib/motion.ts` (`dur
 2. The card springs up.
 3. The band counts from 0.0 and lands with a slight overshoot.
 4. The bars fill in criterion order.
-5. The **margin fades in last**. That's deliberate: the band isn't finished until its margin arrives.
 
 Scroll-driven, in the Apple style:
 
@@ -135,9 +134,8 @@ Everything is in `apps/web/src/components/ui/`.
 
 ## Content rules
 
-- **Never show a bare band.** Every band on screen carries its margin (`7 ± 0.5`), including badges and gallery cards.
 - **Claims carry footnotes**, Apple style. That includes the "not an official IELTS result" and "not affiliated" notes in the footer.
-- **No invented metrics.** The stat tiles state facts about the product contract (4 criteria, a 0–9 scale, 6 pipeline stages, 1 margin per band), not accuracy numbers we haven't measured.
+- **No invented metrics.** The stat tiles state facts about the product contract (4 criteria, a 0–9 scale, 6 pipeline stages), not accuracy numbers we haven't measured.
 
 ## Anti-patterns (checked)
 
@@ -154,6 +152,6 @@ We write for IELTS candidates who need a specific band for a university or a vis
 
 - **Lead with what they get:** "See which criterion is dragging your band down", not "four-criterion scoring engine".
 - **Be honest out loud.** Name the limit ("an estimate, not your official score") before the reader has to ask. It's our differentiator, not a disclaimer.
-- **Keep numbers to facts about the product** (4 criteria, 0–9, ± margin). Never invent statistics, user counts or testimonials.
+- **Keep numbers to facts about the product** (4 criteria, 0–9). Never invent statistics, user counts or testimonials.
 - **Use strong calls to action:** "Watch it score an essay", never "Learn more" or "Get started".
 - **The headline was chosen by score.** "Discover the truth about your IELTS Writing band" scored 75/100 on the copywriting skill's headline scorer, against 30 for the previous line.

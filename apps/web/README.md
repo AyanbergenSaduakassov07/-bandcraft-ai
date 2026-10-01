@@ -29,7 +29,7 @@ src/
 │   │                         highlights, task-compare, faq, final-cta, site-footer
 │   ├── brand/logo.tsx        The logo (mark, wordmark, app tile)
 │   ├── score/                Showing a score: band-gauge (the logo's dial as data), score-card, criterion-hues
-│   ├── history/band-trend    The band-over-time chart with its margin shading
+│   ├── history/band-trend    The band-over-time chart
 │   ├── write/                The /write flow: write-flow (task, timer, word count), results (reveal + annotations), streak
 │   ├── three/                3D: the floating Band Report certificate (three.js)
 │   ├── motion/               Scroll-triggered reveals (anime.js)

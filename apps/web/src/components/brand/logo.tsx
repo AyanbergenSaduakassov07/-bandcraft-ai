@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
 /**
- * The BandCraft mark: a lowercase "b" whose bowl is a score dial. The cyan arc is the margin of error,
+ * The BandCraft mark: a lowercase "b" whose bowl is a score dial. The cyan arc is an accent
  * centred on the reading. Construction (48-unit grid): stem 6.5 wide, ring r 10.2 at (27, 30), stroke 6.5,
- * margin arc from -78° to -22°. See docs/design-system/brand.md.
+ * accent arc from -78° to -22°. See docs/design-system/brand.md.
  */
 export const MARK = {
   stem: { x: 10, y: 6, width: 6.5, height: 36, rx: 3.25 },

@@ -1,6 +1,6 @@
 # BandCraft AI
 
-IELTS Writing scoring and feedback. Every band comes with an explicit margin of error.
+IELTS Writing scoring and feedback. Every band comes with the evidence behind it.
 
 BandCraft AI scores Task 1 (Academic and General Training) and Task 2 responses on the four official IELTS Writing criteria and returns criterion-level feedback. It's an independent product, not affiliated with IELTS, the British Council, IDP or Cambridge.
 
@@ -10,7 +10,7 @@ BandCraft AI scores Task 1 (Academic and General Training) and Task 2 responses 
 
 ```
 .
-├── CONTEXT.md            Domain glossary. Start here: what a Script, Band Estimate or Margin of Error is.
+├── CONTEXT.md            Domain glossary. Start here: what a Script, Criterion Band or Scoring Path is.
 ├── SPEC.md               The 6-stage scoring pipeline and the output contract.
 ├── apps/
 │   ├── web/              The website (Next.js 15). Map: apps/web/README.md
