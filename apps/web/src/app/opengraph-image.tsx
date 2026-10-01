@@ -32,7 +32,7 @@ export default async function OpengraphImage() {
           <div style={{ fontSize: 68, fontWeight: 700, letterSpacing: -3, lineHeight: 1.02 }}>Discover the truth about</div>
           <div style={{ fontSize: 68, fontWeight: 700, letterSpacing: -3, lineHeight: 1.02, color: "#1565c0" }}>your IELTS Writing band.</div>
         </div>
-        <div style={{ fontSize: 28, color: "#5b6472" }}>All four official criteria · the evidence behind every band · an honest margin of error</div>
+        <div style={{ fontSize: 28, color: "#5b6472" }}>All four official criteria · the evidence behind every band</div>
       </div>
     ),
     { ...size, fonts: font ? [{ name: "Onest", data: font, weight: 700, style: "normal" }] : undefined },

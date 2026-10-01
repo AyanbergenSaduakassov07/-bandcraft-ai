@@ -32,8 +32,8 @@ function drawMark(g: CanvasRenderingContext2D, x: number, y: number, size: numbe
   g.restore();
 }
 
-/** The logo's dial as data: 0–9 ring, blue to the band, cyan across band ± margin. */
-function drawGauge(g: CanvasRenderingContext2D, cx: number, cy: number, r: number, band: number, margin: number) {
+/** The logo's dial as data: 0–9 ring, blue to the band. */
+function drawGauge(g: CanvasRenderingContext2D, cx: number, cy: number, r: number, band: number) {
   const a = (v: number) => -Math.PI / 2 + (v / 9) * Math.PI * 2;
   g.lineWidth = r * 0.28;
   g.lineCap = "butt";
@@ -44,11 +44,6 @@ function drawGauge(g: CanvasRenderingContext2D, cx: number, cy: number, r: numbe
   g.strokeStyle = BLUE;
   g.beginPath();
   g.arc(cx, cy, r, a(0), a(band));
-  g.stroke();
-  g.strokeStyle = "#29b6f6";
-  g.lineCap = "round";
-  g.beginPath();
-  g.arc(cx, cy, r, a(band - margin), a(band + margin));
   g.stroke();
 }
 
@@ -97,10 +92,7 @@ function certificateTexture(THREE: Three, font: string) {
   g.fillStyle = INK;
   g.font = `700 230px ${font}`;
   g.fillText("7.5", 100, 610);
-  g.fillStyle = BLUE;
-  g.font = `600 64px ${font}`;
-  g.fillText("± 0.5", 470, 600);
-  drawGauge(g, 830, 480, 110, 7.5, 0.5);
+  drawGauge(g, 830, 480, 110, 7.5);
 
   const crit = [["Task Response", "7"], ["Coherence", "8"], ["Lexical", "7"], ["Grammar", "8"]];
   crit.forEach(([label, band], i) => {
@@ -117,9 +109,6 @@ function certificateTexture(THREE: Three, font: string) {
     g.fillStyle = INK;
     g.font = `700 88px ${font}`;
     g.fillText(band, x + 26, y + 150);
-    g.fillStyle = BLUE;
-    g.font = `600 34px ${font}`;
-    g.fillText("± 0.5", x + 90, y + 148);
   });
 
   g.fillStyle = "#8a93a0";

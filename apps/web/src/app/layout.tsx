@@ -11,7 +11,7 @@ const onest = Onest({
 export const metadata: Metadata = {
   title: "BandCraft AI · Discover your real IELTS Writing band",
   description:
-    "Score IELTS Writing Task 1 and Task 2 on the four official criteria, with the evidence behind every band and an honest margin of error.",
+    "Score IELTS Writing Task 1 and Task 2 on the four official criteria, with the evidence behind every band.",
 };
 
 export default function RootLayout({
