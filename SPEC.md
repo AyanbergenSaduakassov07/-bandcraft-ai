@@ -61,7 +61,7 @@ Invariants:
   - `spread` is the range across all paths on *this essay*.
   - `residual` is the model's leave-one-out MAE for that Criterion.
 - **Overall:** the IELTS rounding of the four Criterion Bands. Its margin is the mean criterion margin, rounded up. It isn't shrunk, because criterion errors are correlated.
-- **Out:** `POST /score/final` returns each calibrated Criterion Band with its margin and paths, the overall Band Estimate, and the evidence spans from stage 3.
+- **Out:** `POST /score/final` returns each calibrated Criterion Band with its margin and paths, the overall Band Estimate, the evidence spans from stage 3, and the normalised Script their offsets index into.
 
 ### 6. Feedback generation
 
@@ -72,5 +72,5 @@ Invariants:
 
 ## Open items
 
-- Supabase MCP is connected in this workspace. It's noted for Prompt 7 (persistence), and no schema has been created yet.
+- Persistence runs on the Supabase project `bandcraft` (eu-central-1); the schema is in `supabase/migrations/`. Every scored Script is saved with its full `/score/final` result and one row per Criterion Band. The Gold Set is mirrored in `gold_scripts`, but the `calibrate` workflow still reads the fixtures.
 - A Reference Script dataset is still to be sourced. Calibration (stage 4) and any evaluation of the Margin of Error depend on it.

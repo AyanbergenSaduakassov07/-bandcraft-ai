@@ -92,6 +92,7 @@ _Avoid_: Citation, highlight, reference
 
 - All language-model calls go through the Gemini API on the free tier. See [ADR-0001](docs/adr/0001-gemini-free-tier-only.md).
 - All fine-tuning runs on Kaggle. Nothing is trained locally. See [ADR-0002](docs/adr/0002-fine-tuning-on-kaggle-only.md).
+- Accounts are for adults only (18+), enforced in the database, because the Gemini API terms bar under-18s. See [ADR-0004](docs/adr/0004-adults-only-because-of-gemini-terms.md).
 
 <!--
 Ponytail (inspected 2026-09-28, v4.10.0). It isn't a connected MCP server in this
