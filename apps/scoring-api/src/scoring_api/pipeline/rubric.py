@@ -92,11 +92,17 @@ def _to_score(judgement: _Judgement, script: str) -> CriterionScore:
     )
 
 
-async def _call(client: genai.Client, model: str, contents: str) -> _RubricJudgement:
+async def _call(
+    client: genai.Client,
+    model: str,
+    contents: str,
+    schema: type[BaseModel] = _RubricJudgement,
+) -> _RubricJudgement:
+    """One Gemini judgement. `schema` lets the order-bias eval reorder the output fields."""
     config = types.GenerateContentConfig(
         system_instruction=SYSTEM_PROMPT,
         response_mime_type="application/json",
-        response_schema=_RubricJudgement,
+        response_schema=schema,
         max_output_tokens=MAX_OUTPUT_TOKENS,
     )
     response = await asyncio.wait_for(
@@ -105,6 +111,8 @@ async def _call(client: genai.Client, model: str, contents: str) -> _RubricJudge
     )
     if isinstance(response.parsed, _RubricJudgement):
         return response.parsed
+    if isinstance(response.parsed, BaseModel):
+        return _RubricJudgement.model_validate(response.parsed.model_dump())
     return _RubricJudgement.model_validate_json(response.text or "")
 
 
