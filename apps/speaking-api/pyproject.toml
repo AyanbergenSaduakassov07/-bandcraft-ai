@@ -47,3 +47,9 @@ strict = true
 [[tool.mypy.overrides]]
 module = ["sklearn.*", "pyarrow.*", "pipecat.*", "soundfile.*", "huggingface_hub.*"]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# pipecat's event_handler decorator and recorder methods are untyped.
+module = ["speaking_api.bot"]
+disallow_untyped_decorators = false
+disallow_untyped_calls = false

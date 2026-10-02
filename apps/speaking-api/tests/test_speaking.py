@@ -112,7 +112,8 @@ def test_assess_part_blends_both_paths_and_adds_phone_evidence(
 
 class FakeRecorder:
     def __init__(self, session: Session) -> None:
-        self.session, self.log = session, []  # type: list[str]
+        self.session = session
+        self.log: list[str] = []
 
     async def start_recording(self) -> None:
         self.log.append("start")

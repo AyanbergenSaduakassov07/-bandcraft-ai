@@ -113,7 +113,10 @@ async def _call(
     text = SCORING_USER.format(
         part_label=PART_LABEL[part], questions="\n".join(f"- {q}" for q in questions)
     )
-    contents = [types.Part.from_bytes(data=wav, mime_type="audio/wav"), text]
+    contents: list[str | types.Part] = [
+        types.Part.from_bytes(data=wav, mime_type="audio/wav"),
+        text,
+    ]
     response = await asyncio.wait_for(
         client.aio.models.generate_content(model=model, contents=contents, config=config),
         timeout=TIMEOUT_S,

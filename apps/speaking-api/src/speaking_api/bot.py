@@ -6,6 +6,7 @@ local VAD or turn analyzer (ADR-0005). The recorder taps the candidate's audio f
 
 import logging
 import os
+from typing import Any, cast
 
 from pipecat.flows import FlowManager
 from pipecat.pipeline.pipeline import Pipeline
@@ -64,7 +65,11 @@ async def run_session(connection: SmallWebRTCConnection, session: Session) -> No
     )
     runner = WorkerRunner(handle_sigint=False)
     await runner.add_workers(worker)
-    flow = FlowManager(worker=worker, llm=llm, context_aggregator=aggregators, transport=transport)
+    # Flows types `llm` as LLMService[BaseLLMAdapter]; Gemini Live's adapter is a subclass, which
+    # mypy's invariant generics reject. The runtime contract is the same.
+    flow = FlowManager(
+        worker=worker, llm=cast(Any, llm), context_aggregator=aggregators, transport=transport
+    )
     flow.state["session"] = session
     session.recorder = recorder
 

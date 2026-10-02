@@ -9,7 +9,7 @@ import logging
 import random
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Protocol
 
 from pipecat.flows import FlowManager, NodeConfig
 
@@ -22,7 +22,7 @@ PREPARATION_S = 60
 Assessor = Callable[[bytes, int, Part, list[str]], Awaitable[PartResult]]
 
 
-class Recorder:
+class Recorder(Protocol):
     """What the session needs from pipecat's AudioBufferProcessor."""
 
     async def start_recording(self) -> None: ...
