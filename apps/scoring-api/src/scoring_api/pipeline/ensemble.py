@@ -38,6 +38,7 @@ FEATURE_COLUMNS = [
     "spelling_error_count",
     "grammar_issue_count",
     "errors_per_100_words",
+    "collocation_issue_count",
 ]
 TASK_TYPES: list[TaskType] = ["task1_academic", "task1_general", "task2"]
 DISAGREEMENT_TRIGGER = 1.0  # bands between ensemble and raw Gemini before a second Gemini pass

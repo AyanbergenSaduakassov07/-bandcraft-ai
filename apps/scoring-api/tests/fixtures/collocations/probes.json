@@ -1,0 +1,121 @@
+{
+  "about": "Tuning and evaluation probes for the collocation Feature (training/collocations.py tune). Each pair has a common learner miscollocation and its usual form, in otherwise identical sentences. Written for BandCraft AI on 2026-10-02 from well-known learner error types. Used only to choose thresholds and report recall; the check itself flags pairings from corpus counts, never from this list.",
+  "probes": [
+    {
+      "wrong": "Many students do a mistake when they rush the exam.",
+      "right": "Many students make a mistake when they rush the exam."
+    },
+    {
+      "wrong": "Children should make their homework before dinner.",
+      "right": "Children should do their homework before dinner."
+    },
+    {
+      "wrong": "Young people sometimes make a crime because they are bored.",
+      "right": "Young people sometimes commit a crime because they are bored."
+    },
+    {
+      "wrong": "We had to cancel the match because of the strong rain.",
+      "right": "We had to cancel the match because of the heavy rain."
+    },
+    {
+      "wrong": "A phone in the classroom can give a distraction to everyone.",
+      "right": "A phone in the classroom can cause a distraction to everyone."
+    },
+    {
+      "wrong": "The government must do a decision about the new airport.",
+      "right": "The government must make a decision about the new airport."
+    },
+    {
+      "wrong": "Most countries have done progress in reducing poverty.",
+      "right": "Most countries have made progress in reducing poverty."
+    },
+    {
+      "wrong": "Scientists make research on climate every year.",
+      "right": "Scientists do research on climate every year."
+    },
+    {
+      "wrong": "Floods can make damage to houses and roads.",
+      "right": "Floods can cause damage to houses and roads."
+    },
+    {
+      "wrong": "People complain about the expensive price of housing in cities.",
+      "right": "People complain about the high price of housing in cities."
+    },
+    {
+      "wrong": "Patients should eat their medicine at the same time each day.",
+      "right": "Patients should take their medicine at the same time each day."
+    },
+    {
+      "wrong": "Every learner has to do an effort to improve.",
+      "right": "Every learner has to make an effort to improve."
+    },
+    {
+      "wrong": "Politicians rarely say the truth about taxes.",
+      "right": "Politicians rarely tell the truth about taxes."
+    },
+    {
+      "wrong": "The neighbours do a noise late at night.",
+      "right": "The neighbours make a noise late at night."
+    },
+    {
+      "wrong": "Teachers should say advice to students about careers.",
+      "right": "Teachers should give advice to students about careers."
+    },
+    {
+      "wrong": "He took a cold after walking home in the rain.",
+      "right": "He caught a cold after walking home in the rain."
+    },
+    {
+      "wrong": "She has been my near friend since school.",
+      "right": "She has been my close friend since school."
+    },
+    {
+      "wrong": "Quick food is cheap but unhealthy.",
+      "right": "Fast food is cheap but unhealthy."
+    },
+    {
+      "wrong": "Big traffic in the morning makes people late for work.",
+      "right": "Heavy traffic in the morning makes people late for work."
+    },
+    {
+      "wrong": "Education has a big importance for the economy.",
+      "right": "Education has a great importance for the economy."
+    },
+    {
+      "wrong": "He drinks powerful coffee every morning.",
+      "right": "He drinks strong coffee every morning."
+    },
+    {
+      "wrong": "Older people should make exercise every day.",
+      "right": "Older people should do exercise every day."
+    },
+    {
+      "wrong": "Small shops cannot do a profit in the city centre.",
+      "right": "Small shops cannot make a profit in the city centre."
+    },
+    {
+      "wrong": "Companies should earn experience in foreign markets before expanding.",
+      "right": "Companies should gain experience in foreign markets before expanding."
+    },
+    {
+      "wrong": "Drivers who destroy the law should lose their licence.",
+      "right": "Drivers who break the law should lose their licence."
+    },
+    {
+      "wrong": "Tourists often make photos of the old town.",
+      "right": "Tourists often take photos of the old town."
+    },
+    {
+      "wrong": "The company had to pay a big attention to safety.",
+      "right": "The company had to pay close attention to safety."
+    },
+    {
+      "wrong": "Parents should hold their promises to their children.",
+      "right": "Parents should keep their promises to their children."
+    },
+    {
+      "wrong": "Governments must rise awareness of the risks of smoking.",
+      "right": "Governments must raise awareness of the risks of smoking."
+    }
+  ]
+}

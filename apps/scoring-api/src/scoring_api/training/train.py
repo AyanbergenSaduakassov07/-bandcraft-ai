@@ -21,6 +21,7 @@ from typing import Any
 import numpy as np
 
 from scoring_api.pipeline.calibration import make_calibrator
+from scoring_api.pipeline.draft import normalise
 from scoring_api.pipeline.ensemble import (
     Bundle,
     Ridge,
@@ -30,8 +31,9 @@ from scoring_api.pipeline.ensemble import (
     fit_lgb,
     predict_paths,
 )
+from scoring_api.pipeline.features import extract_features
 from scoring_api.pipeline.rubric import overall_band
-from scoring_api.schemas import CRITERIA, Criterion, DraftResponse, FeatureVector, TaskType
+from scoring_api.schemas import CRITERIA, Criterion, FeatureVector, RubricResult, TaskType
 
 log = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parents[3]
@@ -71,13 +73,15 @@ def load_rows(gold_dir: Path, raw_dir: Path) -> list[Row]:
     for raw_path in sorted(raw_dir.glob("*.json")):
         raw = json.loads(raw_path.read_text())
         gold = json.loads((gold_dir / f"{raw['id']}.json").read_text())
-        runs = [DraftResponse.model_validate(r) for r in raw["runs"]]
+        runs = [RubricResult.model_validate(r["rubric"]) for r in raw["runs"]]
         rows.append(
             Row(
                 id=raw["id"],
                 task_type=gold["task_type"],
-                features=runs[0].features,
-                gemini_runs=[{c: float(r.rubric.criteria[c].band) for c in CRITERIA} for r in runs],
+                # Recomputed, not read from the recording: Features are deterministic and
+                # recordings go stale whenever features.py gains a Feature.
+                features=extract_features(normalise(gold["script"]), gold["task_type"]),
+                gemini_runs=[{c: float(r.criteria[c].band) for c in CRITERIA} for r in runs],
                 gold={c: float(gold["gold"]["criteria"][c]) for c in CRITERIA},
                 gold_overall=float(gold["gold"]["overall"]),
             )
@@ -231,7 +235,7 @@ def main() -> None:
             r.model
             for p in args.raw.glob("*.json")
             for r in (
-                DraftResponse.model_validate(x).rubric for x in json.loads(p.read_text())["runs"]
+                RubricResult.model_validate(x["rubric"]) for x in json.loads(p.read_text())["runs"]
             )
         }
     )

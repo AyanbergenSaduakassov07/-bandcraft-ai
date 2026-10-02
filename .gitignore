@@ -22,3 +22,5 @@ apps/scoring-api/reports/
 .claude/
 .obsidian/
 skills-lock.json
+# supabase CLI local state
+supabase/.temp/

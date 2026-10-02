@@ -16,12 +16,32 @@ from scoring_api.schemas import (
     CRITERIA,
     Criterion,
     DraftRequest,
+    DraftResponse,
+    EvidenceSpan,
     FinalCriterion,
     FinalResponse,
     OverallBand,
     PathValues,
     RubricResult,
 )
+
+
+def feature_evidence(draft: DraftResponse, c: Criterion) -> list[EvidenceSpan]:
+    """Deterministic findings quoted like Gemini's evidence. Collocations are Lexical Resource."""
+    if c != "lexical_resource":
+        return []
+    return [
+        EvidenceSpan(
+            quote=i.text,
+            observation=i.suggestion or "Unusual word pairing.",
+            start=i.start,
+            end=i.end,
+            verified=True,
+            source="features",
+        )
+        for i in draft.features.issues
+        if i.rule.startswith("collocation_")
+    ]
 
 
 def _bands(rubric: RubricResult) -> dict[Criterion, float]:
@@ -55,7 +75,7 @@ async def final_score(
                 deterministic=round(paths[c].deterministic, 2),
                 ensemble=round(paths[c].ensemble, 2),
             ),
-            evidence=[e for r in runs for e in r.criteria[c].evidence],
+            evidence=[e for r in runs for e in r.criteria[c].evidence] + feature_evidence(first, c),
         )
         for c in CRITERIA
     }
