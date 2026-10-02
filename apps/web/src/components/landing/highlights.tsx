@@ -7,7 +7,6 @@ import { prefersMotion } from "@/lib/motion";
 const SLIDES = [
   { kicker: "Four criteria", title: "Find the one criterion holding your band back.", art: "TR · CC · LR · GRA" },
   { kicker: "Evidence first", title: "Every score points to the sentences behind it.", art: "“ … ”" },
-  { kicker: "Honest margins", title: "No inflated numbers. Just your band and its range.", art: "6.5 ± 0.5" },
   { kicker: "Every task", title: "Charts, letters and essays, Task 1 and Task 2.", art: "1A · 1G · 2" },
 ];
 const SLIDE_MS = 5000;

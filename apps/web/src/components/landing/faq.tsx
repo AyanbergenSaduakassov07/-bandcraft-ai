@@ -1,11 +1,10 @@
 
 
 const FAQ = [
-  ["Is this my official IELTS score?", "No, and anyone who promises that is guessing. BandCraft AI gives you an estimate against the public band descriptors, with a margin of error that tells you how far the real result might be."],
-  ["What does 6.5 ± 0.5 actually mean?", "Expect somewhere from 6.0 to 7.0 on the day. When your essay gives strong evidence, the range is tight. When it doesn't, the range widens, and we say so instead of pretending."],
+  ["Is this my official IELTS score?", "No, and anyone who promises that is guessing. BandCraft AI gives you an estimate against the public band descriptors, and shows the evidence behind it so you can judge it yourself."],
   ["Can it help me get from 6.5 to 7?", "It shows which of the four criteria is holding your overall band down and quotes the sentences behind it, so you know exactly what to fix first. The practice is still yours."],
   ["Which tasks can I submit?", "Task 1 Academic (charts, tables, maps and processes), Task 1 General Training (letters), and Task 2 essays. For Task 1 Academic, paste the data you were given so we can check your figures."],
-  ["How is this different from other IELTS checkers?", "Other checkers give you a number. We show our working: the evidence for every band, checked against your actual text, and an honest range instead of false precision."],
+  ["How is this different from other IELTS checkers?", "Other checkers give you a number. We show our working: the evidence for every band, checked against your actual text."],
   ["How accurate is it?", "We only publish accuracy measured against our labelled essay set, with the date and the model used. Until examiner-marked essays are added, you won't see a headline percentage from us."],
   ["What happens to my essay?", "It is sent to Google's Gemini model to be scored. Leave out anything personal you wouldn't want processed."],
 ];

@@ -1,6 +1,6 @@
 # apps/scoring-api
 
-The scoring service. It takes an IELTS Writing response and returns bands for the four criteria, the evidence behind each band, and a margin of error.
+The scoring service. It takes an IELTS Writing response and returns bands for the four criteria, and the evidence behind each band.
 
 ```bash
 uv sync --group train
@@ -20,7 +20,7 @@ src/scoring_api/
 │   ├── rubric.py           Stage 3: Gemini scores each criterion, quoting evidence first
 │   ├── prompts.py          The exact instructions sent to Gemini
 │   ├── calibration.py      Stage 4: corrects Gemini's scale using the Gold Set
-│   ├── ensemble.py         Stage 5: combines four estimates, decides the margin of error
+│   ├── ensemble.py         Stage 5: combines four estimates into the final band
 │   └── final.py            Stages 4-5 behind POST /score/final
 └── training/               Offline jobs, not part of the running API
     ├── record_gold.py      Records real Gemini runs for the Gold Set
@@ -38,6 +38,6 @@ artifacts/calibration/      Trained models, one folder per version (written by t
 ## How a score is made
 
 1. **Draft** (`/score/draft`): features and a raw Gemini band for each criterion, with quoted evidence.
-2. **Final** (`/score/final`): calibrate, then compare four estimates per criterion (raw, calibrated, features-only, ensemble). A disagreement of more than one band triggers a second Gemini pass. The spread of the estimates becomes the margin of error.
+2. **Final** (`/score/final`): calibrate, then compare four estimates per criterion (raw, calibrated, features-only, ensemble). A disagreement of more than one band triggers a second Gemini pass.
 
 Training runs in GitHub Actions (Actions → calibrate). Details in `docs/adr/0003-small-cpu-fits-in-github-actions.md` and `docs/benchmarks/`.

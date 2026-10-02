@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { HAS_DEMO, PRIMARY_CTA } from "@/lib/cta";
+import Link from "next/link";
+import { APP_CTA, HAS_DEMO } from "@/lib/cta";
 import { Logo } from "@/components/brand/logo";
 
 const LINKS = [
@@ -42,9 +43,14 @@ export function Nav() {
             </li>
           ))}
         </ul>
-        <a href={PRIMARY_CTA.href} className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-[filter] duration-150 hover:brightness-110">
-          {PRIMARY_CTA.short}
-        </a>
+        <div className="flex items-center gap-1 sm:gap-2">
+          <Link href="/login" className="rounded-full px-3 py-2.5 text-sm font-semibold whitespace-nowrap text-foreground transition-colors duration-150 hover:bg-muted sm:px-4">
+            Sign in
+          </Link>
+          <Link href={APP_CTA.href} className="rounded-full bg-primary px-4 py-2.5 text-sm font-semibold whitespace-nowrap text-primary-foreground transition-[filter] duration-150 hover:brightness-110 sm:px-5">
+            {APP_CTA.short}
+          </Link>
+        </div>
       </nav>
     </div>
   );

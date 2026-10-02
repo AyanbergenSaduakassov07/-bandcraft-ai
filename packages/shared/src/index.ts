@@ -25,14 +25,12 @@ export const BAND_MAX = 9;
 /** Task 2 carries twice the weight of Task 1 when both are combined into one Writing band. */
 export const TASK2_WEIGHT = 2;
 
-/** A band plus its explicit margin of error: the true band lies in [band - margin, band + margin]. */
-export interface BandEstimate {
+export interface Band {
   band: number;
-  margin: number;
 }
 
 export interface ScoreResult {
   taskType: TaskType;
-  overall: BandEstimate;
-  criteria: Record<Criterion, BandEstimate>;
+  overall: Band;
+  criteria: Record<Criterion, Band>;
 }

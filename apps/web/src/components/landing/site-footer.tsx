@@ -14,8 +14,9 @@ export function SiteFooter() {
     <footer className="bg-muted px-4 pt-6 pb-8 text-xs leading-relaxed text-muted-foreground">
       <div className="mx-auto max-w-6xl">
         <div className="space-y-3 border-b border-border pb-5">
-          <p>1. Bands are estimates from an automated system and can differ from an official IELTS result. The margin shows how far they may differ.</p>
+          <p>1. Bands are estimates from an automated system and can differ from an official IELTS result.</p>
           <p>2. IELTS is a registered trademark of its owners. BandCraft AI is independent and not affiliated with them.</p>
+          <p>3. BandCraft AI is for adults aged 18 and over.</p>
         </div>
         <div className="grid grid-cols-2 gap-8 py-6 sm:grid-cols-3">
           {DIRECTORY.map(([title, links]) => (

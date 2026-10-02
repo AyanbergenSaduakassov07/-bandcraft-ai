@@ -2,7 +2,7 @@
 
 ## The mark
 
-A lowercase **b** whose bowl is a **score dial**. The ring is the band scale, and the short cyan arc is the **margin of error**, centred on the reading. That is the whole product in one glyph: a band, and how sure we are.
+A lowercase **b** whose bowl is a **score dial**. The ring is the band scale, and the short cyan arc is an accent centred on the reading. That is the whole product in one glyph: a band on the scale.
 
 Source: `apps/web/src/components/brand/logo.tsx` (`LogoMark`, `LogoTile`, `Logo`).
 
@@ -12,7 +12,7 @@ Source: `apps/web/src/components/brand/logo.tsx` (`LogoMark`, `LogoTile`, `Logo`
 |---|---|
 | Stem | rect x 10, y 6, 6.5 × 36, fully rounded ends (r 3.25) |
 | Bowl | circle centre (27, 30), r 10.2, stroke 6.5; overlaps the stem so the b reads as one stroke |
-| Margin arc | same ring, from −78° to −22° (centred on 1:30), stroke 6.5, round caps, `#29B6F6` |
+| Accent arc | same ring, from −78° to −22° (centred on 1:30), stroke 6.5, round caps, `#29B6F6` |
 | Tile | `#1565C0` square, corner radius 28% of its size, mark at 72% of the tile |
 
 ## Lockups
@@ -46,7 +46,7 @@ The product name in running text stays "BandCraft AI". The wordmark is the logo,
 
 ## In the interface
 
-`BandGauge` (`components/score/band-gauge.tsx`) is the mark's dial used as data: a 0–9 ring filled to the band in blue, with a cyan arc spanning band ± margin. It appears in the score card, the "Honest margins" feature, the 3D certificate and `/design`. When the logo and the core data visual share one shape, the brand is the product.
+`BandGauge` (`components/score/band-gauge.tsx`) is the mark's dial used as data: a 0–9 ring filled to the band in blue. It appears in the score card, the results page, the landing features, the 3D certificate and `/design`. When the logo and the core data visual share one shape, the brand is the product.
 
 ## Social
 

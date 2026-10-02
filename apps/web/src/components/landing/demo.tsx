@@ -4,8 +4,9 @@ import { useMemo, useState } from "react";
 import { CRITERION_LABELS, type Criterion } from "@bandcraft/shared";
 import { cn } from "@/lib/utils";
 import results from "@/content/demo-results.json";
+import { DOT, TINT } from "@/components/score/criterion-hues";
+import { segments, spans, type Evidence } from "@/lib/evidence";
 
-type Evidence = { quote: string; observation: string; start: number | null; end: number | null; verified: boolean };
 type Essay = {
   id: string;
   prompt: string;
@@ -16,42 +17,13 @@ type Essay = {
 };
 
 const TABS = ["Weaker essay", "Middle essay", "Stronger essay"];
-const TINT: Record<Criterion, string> = {
-  task_achievement_response: "bg-sky-100 decoration-sky-500",
-  coherence_cohesion: "bg-amber-100 decoration-amber-500",
-  lexical_resource: "bg-emerald-100 decoration-emerald-500",
-  grammatical_range_accuracy: "bg-violet-100 decoration-violet-500",
-};
-const DOT: Record<Criterion, string> = {
-  task_achievement_response: "bg-sky-500",
-  coherence_cohesion: "bg-amber-500",
-  lexical_resource: "bg-emerald-500",
-  grammatical_range_accuracy: "bg-violet-500",
-};
-
-/** Split the script into plain and highlighted runs from verified evidence offsets (first span wins on overlap). */
-function segments(essay: Essay) {
-  const spans = (Object.entries(essay.criteria) as [Criterion, Essay["criteria"][Criterion]][])
-    .flatMap(([c, s]) => s.evidence.filter((e) => e.verified && e.start !== null && e.end !== null).map((e) => ({ c, ...e, start: e.start!, end: e.end! })))
-    .sort((a, b) => a.start - b.start);
-  const out: { text: string; span?: (typeof spans)[number] }[] = [];
-  let pos = 0;
-  for (const s of spans) {
-    if (s.start < pos) continue;
-    if (s.start > pos) out.push({ text: essay.script.slice(pos, s.start) });
-    out.push({ text: essay.script.slice(s.start, s.end), span: s });
-    pos = s.end;
-  }
-  out.push({ text: essay.script.slice(pos) });
-  return out;
-}
 
 /** Speak-style product card, fed by real engine output recorded from the draft stage. */
 export function Demo() {
   const essays = results.essays as unknown as Essay[];
   const [tab, setTab] = useState(Math.min(1, essays.length - 1));
   const essay = essays[tab];
-  const parts = useMemo(() => (essay ? segments(essay) : []), [essay]);
+  const parts = useMemo(() => (essay ? segments(essay.script, spans(essay.script, essay.criteria)) : []), [essay]);
   if (!essay) return null; // no recorded output yet: show nothing rather than placeholder scores
 
   return (
@@ -114,7 +86,7 @@ export function Demo() {
             </ul>
             <p className="mt-8 border-t border-border pt-4 text-xs leading-relaxed text-muted-foreground">
               Real output from our scoring engine ({essay.model}), recorded {results.recorded}. This is the draft stage: bands are raw and
-              uncalibrated, so their margins aren’t shown yet. Highlights are the model’s quoted evidence, each checked against the essay.
+              uncalibrated. Highlights are the model’s quoted evidence, each checked against the essay.
             </p>
           </div>
         </div>

@@ -17,13 +17,13 @@ permissions:
 
 jobs:
   fit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: apps/scoring-api
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v6
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0  # no floating major tags since v8; bump explicitly
       - run: uv sync --locked --group train
       - name: Fit, cross-validate and write the benchmark report
         run: uv run --group train python -m scoring_api.training.train --calibrator "${{ inputs.calibrator }}"

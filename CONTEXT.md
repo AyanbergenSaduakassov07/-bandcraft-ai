@@ -1,6 +1,6 @@
 # BandCraft AI
 
-BandCraft AI scores IELTS Writing responses and explains the score. Each score comes as a band with an explicit margin of error, so a learner knows how much to trust it. BandCraft AI is a standalone product and is not affiliated with IELTS, the British Council, IDP or Cambridge.
+BandCraft AI scores IELTS Writing responses and explains the score. Each band comes with the quoted evidence behind it, so a learner can check it. BandCraft AI is a standalone product and is not affiliated with IELTS, the British Council, IDP or Cambridge.
 
 ## Language
 
@@ -42,14 +42,6 @@ _Avoid_: Final score, total, grade
 
 ### The output contract
 
-**Band Estimate**:
-A band together with its Margin of Error. Every band BandCraft AI shows, whether a Criterion Band or an Overall Band, is a Band Estimate. A bare band is never shown on its own.
-_Avoid_: Score, prediction, result
-
-**Margin of Error**:
-The half-width of the interval the true examiner band is expected to fall in, e.g. 6.5 ± 0.5. It widens when the evidence is weak or scoring runs disagree.
-_Avoid_: Confidence, uncertainty (as a number), error bar
-
 **Feedback**:
 Guidance tied to a specific Criterion and to specific passages of a Script, explaining the Criterion Band and what would raise it.
 _Avoid_: Comments, suggestions, review
@@ -65,7 +57,7 @@ One independent pass of the language model assigning Criterion Bands to a Script
 _Avoid_: Sample, call, inference, attempt
 
 **Scoring Path**:
-One independent estimate of a Criterion Band: raw Gemini, calibrated Gemini, the Features-only model, or the ensemble. The Margin of Error comes from how far the paths disagree on a given Script.
+One independent estimate of a Criterion Band: raw Gemini, calibrated Gemini, the Features-only model, or the ensemble.
 _Avoid_: Model, predictor, signal
 
 **Second Pass**:
@@ -92,6 +84,7 @@ _Avoid_: Citation, highlight, reference
 
 - All language-model calls go through the Gemini API on the free tier. See [ADR-0001](docs/adr/0001-gemini-free-tier-only.md).
 - All fine-tuning runs on Kaggle. Nothing is trained locally. See [ADR-0002](docs/adr/0002-fine-tuning-on-kaggle-only.md).
+- Accounts are for adults only (18+), enforced in the database, because the Gemini API terms bar under-18s. See [ADR-0004](docs/adr/0004-adults-only-because-of-gemini-terms.md).
 
 <!--
 Ponytail (inspected 2026-09-28, v4.10.0). It isn't a connected MCP server in this

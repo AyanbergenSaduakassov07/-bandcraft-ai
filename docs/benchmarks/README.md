@@ -10,7 +10,6 @@ Each `YYYYMMDD-<run id>.md` report here is written by the `calibrate` workflow (
   - overall-band MAE
   - share within ±0.5 band
   - bias
-  - **margin coverage**: how often the gold band falls inside our predicted ± interval. This is the check that the margin isn't decorative.
 
 ## Reference points
 

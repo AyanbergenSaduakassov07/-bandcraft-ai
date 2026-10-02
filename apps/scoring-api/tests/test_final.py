@@ -1,4 +1,4 @@
-"""Stages 4-5: calibration, ensemble, margin, second pass, /score/final.
+"""Stages 4-5: calibration, ensemble, second pass, /score/final.
 
 Gemini bands here are TOY values (gold ± a fixed pattern) to exercise the code paths.
 They are never used for accuracy claims; real runs live in tests/fixtures/gold-raw and are
@@ -20,7 +20,7 @@ from scoring_api.pipeline.calibration import (
     calibrator_from_dict,
 )
 from scoring_api.pipeline.draft import normalise
-from scoring_api.pipeline.ensemble import Bundle, Paths, margin, needs_second_pass, overall_margin
+from scoring_api.pipeline.ensemble import Bundle, Paths, needs_second_pass
 from scoring_api.pipeline.features import extract_features
 from scoring_api.pipeline.final import final_score
 from scoring_api.schemas import CRITERIA, CriterionScore, DraftRequest, RubricResult, TaskType
@@ -60,7 +60,7 @@ def toy_rows() -> tuple[Row, ...]:
 
 @cache
 def toy_bundle() -> Bundle:
-    return fit_models(list(toy_rows()), "isotonic", dict.fromkeys(CRITERIA, 0.4), "test")
+    return fit_models(list(toy_rows()), "isotonic", "test")
 
 
 def test_isotonic_corrects_scale_and_round_trips() -> None:
@@ -74,16 +74,6 @@ def test_isotonic_corrects_scale_and_round_trips() -> None:
 def test_linear_handles_constant_raw_band() -> None:
     cal = LinearCalibrator().fit([7, 7, 7], [6, 6, 7])
     assert cal.predict([7])[0] == pytest.approx(6.333, abs=0.01)
-
-
-def test_margin_grows_with_disagreement_and_residual() -> None:
-    agree = Paths(gemini=[6.0], calibrated=6.0, deterministic=6.0, ensemble=6.0)
-    split = Paths(gemini=[8.0], calibrated=6.0, deterministic=5.0, ensemble=6.5)
-    assert margin(agree, 0.0) == 0.5  # floor: never a false ±0
-    assert margin(split, 0.0) == 1.5  # spread 3 -> half-width 1.5
-    assert margin(split, 1.0) > margin(split, 0.0)
-    assert margin(Paths([0.0], 9.0, 0.0, 9.0), 2.0) == 3.0  # capped
-    assert overall_margin([0.5, 0.5, 1.0, 1.5]) == 1.0
 
 
 def test_second_pass_trigger_threshold() -> None:
@@ -125,8 +115,8 @@ def test_final_score_runs_second_pass_on_big_disagreement() -> None:
     result = asyncio.run(final_score(_req(), _stub_scorer(9, calls), toy_bundle()))
     assert result.second_pass and len(calls) == 2
     assert all(len(result.criteria[c].paths.gemini) == 2 for c in CRITERIA)
-    assert all(result.criteria[c].margin >= 0.5 for c in CRITERIA)
-    assert 0 <= result.overall.band <= 9 and result.overall.margin >= 0.5
+    assert 0 <= result.overall.band <= 9
+    assert "margin" not in result.model_dump()["overall"]
 
 
 def test_score_final_endpoint_and_missing_calibration(
@@ -143,6 +133,7 @@ def test_score_final_endpoint_and_missing_calibration(
     assert ok.status_code == 200
     data = ok.json()
     assert set(data["criteria"]) == set(CRITERIA) and data["calibration_version"] == "test"
+    assert data["script"] == normalise(body["script"])  # evidence offsets index into this
 
     monkeypatch.setattr(main, "ARTIFACTS", tmp_path)
     monkeypatch.delenv("CALIBRATION_DIR", raising=False)
@@ -161,7 +152,7 @@ def test_leave_one_out_benchmark_and_report() -> None:
     loo = leave_one_out(rows, "isotonic")
     result = benchmark(loo, residuals(loo))
     assert result["n"] == len(rows)
-    assert 0 <= result["final"]["within_half"] <= 1 and 0 <= result["margin"]["coverage"] <= 1
+    assert 0 <= result["final"]["within_half"] <= 1
     report = render_report(result, "test", "isotonic", ["toy"])
     assert "Read this first" in report
     assert "tolmachf/tolmachv1.0" in report and "UpScore.ai" in report

@@ -1,9 +1,8 @@
-"""Stage 5: ensemble, cross-check and margin of error.
+"""Stage 5: ensemble and cross-check.
 
 Four paths per criterion: raw Gemini, calibrated Gemini (stage 4), a deterministic ridge model over
 Features only, and a LightGBM ensemble over Features + all four Gemini bands. The final band blends
-calibrated and ensemble; the margin comes from how much the paths disagree on this essay, combined
-with the model's own cross-validated error.
+calibrated and ensemble. The paths are returned too, so a band is never a black box.
 """
 
 import json
@@ -38,7 +37,6 @@ FEATURE_COLUMNS = [
 ]
 TASK_TYPES: list[TaskType] = ["task1_academic", "task1_general", "task2"]
 DISAGREEMENT_TRIGGER = 1.0  # bands between ensemble and raw Gemini before a second Gemini pass
-MIN_MARGIN, MAX_MARGIN = 0.5, 3.0
 
 LGB_PARAMS: dict[str, Any] = {
     "objective": "regression_l1",
@@ -105,7 +103,6 @@ class Bundle:
     calibrators: dict[Criterion, Calibrator]
     deterministic: dict[Criterion, Ridge]
     ensemble: dict[Criterion, lgb.Booster]
-    residual: dict[Criterion, float]  # cross-validated MAE of the final predictor, per criterion
     meta: dict[str, Any] = field(default_factory=dict)
 
     def save(self, directory: Path) -> None:
@@ -114,7 +111,6 @@ class Bundle:
             "version": self.version,
             "calibrators": {c: self.calibrators[c].to_dict() for c in CRITERIA},
             "deterministic": {c: vars(self.deterministic[c]) for c in CRITERIA},
-            "residual": self.residual,
             "meta": self.meta,
         }
         (directory / "bundle.json").write_text(json.dumps(payload, indent=2) + "\n")
@@ -132,7 +128,6 @@ class Bundle:
                 c: lgb.Booster(model_str=(directory / f"ensemble-{c}.txt").read_text())
                 for c in CRITERIA
             },
-            residual=data["residual"],
             meta=data.get("meta", {}),
         )
 
@@ -163,7 +158,8 @@ def predict_paths(
             gemini=[run[c] for run in gemini_runs],
             calibrated=float(bundle.calibrators[c].predict([gemini_mean[c]])[0]),
             deterministic=float(bundle.deterministic[c].predict(x_det)[0]),
-            ensemble=float(np.clip(bundle.ensemble[c].predict(x_ens)[0], 0.0, 9.0)),
+            # One row: OpenMP across every core only adds contention under concurrent requests.
+            ensemble=float(np.clip(bundle.ensemble[c].predict(x_ens, num_threads=1)[0], 0.0, 9.0)),
         )
         for c in CRITERIA
     }
@@ -177,22 +173,3 @@ def needs_second_pass(paths: dict[Criterion, Paths]) -> bool:
 def final_band(p: Paths) -> int:
     """Criterion Bands are whole numbers: blend calibrated and ensemble, round half up."""
     return int(min(9, max(0, math.floor((p.calibrated + p.ensemble) / 2 + 0.5))))
-
-
-def margin(p: Paths, residual: float) -> float:
-    """Half-width of the interval: path disagreement on this essay plus the model's CV error.
-
-    spread/2 is how far the independent paths sit from their midpoint; residual is how wrong the
-    blend is on held-out Gold Scripts. Rounded up to the half-band grid IELTS reports in.
-    """
-    values = [*p.gemini, p.calibrated, p.deterministic, p.ensemble]
-    half_spread = (max(values) - min(values)) / 2
-    width = math.sqrt(half_spread**2 + residual**2)
-    return min(MAX_MARGIN, max(MIN_MARGIN, math.ceil(width * 2) / 2))
-
-
-def overall_margin(criterion_margins: list[float]) -> float:
-    """Overall averages four criteria with correlated errors, so don't shrink by 1/sqrt(4):
-    take the mean half-width, rounded up to the half-band grid."""
-    mean = sum(criterion_margins) / len(criterion_margins)
-    return min(MAX_MARGIN, max(MIN_MARGIN, math.ceil(mean * 2) / 2))

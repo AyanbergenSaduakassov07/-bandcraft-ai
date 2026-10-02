@@ -1,6 +1,6 @@
 # BandCraft AI
 
-IELTS Writing scoring and feedback. Every band comes with an explicit margin of error.
+IELTS Writing scoring and feedback. Every band comes with the evidence behind it.
 
 BandCraft AI scores Task 1 (Academic and General Training) and Task 2 responses on the four official IELTS Writing criteria and returns criterion-level feedback. It's an independent product, not affiliated with IELTS, the British Council, IDP or Cambridge.
 
@@ -10,7 +10,7 @@ BandCraft AI scores Task 1 (Academic and General Training) and Task 2 responses 
 
 ```
 .
-├── CONTEXT.md            Domain glossary. Start here: what a Script, Band Estimate or Margin of Error is.
+├── CONTEXT.md            Domain glossary. Start here: what a Script, Criterion Band or Scoring Path is.
 ├── SPEC.md               The 6-stage scoring pipeline and the output contract.
 ├── apps/
 │   ├── web/              The website (Next.js 15). Map: apps/web/README.md
@@ -49,7 +49,7 @@ CI runs the same on every push. There's no deploy step yet.
 ## Scoring API
 
 - `POST /score/draft`: Features plus raw Gemini Criterion Bands with evidence spans (stages 1-3).
-- `POST /score/final`: calibrated Criterion Bands, overall band, a margin of error per score, and the evidence spans (stages 4-5). It returns 503 until a calibration has been trained.
+- `POST /score/final`: calibrated Criterion Bands, overall band, and the evidence spans (stages 4-5). It returns 503 until a calibration has been trained.
 
 Calibration is fitted by the **calibrate** GitHub Actions workflow (Actions → calibrate → Run workflow). It writes `apps/scoring-api/artifacts/calibration/<version>/` and a report in `docs/benchmarks/`, then opens a PR ([ADR-0003](docs/adr/0003-small-cpu-fits-in-github-actions.md)).
 

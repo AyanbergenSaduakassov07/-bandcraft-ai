@@ -7,14 +7,12 @@ Terms are defined in [CONTEXT.md](CONTEXT.md). Constraints: Gemini API free tier
 For each Script the pipeline returns a `ScoreResult` (`packages/shared/src/index.ts`):
 
 - `taskType`: the Task Type
-- `overall`: a Band Estimate `{ band, margin }`, with `band` in half-band steps from 0 to 9
-- `criteria`: one Band Estimate per Criterion, with `band` a whole number from 0 to 9
+- `overall`: `{ band }`, in half-band steps from 0 to 9
+- `criteria`: `{ band }` per Criterion, a whole number from 0 to 9
 - Feedback for each Criterion (stage 6)
 
 Invariants:
 
-- Every band has a margin (`margin ≥ 0`), and none is ever shown without one.
-- `band - margin ≥ 0` and `band + margin ≤ 9` (clamp the interval, not the band).
 - `overall.band` follows from the four Criterion Bands under the standard IELTS derivation.
 
 ## Stages
@@ -47,7 +45,7 @@ Invariants:
 - **Out:** a calibrated value for each Criterion.
 - **Fitted:** in the `calibrate` GitHub Actions workflow ([ADR-0003](docs/adr/0003-small-cpu-fits-in-github-actions.md)). It's stored as JSON and refit as the Gold Set grows.
 
-### 5. Ensembling, cross-check and margin of error
+### 5. Ensembling and cross-check
 
 - **In:** Features and the raw Criterion Bands.
 - **Paths for each Criterion:**
@@ -57,20 +55,17 @@ Invariants:
   - an **ensemble** LightGBM model over Features plus all four Gemini bands
 - **Cross-check:** if the ensemble and raw Gemini differ by more than 1 band on any Criterion, a **second Gemini pass** runs, and both passes become paths. Disagreements are never averaged away silently.
 - **Criterion Band:** the mean of calibrated and ensemble, rounded half up to a whole band.
-- **Margin of error for each Criterion:** `sqrt((spread / 2)² + residual²)`, rounded up to the half-band grid and clamped to [0.5, 3.0].
-  - `spread` is the range across all paths on *this essay*.
-  - `residual` is the model's leave-one-out MAE for that Criterion.
-- **Overall:** the IELTS rounding of the four Criterion Bands. Its margin is the mean criterion margin, rounded up. It isn't shrunk, because criterion errors are correlated.
-- **Out:** `POST /score/final` returns each calibrated Criterion Band with its margin and paths, the overall Band Estimate, and the evidence spans from stage 3.
+- **Overall:** the IELTS rounding of the four Criterion Bands.
+- **Out:** `POST /score/final` returns each calibrated Criterion Band with its paths, the overall band, the evidence spans from stage 3, and the normalised Script their offsets index into.
 
 ### 6. Feedback generation
 
-- **In:** the Band Estimates, the evidence from each Scoring Run, and the Features.
+- **In:** the Criterion Bands, the evidence from each Scoring Run, and the Features.
 - **Does:** one Gemini call writes Feedback for each Criterion that cites specific passages of the Script and says what would raise the band by one step.
 - **Out:** the complete `ScoreResult` with Feedback.
 - **Rule:** Feedback explains the bands. It can't change them.
 
 ## Open items
 
-- Supabase MCP is connected in this workspace. It's noted for Prompt 7 (persistence), and no schema has been created yet.
-- A Reference Script dataset is still to be sourced. Calibration (stage 4) and any evaluation of the Margin of Error depend on it.
+- Persistence runs on the Supabase project `bandcraft` (eu-central-1); the schema is in `supabase/migrations/`. Every scored Script is saved with its full `/score/final` result and one row per Criterion Band. The Gold Set is mirrored in `gold_scripts`, but the `calibrate` workflow still reads the fixtures.
+- A Reference Script dataset is still to be sourced. Calibration (stage 4) depends on it.

@@ -28,8 +28,6 @@ from scoring_api.pipeline.ensemble import (
     feature_row,
     final_band,
     fit_lgb,
-    margin,
-    overall_margin,
     predict_paths,
 )
 from scoring_api.pipeline.rubric import overall_band
@@ -87,9 +85,7 @@ def load_rows(gold_dir: Path, raw_dir: Path) -> list[Row]:
     return rows
 
 
-def fit_models(
-    rows: list[Row], calibrator: str, residual: dict[Criterion, float], version: str
-) -> Bundle:
+def fit_models(rows: list[Row], calibrator: str, version: str) -> Bundle:
     x_det = np.asarray([feature_row(r.features, r.task_type) for r in rows])
     x_ens = np.asarray([ensemble_row(r.features, r.task_type, r.gemini) for r in rows])
     cals, ridges, boosters = {}, {}, {}
@@ -103,7 +99,6 @@ def fit_models(
         calibrators=cals,
         deterministic=ridges,
         ensemble=boosters,
-        residual=residual,
     )
 
 
@@ -111,9 +106,7 @@ def leave_one_out(rows: list[Row], calibrator: str) -> list[dict[str, Any]]:
     """Predict each Gold Script with models that never saw it: the only honest numbers at this n."""
     out = []
     for i, held in enumerate(rows):
-        bundle = fit_models(
-            rows[:i] + rows[i + 1 :], calibrator, dict.fromkeys(CRITERIA, 0.0), "loo"
-        )
+        bundle = fit_models(rows[:i] + rows[i + 1 :], calibrator, "loo")
         paths = predict_paths(bundle, held.features, held.task_type, held.gemini_runs)
         out.append(
             {"row": held, "paths": paths, "final": {c: final_band(paths[c]) for c in CRITERIA}}
@@ -132,16 +125,13 @@ def _within(errors: list[float]) -> float:
 
 
 def benchmark(loo: list[dict[str, Any]], resid: dict[Criterion, float]) -> dict[str, Any]:
-    raw_err, fin_err, covered, widths = [], [], [], []
+    raw_err, fin_err = [], []
     for p in loo:
         row = p["row"]
         raw_overall = overall_band([round(row.gemini[c]) for c in CRITERIA])
         fin_overall = overall_band([p["final"][c] for c in CRITERIA])
-        m = overall_margin([margin(p["paths"][c], resid[c]) for c in CRITERIA])
         raw_err.append(raw_overall - row.gold_overall)
         fin_err.append(fin_overall - row.gold_overall)
-        covered.append(abs(fin_overall - row.gold_overall) <= m)
-        widths.append(m)
     return {
         "n": len(loo),
         "raw": {
@@ -153,10 +143,6 @@ def benchmark(loo: list[dict[str, Any]], resid: dict[Criterion, float]) -> dict[
             "mae": statistics.fmean(abs(e) for e in fin_err),
             "within_half": _within(fin_err),
             "bias": statistics.fmean(fin_err),
-        },
-        "margin": {
-            "coverage": sum(covered) / len(covered),
-            "mean_half_width": statistics.fmean(widths),
         },
         "per_criterion_mae": {
             c: {
@@ -176,7 +162,7 @@ def benchmark(loo: list[dict[str, Any]], resid: dict[Criterion, float]) -> dict[
 
 
 def render_report(result: dict[str, Any], version: str, calibrator: str, models: list[str]) -> str:
-    raw, fin, mg = result["raw"], result["final"], result["margin"]
+    raw, fin = result["raw"], result["final"]
     lines = [
         f"# Benchmark {version}",
         "",
@@ -201,12 +187,6 @@ def render_report(result: dict[str, Any], version: str, calibrator: str, models:
     lines += [
         "",
         f"Bias (mean signed error): final {fin['bias']:+.2f}, raw {raw['bias']:+.2f}.",
-        "",
-        "## Margin of error",
-        "",
-        f"Mean half-width ±{mg['mean_half_width']:.2f}. The gold band fell inside the predicted "
-        f"interval for **{mg['coverage']:.1%}** of held-out essays. A well-sized margin covers "
-        "most essays, not all.",
         "",
         f"A second Gemini pass would have run on {result['second_pass_rate']:.0%} of essays "
         "(ensemble and raw Gemini more than one band apart on some criterion).",
@@ -259,7 +239,7 @@ def main() -> None:
     loo = leave_one_out(rows, args.calibrator)
     resid = residuals(loo)
     result = benchmark(loo, resid)
-    bundle = fit_models(rows, args.calibrator, resid, args.version)
+    bundle = fit_models(rows, args.calibrator, args.version)
     bundle.meta = {
         "trained_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "n": len(rows),

@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils";
 
 export const SAMPLE_RESULT: ScoreResult = {
   taskType: "task2",
-  overall: { band: 6.5, margin: 0.5 },
+  overall: { band: 6.5 },
   criteria: {
-    task_achievement_response: { band: 7, margin: 0.5 },
-    coherence_cohesion: { band: 6, margin: 0.5 },
-    lexical_resource: { band: 6, margin: 1 },
-    grammatical_range_accuracy: { band: 7, margin: 0.5 },
+    task_achievement_response: { band: 7 },
+    coherence_cohesion: { band: 6 },
+    lexical_resource: { band: 6 },
+    grammatical_range_accuracy: { band: 7 },
   },
 };
 
@@ -23,14 +23,9 @@ export function ScoreCard({ result, className }: { result: ScoreResult; classNam
     <div className={cn("w-full rounded-3xl p-6 sm:p-8", className)}>
       <p className="text-sm font-medium text-muted-foreground">Task 2 · Overall band</p>
       <div className="mt-3 flex items-center gap-4">
-        <BandGauge band={overall.band} margin={overall.margin} label={false} className="size-16 shrink-0" />
-      <p className="flex items-baseline gap-3">
-        <span data-band className="font-display text-6xl font-bold text-primary tabular-nums">
-          {overall.band.toFixed(1)}
-        </span>
-        <span data-margin data-reveal className="font-display text-2xl font-semibold text-muted-foreground">
-          ± {overall.margin.toFixed(1)}
-        </span>
+        <BandGauge band={overall.band} label={false} className="size-16 shrink-0" />
+      <p data-band className="font-display text-6xl font-bold text-primary tabular-nums">
+        {overall.band.toFixed(1)}
       </p>
       </div>
       <ul className="mt-6 space-y-3">
@@ -39,7 +34,7 @@ export function ScoreCard({ result, className }: { result: ScoreResult; classNam
             <div className="flex justify-between gap-3 text-sm">
               <span>{CRITERION_LABELS[c]}</span>
               <span className="font-semibold tabular-nums">
-                {criteria[c].band} ± {criteria[c].margin}
+                {criteria[c].band}
               </span>
             </div>
             <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-muted">

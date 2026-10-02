@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { Check, Pause, Play } from "lucide-react";
 import { CertificateScene } from "@/components/three/certificate-scene";
-import { HAS_DEMO, PRIMARY_CTA } from "@/lib/cta";
+import Link from "next/link";
+import { APP_CTA, HAS_DEMO, PRIMARY_CTA } from "@/lib/cta";
 
-const FACTS = ["Task 1 and Task 2", "All four official criteria", "An honest margin on every band"];
+const FACTS = ["Task 1 and Task 2", "All four official criteria", "The evidence behind every band"];
 
 /** YC-style split hero on white: the ask on the left, the floating Band Report on the right. */
 export function Hero() {
@@ -23,12 +24,12 @@ export function Hero() {
             Discover <span className="text-primary">the truth</span> about your IELTS Writing band.
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground sm:text-xl">
-            Get a band for each of the four official criteria, the exact sentences behind every score, and an honest margin of error. Know what to fix before exam day.
+            Get a band for each of the four official criteria and the exact sentences behind every score. Know what to fix before exam day.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a href={PRIMARY_CTA.href} className="rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_8px_24px_-8px_rgb(21_101_192/0.6)] transition-[filter,transform] duration-150 hover:brightness-110 active:scale-[0.98]">
-              {PRIMARY_CTA.label} →
-            </a>
+            <Link href={APP_CTA.href} className="rounded-full bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-[0_8px_24px_-8px_rgb(21_101_192/0.6)] transition-[filter,transform] duration-150 hover:brightness-110 active:scale-[0.98]">
+              {APP_CTA.label} →
+            </Link>
             <a href={HAS_DEMO ? "#how" : "#faq"} className="rounded-full px-5 py-3.5 text-base font-semibold text-foreground ring-1 ring-border transition-colors hover:bg-muted">
               {HAS_DEMO ? "How it works" : "Common questions"}
             </a>
