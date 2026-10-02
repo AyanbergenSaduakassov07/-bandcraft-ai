@@ -1,0 +1,35 @@
+name: template-index
+
+# Appends a fresh batch of Gemini-generated templated Task 2 essays to the pgvector template index.
+# Triggered on a schedule by n8n (automation/n8n/template-index-refresh.json) through
+# workflow_dispatch; runs on GitHub's machines, never a laptop. calibrate refits after it succeeds.
+on:
+  workflow_dispatch:
+    inputs:
+      count:
+        description: Templated essays to add
+        type: number
+        default: 60
+
+permissions:
+  contents: read
+
+concurrency: template-index
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: apps/scoring-api
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0  # no floating major tags since v8; bump explicitly
+      - run: uv sync --locked
+      - name: Generate, embed and index
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: uv run python -m scoring_api.training.template_index --count "${{ inputs.count }}"

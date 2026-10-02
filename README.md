@@ -17,11 +17,12 @@ BandCraft AI scores Task 1 (Academic and General Training) and Task 2 responses 
 │   └── scoring-api/      The scoring service (FastAPI + Gemini). Map: apps/scoring-api/README.md
 ├── packages/
 │   └── shared/           Rubric constants and the ScoreResult type, shared by both apps
+├── automation/n8n/       Scheduled n8n workflow that refreshes the template index
 ├── docs/
 │   ├── adr/              Architecture decisions: why things are the way they are
 │   ├── benchmarks/       Accuracy reports, one per calibration run
 │   └── design-system/    Brand, tokens, motion and voice (MASTER.md, brand.md)
-└── .github/workflows/    ci.yml (lint, types, tests on every push); calibrate.yml (fits models)
+└── .github/workflows/    ci.yml (lint, types, tests); calibrate.yml (fits models); template-index.yml
 ```
 
 ## Run it
@@ -50,6 +51,7 @@ CI runs the same on every push. There's no deploy step yet.
 
 - `POST /score/draft`: Features plus raw Gemini Criterion Bands with evidence spans (stages 1-3).
 - `POST /score/final`: calibrated Criterion Bands, overall band, and the evidence spans (stages 4-5). It returns 503 until a calibration has been trained.
+- `POST /originality`: the pre-submit Originality Check for Task 2 (`null` for other tasks). It returns 503 until the template index has been fitted and the API has `SUPABASE_URL` and `SUPABASE_SECRET_KEY`.
 
 Calibration is fitted by the **calibrate** GitHub Actions workflow (Actions → calibrate → Run workflow). It writes `apps/scoring-api/artifacts/calibration/<version>/` and a report in `docs/benchmarks/`, then opens a PR ([ADR-0003](docs/adr/0003-small-cpu-fits-in-github-actions.md)).
 

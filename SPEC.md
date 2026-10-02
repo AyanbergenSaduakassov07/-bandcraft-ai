@@ -58,6 +58,16 @@ Invariants:
 - **Overall:** the IELTS rounding of the four Criterion Bands.
 - **Out:** `POST /score/final` returns each calibrated Criterion Band with its paths, the overall band, the evidence spans from stage 3, and the normalised Script their offsets index into.
 
+#### Originality: the fifth path (Task 2 only)
+
+- **Runs** alongside stages 2-3, and also on its own before submission (`POST /originality`). It never feeds a band.
+- **Embedding path:** the Script and each paragraph are embedded with the Gemini embeddings API (768 dims). Each paragraph's closest passage in the **Template Index** (pgvector) gives a cosine similarity. The highest one is Platt-calibrated to a 0-1 risk.
+- **Classifier path:** a logistic regression over the Script embedding, templated vs organic, Platt-calibrated on leave-one-out scores.
+- **Blend:** the mean of the two calibrated risks, the same way the Criterion Band blends calibrated and ensemble. At 0.5 or above, the Script is **template-heavy**.
+- **Evidence:** paragraphs above the similarity where the embedding path reaches 0.5, as Evidence Spans.
+- **Out:** `originality` with the risk, both paths and the evidence. The Script embedding is stored with the saved Script.
+- **Fitted:** the `calibrate` workflow writes `originality.json` next to the stage 4-5 artifacts (ADR-0003). n8n triggers the `template-index` workflow weekly, and `calibrate` refits after it succeeds.
+
 ### 6. Feedback generation
 
 - **In:** the Criterion Bands, the evidence from each Scoring Run, and the Features.

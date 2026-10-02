@@ -7,6 +7,7 @@ dependencies = [
     "en-core-web-sm",
     "fastapi",
     "google-genai>=2.25.0",
+    "httpx>=0.28.1",
     "lightgbm>=4.7.0",
     "numpy>=2.5.3",
     "pyspellchecker>=0.9.0",

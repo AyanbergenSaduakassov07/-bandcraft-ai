@@ -3,7 +3,16 @@ import type { Criterion, TaskType } from "@bandcraft/shared";
 
 export type Evidence = { quote: string; observation: string; start: number | null; end: number | null; verified: boolean };
 
-/** The POST /score/final body (apps/scoring-api schemas.FinalResponse). */
+/** Pre-submit template check (apps/scoring-api schemas.OriginalityCheck). Warns; never changes a band. */
+export type OriginalityCheck = {
+  risk: number;
+  template_heavy: boolean;
+  paths: { similarity: number; embedding: number; classifier: number };
+  evidence: Evidence[];
+  embedding_model: string;
+};
+
+/** The POST /score/final body (apps/scoring-api schemas.FinalResponse), minus the stored embedding. */
 export type FinalResponse = {
   task_type: TaskType;
   script: string;
@@ -19,6 +28,7 @@ export type FinalResponse = {
   second_pass: boolean;
   gemini_models: string[];
   calibration_version: string;
+  originality?: OriginalityCheck | null;
   latency_ms: number;
 };
 

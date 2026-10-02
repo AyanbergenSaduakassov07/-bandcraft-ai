@@ -8,11 +8,18 @@ from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException
 from google import genai
 
-from scoring_api.pipeline.draft import Scorer, draft_score
+from scoring_api.pipeline.draft import Scorer, draft_score, normalise
 from scoring_api.pipeline.ensemble import Bundle
 from scoring_api.pipeline.final import final_score
+from scoring_api.pipeline.originality import (
+    Checker,
+    assess,
+    gemini_embed,
+    safe_check,
+    supabase_index,
+)
 from scoring_api.pipeline.rubric import RubricError, score_with_fallback
-from scoring_api.schemas import DraftRequest, DraftResponse, FinalResponse
+from scoring_api.schemas import DraftRequest, DraftResponse, FinalResponse, OriginalityCheck
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
@@ -70,6 +77,20 @@ def get_bundle() -> Bundle:
     return Bundle.load(candidates[-1])
 
 
+def get_checker(bundle: Annotated[Bundle, Depends(get_bundle)]) -> Checker | None:
+    """None until the template index is fitted and the API can reach it."""
+    url, key = os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_SECRET_KEY")
+    if not (bundle.originality and url and key):
+        return None
+    model = bundle.originality
+    return partial(
+        assess,
+        embed=partial(gemini_embed, client=_client(), model=model.embedding_model),
+        index=supabase_index(url, key),
+        model=model,
+    )
+
+
 @app.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok"}
@@ -92,10 +113,24 @@ async def score_final(
     req: DraftRequest,
     scorer: Annotated[Scorer, Depends(get_scorer)],
     bundle: Annotated[Bundle, Depends(get_bundle)],
+    check: Annotated[Checker | None, Depends(get_checker)],
 ) -> FinalResponse:
-    """Calibrated Criterion Bands, overall band, and the evidence spans."""
+    """Calibrated Criterion Bands, overall band, the evidence spans, and the originality check."""
     try:
-        return await final_score(req, scorer, bundle)
+        return await final_score(req, scorer, bundle, check)
     except RubricError as e:
         log.error("rubric scoring failed: %s", e)
         raise HTTPException(status_code=502, detail=str(e)) from e
+
+
+@app.post("/originality", response_model=OriginalityCheck | None)
+async def originality(
+    req: DraftRequest, check: Annotated[Checker | None, Depends(get_checker)]
+) -> OriginalityCheck | None:
+    """Pre-submit: does this Task 2 Script read as template-heavy? null for other Task Types."""
+    if req.task_type != "task2":
+        return None
+    if check is None:
+        raise HTTPException(status_code=503, detail="Template index not fitted or not reachable")
+    result, _ = await safe_check(check, normalise(req.script))  # advisory: failure means no warning
+    return result
