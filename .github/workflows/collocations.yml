@@ -1,0 +1,56 @@
+name: collocations
+
+# Builds the collocation reference (pair counts parsed from WikiText-103 with spaCy) and tunes its
+# thresholds on the Gold Set. Parsing ~25M words runs here, never on a laptop (ADR-0003). On a
+# branch it commits the data to that branch; dispatched on main it opens a PR.
+on:
+  workflow_dispatch:
+    inputs:
+      max_words:
+        description: Corpus words to parse
+        type: number
+        default: 25000000
+  push:
+    branches-ignore: [main]
+    paths:
+      - apps/scoring-api/src/scoring_api/training/collocations.py
+      - apps/scoring-api/tests/fixtures/collocations/**
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency: collocations-${{ github.ref }}
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    defaults:
+      run:
+        working-directory: apps/scoring-api
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0  # no floating major tags since v8; bump explicitly
+      - run: uv sync --locked
+      - name: Parse the corpus and count pairings
+        run: uv run --with pyarrow python -m scoring_api.training.collocations build --max-words "${{ inputs.max_words || 25000000 }}"
+      - name: Tune thresholds on the Gold Set and probes
+        run: uv run python -m scoring_api.training.collocations tune
+      - name: Commit the reference
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ "${{ github.ref_name }}" = "main" ]; then git checkout -b "collocations/${{ github.run_id }}"; fi
+          git add src/scoring_api/data ../../docs/benchmarks/collocations.md
+          git commit -m "Collocation reference ${{ github.run_id }}"
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            git push -u origin "collocations/${{ github.run_id }}"
+            gh pr create --title "Collocation reference ${{ github.run_id }}" \
+              --body "Built by the collocations workflow run ${{ github.run_id }}. Report: docs/benchmarks/collocations.md." \
+              --base main
+          else
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi

@@ -17,6 +17,7 @@ src/scoring_api/
 ├── pipeline/               The scoring pipeline, one module per stage in SPEC.md
 │   ├── draft.py            Stage 1: clean the text; runs stages 2 and 3 in parallel
 │   ├── features.py         Stage 2: countable facts (words, paragraphs, errors…), no AI
+│   ├── collocations.py     Stage 2: flags rare word pairings against corpus counts
 │   ├── rubric.py           Stage 3: Gemini scores each criterion, quoting evidence first
 │   ├── prompts.py          The exact instructions sent to Gemini
 │   ├── calibration.py      Stage 4: corrects Gemini's scale using the Gold Set
@@ -28,7 +29,8 @@ src/scoring_api/
     ├── train.py            Fits the stage 4-5 models and writes a benchmark report
     ├── template_index.py   Generates and embeds templated essays into pgvector (template-index workflow)
     ├── originality.py      Fits the originality classifier and calibrators (calibrate workflow)
-    └── order_bias.py       Order-bias eval for the stage 3 prompt
+    ├── order_bias.py       Order-bias eval for the stage 3 prompt
+    └── collocations.py     Builds the collocation reference from WikiText-103 (collocations workflow)
 tests/
 ├── fixtures/gold/          The Gold Set: 18 labelled essays (see its README)
 ├── fixtures/gold-raw/      Recorded Gemini runs for those essays (input to training)
@@ -36,6 +38,7 @@ tests/
 ├── test_draft_api.py       Stage 3 helpers and POST /score/draft
 ├── test_final.py           Stages 4-5 and POST /score/final
 ├── test_originality.py     The originality path, with toy vectors and a stub index
+├── test_collocations.py    The collocation Feature, with toy reference counts
 └── test_gold_mae.py        Live Gemini accuracy run (opt-in: pytest -m gemini)
 artifacts/calibration/      Trained models, one folder per version (written by the calibrate workflow)
 ```

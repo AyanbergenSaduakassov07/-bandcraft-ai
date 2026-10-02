@@ -1,7 +1,15 @@
 // Evidence Spans → highlightable runs of a Script. Relative-import free so `node --test` can run it.
 import type { Criterion, TaskType } from "@bandcraft/shared";
 
-export type Evidence = { quote: string; observation: string; start: number | null; end: number | null; verified: boolean };
+/** `source: "features"` marks a deterministic check (e.g. a rare word pairing), not the language model. */
+export type Evidence = {
+  quote: string;
+  observation: string;
+  start: number | null;
+  end: number | null;
+  verified: boolean;
+  source?: "gemini" | "features";
+};
 
 /** Pre-submit template check (apps/scoring-api schemas.OriginalityCheck). Warns; never changes a band. */
 export type OriginalityCheck = {

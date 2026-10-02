@@ -9,6 +9,7 @@ from spacy.language import Language
 from spacy.tokens import Doc, Token
 from spellchecker import SpellChecker
 
+from scoring_api.pipeline.collocations import collocation_issues, reference
 from scoring_api.schemas import WORD_FLOOR, FeatureVector, Issue, TaskType
 
 # Longest first, so "on the other hand" is counted once rather than also as "other".
@@ -240,6 +241,7 @@ def extract_features(script: str, task_type: TaskType) -> FeatureVector:
     markers, distinct, top_share = _cohesion(script)
     spelling = _spelling_issues(doc)
     grammar = _agreement_issues(doc) + _regex_issues(script)
+    collocation = collocation_issues(doc, reference())
     n = len(words)
     per_100 = 100 / n if n else 0.0
     floor = WORD_FLOOR[task_type]
@@ -263,5 +265,6 @@ def extract_features(script: str, task_type: TaskType) -> FeatureVector:
         spelling_error_count=len(spelling),
         grammar_issue_count=len(grammar),
         errors_per_100_words=round((len(spelling) + len(grammar)) * per_100, 2),
-        issues=sorted(spelling + grammar, key=lambda i: i.start),
+        collocation_issue_count=len(collocation),
+        issues=sorted(spelling + grammar + collocation, key=lambda i: i.start),
     )
