@@ -14,7 +14,9 @@ BandCraft AI scores Task 1 (Academic and General Training) and Task 2 responses 
 ├── SPEC.md               The 6-stage scoring pipeline and the output contract.
 ├── apps/
 │   ├── web/              The website (Next.js 15). Map: apps/web/README.md
-│   └── scoring-api/      The scoring service (FastAPI + Gemini). Map: apps/scoring-api/README.md
+│   ├── scoring-api/      The Writing scoring service (FastAPI + Gemini). Map: apps/scoring-api/README.md
+│   ├── speaking-api/     IELTS Speaking: real-time examiner and audio scoring. Map: apps/speaking-api/README.md
+│   └── pronunciation-endpoint/  OpenPronounce as a private Hugging Face Space (ADR-0005)
 ├── packages/
 │   └── shared/           Rubric constants and the ScoreResult type, shared by both apps
 ├── automation/n8n/       Scheduled n8n workflow that refreshes the template index

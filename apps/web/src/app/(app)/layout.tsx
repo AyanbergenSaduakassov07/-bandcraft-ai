@@ -13,6 +13,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </Link>
           <nav aria-label="App" className="flex gap-5 text-sm font-medium text-muted-foreground">
             <Link href="/write" className="hover:text-foreground">Write</Link>
+            <Link href="/speak" className="hover:text-foreground">Speak</Link>
             <Link href="/history" className="hover:text-foreground">History</Link>
           </nav>
           <form action={signOut} className="ml-auto">
