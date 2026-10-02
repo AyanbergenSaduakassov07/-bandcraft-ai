@@ -1,0 +1,229 @@
+{
+ "id": "t2-tuition-b4.0",
+ "runs": [
+  {
+   "task_type": "task2",
+   "features": {
+    "word_count": 159,
+    "word_floor": 250,
+    "below_word_floor": true,
+    "paragraph_count": 4,
+    "mean_paragraph_words": 39.8,
+    "has_overview": null,
+    "has_conclusion": false,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 14,
+    "mean_sentence_words": 11.36,
+    "sentence_length_variance": 16.8,
+    "subordinate_clause_rate": 0.714,
+    "type_token_ratio": 0.484,
+    "mattr": 0.735,
+    "cohesion_marker_count": 5,
+    "cohesion_markers_per_100_words": 3.14,
+    "distinct_cohesion_markers": 4,
+    "top_cohesion_marker_share": 0.4,
+    "spelling_error_count": 6,
+    "grammar_issue_count": 3,
+    "errors_per_100_words": 5.66,
+    "collocation_issue_count": 0,
+    "issues": [
+     {
+      "rule": "spelling",
+      "start": 123,
+      "end": 132,
+      "text": "goverment",
+      "suggestion": null
+     },
+     {
+      "rule": "spelling",
+      "start": 362,
+      "end": 369,
+      "text": "becouse",
+      "suggestion": null
+     },
+     {
+      "rule": "spelling",
+      "start": 423,
+      "end": 432,
+      "text": "goverment",
+      "suggestion": null
+     },
+     {
+      "rule": "spelling",
+      "start": 497,
+      "end": 506,
+      "text": "goverment",
+      "suggestion": null
+     },
+     {
+      "rule": "agreement",
+      "start": 653,
+      "end": 660,
+      "text": "he want",
+      "suggestion": null
+     },
+     {
+      "rule": "spelling",
+      "start": 722,
+      "end": 731,
+      "text": "goverment",
+      "suggestion": null
+     },
+     {
+      "rule": "agreement",
+      "start": 842,
+      "end": 851,
+      "text": "side have",
+      "suggestion": null
+     },
+     {
+      "rule": "capitalisation",
+      "start": 869,
+      "end": 870,
+      "text": "i",
+      "suggestion": null
+     },
+     {
+      "rule": "spelling",
+      "start": 877,
+      "end": 886,
+      "text": "goverment",
+      "suggestion": null
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 4,
+      "analysis": "The candidate addresses all parts of the prompt by discussing both sides and offering an opinion. However, the essay is severely under the word limit, containing only 158 words. Consequently, ideas are presented but remain undeveloped and lack detail, representing a minimal response to the task.",
+      "evidence": [
+       {
+        "quote": "I will discuss both side.",
+        "observation": "Shows a formulaic attempt to introduce the task requirement of discussing both views.",
+        "start": 143,
+        "end": 168,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "My brother he want to study medicine but it cost too much money.",
+        "observation": "Shows an attempt to support the argument with a personal example, but it remains extremely brief and undeveloped.",
+        "start": 642,
+        "end": 706,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "In conclusion, both side have good reasons but i think goverment should pay.",
+        "observation": "Shows a final statement of the writer's opinion, but it lacks any real depth or extension.",
+        "start": 822,
+        "end": 898,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 5,
+      "analysis": "The essay is divided into four basic paragraphs and follows a simple logical progression. However, the cohesive devices are highly repetitive, basic, and mechanical, with little variation in sentence linking.",
+      "evidence": [
+       {
+        "quote": "First, students should pay",
+        "observation": "Shows the use of a basic, mechanical signposting device to begin the first body paragraph.",
+        "start": 170,
+        "end": 196,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "But other people think",
+        "observation": "Shows a simple, coordinate transition to introduce the opposing viewpoint.",
+        "start": 400,
+        "end": 422,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "In conclusion, both side have",
+        "observation": "Shows a standard, formulaic cohesive device to introduce the final paragraph.",
+        "start": 822,
+        "end": 851,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 4,
+      "analysis": "The lexical resource is very limited and repetitive, relying heavily on words from the prompt or very simple terms (e.g., repeating 'pay' and 'money' multiple times). Errors in spelling, word formation, and word choice are noticeable given the short length of the script.",
+      "evidence": [
+       {
+        "quote": "students must pay all money",
+        "observation": "Shows repetitive and basic vocabulary, with an awkward phrasing/collocation to convey paying tuition.",
+        "start": 74,
+        "end": 101,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "becouse the money is them own money",
+        "observation": "Shows a spelling error ('becouse') alongside a non-standard pronoun error ('them own').",
+        "start": 362,
+        "end": 397,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "the country will be develop",
+        "observation": "Shows an error in word formation ('develop' instead of 'developed').",
+        "start": 549,
+        "end": 576,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 4,
+      "analysis": "The candidate relies almost entirely on simple sentences and very basic compound or complex structures. Grammatical errors are frequent relative to the short length of the text, particularly with subject-verb agreement, pronouns, and verb forms.",
+      "evidence": [
+       {
+        "quote": "If the goverment pay, more people can go to university",
+        "observation": "Shows a subject-verb agreement error ('goverment pay') inside a basic first conditional clause.",
+        "start": 490,
+        "end": 544,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "this is not fair for they",
+        "observation": "Shows a basic grammatical error in pronoun case selection ('for they' instead of 'for them').",
+        "start": 615,
+        "end": 640,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "everybody need the education",
+        "observation": "Shows a subject-verb agreement error with the pronoun ('everybody need' instead of 'needs').",
+        "start": 792,
+        "end": 820,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 4.5
+   },
+   "latency_ms": 43598
+  }
+ ]
+}

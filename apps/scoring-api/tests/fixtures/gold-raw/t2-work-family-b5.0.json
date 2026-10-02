@@ -1,0 +1,203 @@
+{
+ "id": "t2-work-family-b5.0",
+ "runs": [
+  {
+   "task_type": "task2",
+   "features": {
+    "word_count": 243,
+    "word_floor": 250,
+    "below_word_floor": true,
+    "paragraph_count": 4,
+    "mean_paragraph_words": 60.8,
+    "has_overview": null,
+    "has_conclusion": true,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 16,
+    "mean_sentence_words": 15.19,
+    "sentence_length_variance": 40.28,
+    "subordinate_clause_rate": 0.562,
+    "type_token_ratio": 0.444,
+    "mattr": 0.76,
+    "cohesion_marker_count": 15,
+    "cohesion_markers_per_100_words": 6.17,
+    "distinct_cohesion_markers": 8,
+    "top_cohesion_marker_share": 0.267,
+    "spelling_error_count": 0,
+    "grammar_issue_count": 2,
+    "errors_per_100_words": 0.82,
+    "collocation_issue_count": 1,
+    "issues": [
+     {
+      "rule": "collocation_amod",
+      "start": 167,
+      "end": 179,
+      "text": "first reason",
+      "suggestion": "\u201cfirst \u2026 reason\u201d is rare in the reference corpus. Usual partners for \u201creason\u201d: main, unknown, other."
+     },
+     {
+      "rule": "agreement",
+      "start": 234,
+      "end": 252,
+      "text": "houses and food is",
+      "suggestion": null
+     },
+     {
+      "rule": "agreement",
+      "start": 478,
+      "end": 493,
+      "text": "technology make",
+      "suggestion": null
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 5,
+      "analysis": "The candidate addresses all parts of the task, mentioning multiple causes (money, company pressure, technology) and solutions (government regulation, flexible working hours, personal habits). However, the development of these ideas is quite brief and simple. Most importantly, the essay is underlength at 242 words (below the 250-word minimum), which incurs a penalty under Task Achievement. Thus, Band 5 is the best fit.",
+      "evidence": [
+       {
+        "quote": "In these days, many people work more hours and they spend less time with there family.",
+        "observation": "The candidate restates the prompt in a simple manner, showing an understanding of the topic.",
+        "start": 0,
+        "end": 86,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "There are some reasons for this problem and also there are some solutions.",
+        "observation": "The candidate outlines a clear plan to address both parts of the prompt (causes and solutions).",
+        "start": 87,
+        "end": 161,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "To sum up, people work more because of money, companies and technology.",
+        "observation": "The candidate presents a clear, summarizing conclusion of the main causes.",
+        "start": 1108,
+        "end": 1179,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 6,
+      "analysis": "The essay is logically organized with a clear overall progression. The candidate uses a standard four-paragraph structure (introduction, causes, solutions, conclusion) where each paragraph has a clear central topic. However, cohesive devices are mechanical and repetitive ('Firstly', 'Secondly', 'Finally', 'Another reason'). Paragraph transitions and linking are basic but effective, making Band 6 the best fit.",
+      "evidence": [
+       {
+        "quote": "Another reason is the companies.",
+        "observation": "A simple cohesive device is used to introduce the next point.",
+        "start": 332,
+        "end": 364,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Firstly, the government can make a law that people can not work more than 40 hours in one week.",
+        "observation": "The candidate uses mechanical signposting to introduce the first solution.",
+        "start": 621,
+        "end": 716,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Secondly, companies should give workers more holidays and flexible time",
+        "observation": "The candidate continues to use a repetitive, list-like transition.",
+        "start": 778,
+        "end": 849,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 5,
+      "analysis": "The candidate possesses a limited, minimally adequate vocabulary range to discuss the topic. High-frequency words such as 'money', 'expensive', 'food', and 'work' are heavily repeated. There are very few attempts at less common words. Noticeable and repetitive spelling errors (repeatedly writing 'there' instead of the possessive pronoun 'their') further restrict the lexical score to Band 5.",
+      "evidence": [
+       {
+        "quote": "with there family",
+        "observation": "The homophone 'there' is incorrectly used instead of 'their'.",
+        "start": 68,
+        "end": 85,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "lose there job",
+        "observation": "The spelling error of 'there' for 'their' is repeated.",
+        "start": 452,
+        "end": 466,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "turn off there phone",
+        "observation": "The homophone error occurs for a third time, indicating a systematic spelling issue.",
+        "start": 920,
+        "end": 940,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "companies should give workers more holidays and flexible time",
+        "observation": "The collocations 'flexible time' and 'give workers more holidays' demonstrate a minimally adequate range.",
+        "start": 788,
+        "end": 849,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 5,
+      "analysis": "The candidate attempts a mix of simple and complex sentences (using subordinates with 'because' and 'if'). However, simple sentences are not always accurate, and complex forms contain frequent errors. Grammatical and punctuation mistakes (including multiple subject-verb agreement errors, incorrect comparatives, preposition errors, and faulty punctuation) occur regularly, although they do not severely impede general comprehension. Therefore, Band 5 is the best fit.",
+      "evidence": [
+       {
+        "quote": "the houses and food is more expensive than before",
+        "observation": "There is a subject-verb agreement error with the compound subject 'houses and food'.",
+        "start": 230,
+        "end": 279,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "the technology make people work at home",
+        "observation": "A subject-verb agreement error occurs with the singular noun 'technology'.",
+        "start": 474,
+        "end": 513,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "in the evening and in the weekend.",
+        "observation": "An incorrect preposition is used in the phrase 'in the weekend'.",
+        "start": 542,
+        "end": 576,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "families will be more happy",
+        "observation": "An incorrect comparative form is used ('more happy' instead of 'happier').",
+        "start": 1307,
+        "end": 1334,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 5.5
+   },
+   "latency_ms": 90013
+  }
+ ]
+}

@@ -1,0 +1,152 @@
+{
+ "id": "t2-cities-b8.5",
+ "runs": [
+  {
+   "task_type": "task2",
+   "features": {
+    "word_count": 303,
+    "word_floor": 250,
+    "below_word_floor": false,
+    "paragraph_count": 5,
+    "mean_paragraph_words": 60.6,
+    "has_overview": null,
+    "has_conclusion": true,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 13,
+    "mean_sentence_words": 23.31,
+    "sentence_length_variance": 115.14,
+    "subordinate_clause_rate": 0.769,
+    "type_token_ratio": 0.644,
+    "mattr": 0.874,
+    "cohesion_marker_count": 7,
+    "cohesion_markers_per_100_words": 2.31,
+    "distinct_cohesion_markers": 5,
+    "top_cohesion_marker_share": 0.286,
+    "spelling_error_count": 0,
+    "grammar_issue_count": 0,
+    "errors_per_100_words": 0.0,
+    "issues": []
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 9,
+      "analysis": "The candidate fully addresses all parts of the prompt with a highly nuanced, consistent, and well-developed position. The ideas presented are extremely relevant, fully extended, and supported by logical, real-world reasoning and trends. There are no lapses in focus or over-generalisations.",
+      "evidence": [
+       {
+        "quote": "While I accept that decentralisation has a role to play, I disagree that it offers a genuine solution on its own.",
+        "observation": "Shows a clear, nuanced position that addresses the prompt's 'to what extent' question immediately.",
+        "start": 211,
+        "end": 324,
+        "verified": true
+       },
+       {
+        "quote": "The shift to remote working during the pandemic showed that many office-based roles do not, in fact, require a physical presence",
+        "observation": "Demonstrates the use of relevant, contemporary, and fully extended real-world examples to support the argument.",
+        "start": 541,
+        "end": 669,
+        "verified": true
+       },
+       {
+        "quote": "scattering the population across rural areas tends to increase car dependency and consume farmland and natural habitats, which may leave the country worse off overall.",
+        "observation": "Shows a fully developed and well-supported counter-argument detailing the negative consequences of the proposed solution.",
+        "start": 1253,
+        "end": 1420,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 9,
+      "analysis": "The structure of the essay is exceptionally logical, and the overall progression is completely seamless. Cohesive devices are used in a highly sophisticated and natural manner that never attracts attention. Paragraphing is optimal, with each paragraph focusing on a distinct and clear central topic.",
+      "evidence": [
+       {
+        "quote": "The appeal of the idea is easy to understand.",
+        "observation": "Uses a reference noun phrase ('the idea') to smoothly link back to the thesis statement in the previous paragraph.",
+        "start": 326,
+        "end": 371,
+        "verified": true
+       },
+       {
+        "quote": "Yet the limitations are considerable.",
+        "observation": "Employs a concise contrastive cohesive marker ('Yet') to signal a transition to the opposing viewpoint, establishing a clear progression of ideas.",
+        "start": 788,
+        "end": 825,
+        "verified": true
+       },
+       {
+        "quote": "Recreating this infrastructure across the countryside would be prohibitively expensive, and without it relocated residents would simply find themselves isolated.",
+        "observation": "Features precise referencing ('this infrastructure', 'without it') which makes cohesion natural and unobtrusive.",
+        "start": 1051,
+        "end": 1212,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 9,
+      "analysis": "An exceptionally wide range of vocabulary is used with natural, flexible, and sophisticated control. Collocations are consistently precise and natural, and there are absolutely no errors in spelling, word formation, or word choice.",
+      "evidence": [
+       {
+        "quote": "As urban populations continue to swell, congestion, soaring rents and poor air quality have become defining features of city life.",
+        "observation": "Shows sophisticated use of precise vocabulary ('swell', 'congestion', 'defining features') and natural collocations.",
+        "start": 0,
+        "end": 130,
+        "verified": true
+       },
+       {
+        "quote": "Recreating this infrastructure across the countryside would be prohibitively expensive",
+        "observation": "Illustrates precise use of less common items and sophisticated collocations ('prohibitively expensive').",
+        "start": 1051,
+        "end": 1137,
+        "verified": true
+       },
+       {
+        "quote": "scattering the population across rural areas tends to increase car dependency and consume farmland",
+        "observation": "Exhibits highly natural, topic-specific vocabulary ('car dependency', 'consume farmland') used with sophisticated control.",
+        "start": 1253,
+        "end": 1351,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 9,
+      "analysis": "A wide range of complex structures is employed with complete flexibility and total accuracy. The text is entirely error-free, and punctuation is used flawlessly to aid structure and clarity throughout the essay.",
+      "evidence": [
+       {
+        "quote": "While I accept that decentralisation has a role to play, I disagree that it offers a genuine solution on its own.",
+        "observation": "Demonstrates a complex sentence structure featuring a concessive clause and noun clauses, used with total accuracy.",
+        "start": 211,
+        "end": 324,
+        "verified": true
+       },
+       {
+        "quote": "The shift to remote working during the pandemic showed that many office-based roles do not, in fact, require a physical presence",
+        "observation": "Illustrates a highly sophisticated compound-complex sentence structure with flawless syntax.",
+        "start": 541,
+        "end": 669,
+        "verified": true
+       },
+       {
+        "quote": "Investment in public transport, higher-density affordable housing and mixed-use neighbourhoods, where people can live near their workplaces, addresses the causes of overcrowding directly",
+        "observation": "Shows correct subject-verb agreement ('Investment... addresses') over a long, complex noun phrase containing multiple list items and a relative clause.",
+        "start": 1505,
+        "end": 1691,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 9.0
+   },
+   "latency_ms": 225755
+  }
+ ]
+}

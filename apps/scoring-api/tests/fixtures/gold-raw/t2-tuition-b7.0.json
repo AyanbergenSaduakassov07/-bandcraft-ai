@@ -1,0 +1,165 @@
+{
+ "id": "t2-tuition-b7.0",
+ "runs": [
+  {
+   "task_type": "task2",
+   "features": {
+    "word_count": 282,
+    "word_floor": 250,
+    "below_word_floor": false,
+    "paragraph_count": 5,
+    "mean_paragraph_words": 56.4,
+    "has_overview": null,
+    "has_conclusion": true,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 13,
+    "mean_sentence_words": 21.69,
+    "sentence_length_variance": 48.06,
+    "subordinate_clause_rate": 0.846,
+    "type_token_ratio": 0.592,
+    "mattr": 0.873,
+    "cohesion_marker_count": 13,
+    "cohesion_markers_per_100_words": 4.61,
+    "distinct_cohesion_markers": 10,
+    "top_cohesion_marker_share": 0.154,
+    "spelling_error_count": 0,
+    "grammar_issue_count": 0,
+    "errors_per_100_words": 0.0,
+    "collocation_issue_count": 0,
+    "issues": []
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 9,
+      "analysis": "The candidate fully addresses all parts of the prompt by discussing both perspectives in detail and providing a clear, well-supported personal opinion. The arguments are highly relevant, fully extended, and logically structured, presenting a textbook-perfect response that leaves no questions unanswered. It represents a Band 9 level of task response.",
+      "evidence": [
+       {
+        "quote": "While there are reasonable arguments for making graduates bear the cost, I believe that governments should cover most of it.",
+        "observation": "The candidate clearly outlines their position in the introduction, previewing a balanced view and their own opinion.",
+        "start": 135,
+        "end": 259,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Those who favour student-funded education argue that a degree is primarily a personal investment.",
+        "observation": "The first perspective is introduced and explored with highly relevant, logical, and fully extended supporting points.",
+        "start": 261,
+        "end": 358,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "In conclusion, although asking students to pay the full cost may seem fair at first, I believe that government funding is the better approach",
+        "observation": "The conclusion reinforces a clear, well-developed position that remains consistent throughout the response.",
+        "start": 1565,
+        "end": 1706,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 9,
+      "analysis": "The organization of ideas is exceptionally logical, and the paragraphing is highly skillful. Cohesive devices are used so naturally that they attract no attention, and referential pronouns ('they', 'which', 'the second argument') are perfectly clear. Progression is effortless from beginning to end, easily meeting the descriptors for Band 9.",
+      "evidence": [
+       {
+        "quote": "Those who favour student-funded education argue...",
+        "observation": "Transitions smoothly from the introduction to the first body paragraph, establishing immediate thematic cohesion.",
+        "start": 261,
+        "end": 308,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "On the other hand, there are strong reasons for public funding. Firstly, society as a whole benefits...",
+        "observation": "Uses logical paragraphing and seamless transitions ('On the other hand', 'Firstly', 'Secondly') to structure ideas naturally.",
+        "start": 719,
+        "end": 819,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "In my view, the second argument is more convincing. Although graduates do gain personally, the wider benefits...",
+        "observation": "Cohesive devices are used naturally and effectively to transition to the writer's personal stance.",
+        "start": 1209,
+        "end": 1318,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 9,
+      "analysis": "The vocabulary is sophisticated, natural, and highly precise. Collocations are used flawlessly, and less common terms are integrated seamlessly. There are absolutely no spelling, word formation, or stylistic errors in the text, representing a fully flexible and natural control of lexical resource at Band 9.",
+      "evidence": [
+       {
+        "quote": "bear the cost",
+        "observation": "Demonstrates precise control of collocation and idiomatic academic vocabulary.",
+        "start": 193,
+        "end": 206,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "social mobility",
+        "observation": "An excellent example of precise, high-level vocabulary perfectly suited to the topic.",
+        "start": 1341,
+        "end": 1356,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "capable school leavers",
+        "observation": "Natural and precise word choice used to convey specific meaning without awkwardness.",
+        "start": 1122,
+        "end": 1144,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 9,
+      "analysis": "The essay showcases a wide range of complex grammatical structures used with complete flexibility and accuracy. There are absolutely no grammatical or punctuation errors throughout the entire script. It is fully error-free, exemplifying Band 9 standard.",
+      "evidence": [
+       {
+        "quote": "Whether higher education should be funded by students themselves or by the state is a question that divides opinion",
+        "observation": "Uses a complex noun clause functioning as the subject of the main verb seamlessly.",
+        "start": 0,
+        "end": 115,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "so it seems fair that they, rather than taxpayers who may never have attended university, should pay.",
+        "observation": "Masterfully handles an embedded relative clause and comparative parenthesis inside a complex sentence.",
+        "start": 459,
+        "end": 560,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Although graduates do gain personally, the wider benefits to the economy and to social mobility are too important to leave",
+        "observation": "Features a complex concessive clause starting with 'Although' paired with emphatic 'do' for contrast.",
+        "start": 1261,
+        "end": 1383,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 9.0
+   },
+   "latency_ms": 38246
+  }
+ ]
+}

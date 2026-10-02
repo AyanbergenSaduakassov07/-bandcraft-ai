@@ -1,0 +1,177 @@
+{
+ "id": "t1g-visit-b5.5",
+ "runs": [
+  {
+   "task_type": "task1_general",
+   "features": {
+    "word_count": 184,
+    "word_floor": 150,
+    "below_word_floor": false,
+    "paragraph_count": 7,
+    "mean_paragraph_words": 26.3,
+    "has_overview": null,
+    "has_conclusion": null,
+    "has_salutation": true,
+    "has_sign_off": true,
+    "sentence_count": 13,
+    "mean_sentence_words": 14.15,
+    "sentence_length_variance": 38.75,
+    "subordinate_clause_rate": 0.538,
+    "type_token_ratio": 0.568,
+    "mattr": 0.773,
+    "cohesion_marker_count": 8,
+    "cohesion_markers_per_100_words": 4.35,
+    "distinct_cohesion_markers": 4,
+    "top_cohesion_marker_share": 0.375,
+    "spelling_error_count": 3,
+    "grammar_issue_count": 1,
+    "errors_per_100_words": 2.17,
+    "issues": [
+     {
+      "rule": "agreement",
+      "start": 309,
+      "end": 317,
+      "text": "rooms is"
+     },
+     {
+      "rule": "spelling",
+      "start": 599,
+      "end": 609,
+      "text": "beshbarmak"
+     },
+     {
+      "rule": "spelling",
+      "start": 614,
+      "end": 621,
+      "text": "baursak"
+     },
+     {
+      "rule": "spelling",
+      "start": 645,
+      "end": 654,
+      "text": "favourite"
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 8,
+      "analysis": "The candidate has fully addressed all parts of the task. Each bullet point is covered and sufficiently extended with relevant details (e.g., suggesting specific mountain resorts, local dishes, and clothing requirements). The tone is warm, personal, and entirely appropriate for a letter to a friend, and the word count is comfortably above the 150-word minimum.",
+      "evidence": [
+       {
+        "quote": "I am so happy that you will come to Almaty next month! I want to give you some advices for your trip.",
+        "observation": "Shows a warm, friendly, and consistent informal tone suitable for writing to a friend, establishing a clear purpose.",
+        "start": 13,
+        "end": 114,
+        "verified": true
+       },
+       {
+        "quote": "About the place to stay, I think you should stay in a hotel in the city centre",
+        "observation": "Shows the first prompt bullet point being directly addressed with a specific and extended suggestion.",
+        "start": 116,
+        "end": 194,
+        "verified": true
+       },
+       {
+        "quote": "Also bring some cash because some small shops dont accept cards.",
+        "observation": "Shows the third bullet point being clearly addressed with practical and helpful local details.",
+        "start": 831,
+        "end": 895,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 7,
+      "analysis": "The information is organised logically, with each paragraph covering one clear central topic corresponding to a bullet point. Cohesive devices are used effectively to show transitions (e.g., 'Of course', 'for example', 'Also'). However, there is some minor mechanical repetition in paragraph openings ('About the place to stay' and 'About what to bring').",
+      "evidence": [
+       {
+        "quote": "About the place to stay, I think you should stay in a hotel in the city centre",
+        "observation": "Shows a clear topic introduction for the paragraph focusing on accommodation.",
+        "start": 116,
+        "end": 194,
+        "verified": true
+       },
+       {
+        "quote": "About what to bring, the weather in the mountains is cold",
+        "observation": "Shows a repetitive paragraph transition style similar to the first body paragraph's opening.",
+        "start": 712,
+        "end": 769,
+        "verified": true
+       },
+       {
+        "quote": "There are many things to do in Almaty. You must visit the mountains, for example Medeu and Shymbulak",
+        "observation": "Shows logical sequencing of information, moving from a general introductory sentence to specific local suggestions.",
+        "start": 402,
+        "end": 502,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 7,
+      "analysis": "The candidate demonstrates an adequate lexical range for the task, successfully using terms like 'cable car', 'city centre', and 'national food' alongside specific cultural references. There are very few vocabulary errors; the most notable is 'advices', which is a common error that does not hinder communication.",
+      "evidence": [
+       {
+        "quote": "I want to give you some advices for your trip.",
+        "observation": "Shows an error in word formation where the uncountable noun 'advice' is used in the plural form.",
+        "start": 68,
+        "end": 114,
+        "verified": true
+       },
+       {
+        "quote": "you can take a cable car.",
+        "observation": "Shows correct use of less common, topic-specific vocabulary relating to tourist sightseeing.",
+        "start": 530,
+        "end": 555,
+        "verified": true
+       },
+       {
+        "quote": "bring a warm jacket and comfortable shoes.",
+        "observation": "Shows natural collocations used to describe clothing and personal items.",
+        "start": 788,
+        "end": 830,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 6,
+      "analysis": "The script contains a mix of simple and complex sentence structures, but grammatical errors are fairly frequent. These include subject-verb agreement errors, missing articles, comma splices, and missing punctuation (e.g., 'dont'). However, these errors do not impede communication or strain the reader, making Band 6 the best fit.",
+      "evidence": [
+       {
+        "quote": "and the rooms is clean.",
+        "observation": "Shows a basic error in subject-verb agreement with a plural subject and singular verb.",
+        "start": 301,
+        "end": 324,
+        "verified": true
+       },
+       {
+        "quote": "Of course you can also stay in my flat but it is small and far from centre.",
+        "observation": "Shows a missing definite article before 'centre'.",
+        "start": 325,
+        "end": 400,
+        "verified": true
+       },
+       {
+        "quote": "some small shops dont accept cards.",
+        "observation": "Shows a punctuation error with a missing apostrophe in the contraction 'dont'.",
+        "start": 860,
+        "end": 895,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 7.0
+   },
+   "latency_ms": 352777
+  }
+ ]
+}

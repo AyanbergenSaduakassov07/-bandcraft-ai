@@ -1,0 +1,193 @@
+{
+ "id": "t2-languages-b5.5",
+ "runs": [
+  {
+   "task_type": "task2",
+   "features": {
+    "word_count": 259,
+    "word_floor": 250,
+    "below_word_floor": false,
+    "paragraph_count": 4,
+    "mean_paragraph_words": 64.8,
+    "has_overview": null,
+    "has_conclusion": true,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 13,
+    "mean_sentence_words": 19.92,
+    "sentence_length_variance": 71.15,
+    "subordinate_clause_rate": 0.846,
+    "type_token_ratio": 0.465,
+    "mattr": 0.813,
+    "cohesion_marker_count": 14,
+    "cohesion_markers_per_100_words": 5.41,
+    "distinct_cohesion_markers": 10,
+    "top_cohesion_marker_share": 0.286,
+    "spelling_error_count": 1,
+    "grammar_issue_count": 1,
+    "errors_per_100_words": 0.77,
+    "issues": [
+     {
+      "rule": "agreement",
+      "start": 235,
+      "end": 248,
+      "text": "advantages is"
+     },
+     {
+      "rule": "spelling",
+      "start": 862,
+      "end": 867,
+      "text": "maths"
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 7,
+      "analysis": "The candidate addresses all parts of the task prompt, discussing both the advantages and disadvantages of starting foreign language education at the primary school level. A clear position is maintained throughout the essay. The ideas are relevant and illustrated with appropriate examples, including a brief personal reference, although some points, such as the claim that children might forget their native language, are left undeveloped. Overall, it is a well-developed response that fits the description for Band 7.",
+      "evidence": [
+       {
+        "quote": "in my opinion the advantages is more than disadvantages.",
+        "observation": "Shows the candidate establishes a clear position in response to the prompt's question.",
+        "start": 217,
+        "end": 273,
+        "verified": true
+       },
+       {
+        "quote": "First of all, young children can learn languages more easy than teenagers.",
+        "observation": "Introduces a relevant main idea supporting the advantages of early language learning.",
+        "start": 275,
+        "end": 349,
+        "verified": true
+       },
+       {
+        "quote": "Primary school children already have many subjects, like maths and reading in their native language, so a foreign language can make them tired...",
+        "observation": "Addresses the counter-arguments and disadvantages, showing a balanced view of the task.",
+        "start": 805,
+        "end": 947,
+        "verified": true
+       },
+       {
+        "quote": "I believe that starting foreign language in primary school have more advantages",
+        "observation": "Reiterates the clear, overall position in the concluding paragraph.",
+        "start": 1284,
+        "end": 1363,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 7,
+      "analysis": "The essay is organized logically with a clear progression from introduction to body paragraphs and a final conclusion. Each paragraph has a clear central topic. A range of cohesive devices is used appropriately, though they tend to be somewhat mechanical ('First of all', 'However', 'In addition', 'In conclusion'). Referencing and paragraphing are managed sufficiently to ensure smooth readability.",
+      "evidence": [
+       {
+        "quote": "First of all, young children can learn languages more easy than teenagers.",
+        "observation": "Uses a standard transitional phrase to open the first body paragraph and structure the argument.",
+        "start": 275,
+        "end": 349,
+        "verified": true
+       },
+       {
+        "quote": "However, there are some disadvantages.",
+        "observation": "Signals a clear transition from discussing advantages to presenting disadvantages.",
+        "start": 766,
+        "end": 804,
+        "verified": true
+       },
+       {
+        "quote": "In addition some parents think that the child can forget his own language.",
+        "observation": "Uses a basic addition linker to introduce a further supporting point.",
+        "start": 1127,
+        "end": 1201,
+        "verified": true
+       },
+       {
+        "quote": "In conclusion, although there is some problems like stress and lack of teachers, I believe",
+        "observation": "Applies a logical transition to introduce the final summary and conclusion of the essay.",
+        "start": 1203,
+        "end": 1293,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 6,
+      "analysis": "The candidate has an adequate vocabulary range for the task. The word choices are generally accurate and clear, with appropriate use of language related to the topic of education and language acquisition. There are some minor errors in word formation ('more easy' instead of 'more easily') and very simple phrasing is often chosen, but these do not impede communication. The lexical resource is sufficient for a clear discussion of the topic but lacks the range or precision required for higher bands.",
+      "evidence": [
+       {
+        "quote": "flexible and they can remember new words quickly",
+        "observation": "Shows appropriate use of vocabulary to explain cognitive advantages ('flexible', 'remember').",
+        "start": 370,
+        "end": 418,
+        "verified": true
+       },
+       {
+        "quote": "so when they finish school they can speak fluently and it is helpful for university and future career.",
+        "observation": "Uses a functional range of common collocations ('speak fluently', 'future career') appropriately.",
+        "start": 662,
+        "end": 764,
+        "verified": true
+       },
+       {
+        "quote": "tired and stressed.",
+        "observation": "Uses common but highly appropriate terms to describe emotional and physical impact.",
+        "start": 942,
+        "end": 961,
+        "verified": true
+       },
+       {
+        "quote": "learn wrong pronunciation or grammar",
+        "observation": "Demonstrates topic-specific vocabulary related to language acquisition ('pronunciation', 'grammar').",
+        "start": 1050,
+        "end": 1086,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 6,
+      "analysis": "The candidate uses a mix of simple and complex sentence structures, including conditional and subordinate clauses. However, grammatical errors are frequent throughout the text, particularly regarding subject-verb agreement ('advantages is', 'there is some problems', 'starting... have'), articles, and adverb usage ('more easy'). Despite these frequent errors, they do not impede communication, and the candidate's meaning remains clear throughout.",
+      "evidence": [
+       {
+        "quote": "many parents want their children start to learn English or other language as early as possible.",
+        "observation": "Shows minor grammatical errors, such as a missing infinitive marker 'to' before 'start' and a missing article or pluralization error in 'other language'.",
+        "start": 56,
+        "end": 151,
+        "verified": true
+       },
+       {
+        "quote": "in my opinion the advantages is more than disadvantages.",
+        "observation": "Shows a subject-verb agreement error ('advantages is') and missing articles ('the disadvantages').",
+        "start": 217,
+        "end": 273,
+        "verified": true
+       },
+       {
+        "quote": "young children can learn languages more easy than teenagers.",
+        "observation": "Shows an error in adverb formation, using the adjective 'easy' instead of the adverb 'easily'.",
+        "start": 289,
+        "end": 349,
+        "verified": true
+       },
+       {
+        "quote": "although there is some problems like stress and lack of teachers, I believe that starting foreign language in primary school have more advantages",
+        "observation": "Demonstrates subject-verb agreement errors ('there is some problems' and 'starting... have') inside a complex sentence.",
+        "start": 1218,
+        "end": 1363,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 6.5
+   },
+   "latency_ms": 355840
+  }
+ ]
+}

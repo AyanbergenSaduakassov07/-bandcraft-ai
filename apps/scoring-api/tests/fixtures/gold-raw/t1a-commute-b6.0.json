@@ -1,0 +1,152 @@
+{
+ "id": "t1a-commute-b6.0",
+ "runs": [
+  {
+   "task_type": "task1_academic",
+   "features": {
+    "word_count": 167,
+    "word_floor": 150,
+    "below_word_floor": false,
+    "paragraph_count": 5,
+    "mean_paragraph_words": 33.4,
+    "has_overview": true,
+    "has_conclusion": null,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 11,
+    "mean_sentence_words": 15.18,
+    "sentence_length_variance": 38.15,
+    "subordinate_clause_rate": 0.455,
+    "type_token_ratio": 0.456,
+    "mattr": 0.678,
+    "cohesion_marker_count": 7,
+    "cohesion_markers_per_100_words": 4.19,
+    "distinct_cohesion_markers": 6,
+    "top_cohesion_marker_share": 0.286,
+    "spelling_error_count": 0,
+    "grammar_issue_count": 0,
+    "errors_per_100_words": 0.0,
+    "issues": []
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 7,
+      "analysis": "The candidate covers all requirements of the task. There is a clear overview that summarises the main shifts. Key features are highlighted and supported by accurate figures from the table. The response could be more fully extended to achieve a higher band, but it safely meets the requirements for Band 7.",
+      "evidence": [
+       {
+        "quote": "Overall, the car was the most popular way of travelling in both years, but it became less popular, while cycling and the metro became more popular.",
+        "observation": "This presents a clear and accurate overview of the main trends and changes over the two decades.",
+        "start": 81,
+        "end": 228,
+        "verified": true
+       },
+       {
+        "quote": "In 2000, 45% of people used a car to go to work, which was almost half of all commuters.",
+        "observation": "The response highlights a key data point and successfully relates it to a broader comparison ('almost half').",
+        "start": 230,
+        "end": 318,
+        "verified": true
+       },
+       {
+        "quote": "On the other hand, the number of people cycling increased a lot, from 5% to 20%, so it became equal with the bus.",
+        "observation": "The key features are appropriately selected and comparison is made with another transport mode.",
+        "start": 571,
+        "end": 684,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 7,
+      "analysis": "The response is logically organised with a clear overall progression. Paragraphing is appropriate, and cohesive devices are used effectively, though some transitions ('On the other hand', 'In conclusion') are somewhat mechanical.",
+      "evidence": [
+       {
+        "quote": "Overall, the car was the most popular way of travelling",
+        "observation": "The transition word 'Overall' is used appropriately to signal the overview sentence.",
+        "start": 81,
+        "end": 136,
+        "verified": true
+       },
+       {
+        "quote": "In 2020 the situation was changed.",
+        "observation": "The paragraphing is logical, separating the details of 2000 from those of 2020 to ensure clear progression.",
+        "start": 451,
+        "end": 485,
+        "verified": true
+       },
+       {
+        "quote": "On the other hand, the number of people cycling increased a lot, from 5% to 20%, so it became equal with the bus.",
+        "observation": "The transition 'On the other hand' and the cohesive device 'so' are used effectively to show contrast and result.",
+        "start": 571,
+        "end": 684,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 7,
+      "analysis": "The vocabulary is adequate for the task. The candidate uses a sufficient range of words to avoid excessive repetition, and there are some good collocational choices. However, there is little evidence of less common vocabulary, and minor errors in word choice occur.",
+      "evidence": [
+       {
+        "quote": "almost half of all commuters.",
+        "observation": "The word 'commuters' is a very appropriate synonym that shows flexibility.",
+        "start": 289,
+        "end": 318,
+        "verified": true
+       },
+       {
+        "quote": "fell slightly to 20%.",
+        "observation": "Collocations such as 'fell slightly' are used correctly to describe changes in data.",
+        "start": 549,
+        "end": 570,
+        "verified": true
+       },
+       {
+        "quote": "used bicycles and metro more",
+        "observation": "The range of vocabulary is somewhat limited, and there is a minor error in omitting the article before 'metro'.",
+        "start": 821,
+        "end": 849,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 7,
+      "analysis": "The candidate uses a mix of simple and complex forms with a high degree of control. The majority of the sentences are error-free, and the few errors present (such as 'the situation was changed') do not impede communication.",
+      "evidence": [
+       {
+        "quote": "used a car to go to work, which was almost half of all commuters.",
+        "observation": "This complex sentence uses a relative clause accurately.",
+        "start": 253,
+        "end": 318,
+        "verified": true
+       },
+       {
+        "quote": "In 2020 the situation was changed.",
+        "observation": "There is a grammatical error in verb form; 'the situation changed' or 'had changed' would be more natural than the passive.",
+        "start": 451,
+        "end": 485,
+        "verified": true
+       },
+       {
+        "quote": "but it became less popular, while cycling and the metro became more popular.",
+        "observation": "A complex structure using 'while' as a subordinating conjunction is produced without errors.",
+        "start": 152,
+        "end": 228,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 7.0
+   },
+   "latency_ms": 222009
+  }
+ ]
+}

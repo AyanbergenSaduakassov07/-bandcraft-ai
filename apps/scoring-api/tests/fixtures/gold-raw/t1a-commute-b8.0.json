@@ -1,0 +1,152 @@
+{
+ "id": "t1a-commute-b8.0",
+ "runs": [
+  {
+   "task_type": "task1_academic",
+   "features": {
+    "word_count": 168,
+    "word_floor": 150,
+    "below_word_floor": false,
+    "paragraph_count": 5,
+    "mean_paragraph_words": 33.6,
+    "has_overview": false,
+    "has_conclusion": null,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 9,
+    "mean_sentence_words": 18.67,
+    "sentence_length_variance": 52.22,
+    "subordinate_clause_rate": 0.889,
+    "type_token_ratio": 0.619,
+    "mattr": 0.805,
+    "cohesion_marker_count": 4,
+    "cohesion_markers_per_100_words": 2.38,
+    "distinct_cohesion_markers": 3,
+    "top_cohesion_marker_share": 0.5,
+    "spelling_error_count": 0,
+    "grammar_issue_count": 0,
+    "errors_per_100_words": 0.0,
+    "issues": []
+   },
+   "rubric": {
+    "model": "gemini-3.6-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 9,
+      "analysis": "The candidate fully satisfies all requirements of the task. Key features are skilfully selected, accurately reported, and fully developed through sophisticated comparisons without any data errors or missing information. Band 9 is the best fit.",
+      "evidence": [
+       {
+        "quote": "The most striking change over the two decades was a shift away from the car towards cycling and the metro",
+        "observation": "Presents a clear and well-formulated overview summarizing key trends.",
+        "start": 94,
+        "end": 199,
+        "verified": true
+       },
+       {
+        "quote": "In 2000, almost half of all commuters (45%) drove, far more than those who took the bus (25%) or walked (20%).",
+        "observation": "Accurately presents initial key figures with effective comparison.",
+        "start": 275,
+        "end": 385,
+        "verified": true
+       },
+       {
+        "quote": "The biggest gains were made by cycling, which quadrupled to 20% and thus drew level with the bus, whose share had dipped slightly.",
+        "observation": "Highlights significant changes and comparisons across both time points with full precision.",
+        "start": 535,
+        "end": 665,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 9,
+      "analysis": "Cohesion is entirely natural and effortless. The text flows logically from an introduction and overview to specific temporal body paragraphs and a concise summary conclusion. Paragraphing and linking devices are applied with complete skill. Band 9 is the best fit.",
+      "evidence": [
+       {
+        "quote": "The most striking change over the two decades was a shift away from the car towards cycling and the metro, although driving remained",
+        "observation": "Shows natural use of cohesive transition word within the overview paragraph.",
+        "start": 94,
+        "end": 226,
+        "verified": true
+       },
+       {
+        "quote": "The metro and the bicycle were marginal options, each accounting for a mere 5% of journeys.",
+        "observation": "Demonstrates smooth logical sequencing within the body paragraph.",
+        "start": 386,
+        "end": 477,
+        "verified": true
+       },
+       {
+        "quote": "The biggest gains were made by cycling, which quadrupled to 20% and thus drew level with the bus, whose share had dipped slightly.",
+        "observation": "Demonstrates effortless referencing and linking clauses across sentences.",
+        "start": 535,
+        "end": 665,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 9,
+      "analysis": "The candidate uses a wide range of vocabulary with natural and sophisticated control. Word choice and collocation are precise throughout, with no errors present. Band 9 is the best fit.",
+      "evidence": [
+       {
+        "quote": "The metro and the bicycle were marginal options, each accounting for a mere 5% of journeys.",
+        "observation": "Displays sophisticated control of low-frequency items ('marginal options', 'a mere').",
+        "start": 386,
+        "end": 477,
+        "verified": true
+       },
+       {
+        "quote": "which quadrupled to 20% and thus drew level with the bus, whose share had dipped slightly.",
+        "observation": "Uses precise numerical verbs and collocations ('quadrupled', 'drew level with', 'dipped slightly').",
+        "start": 575,
+        "end": 665,
+        "verified": true
+       },
+       {
+        "quote": "commuting in the city became considerably more diverse, with active and public transport gaining ground at the expense of private cars.",
+        "observation": "Demonstrates sophisticated phrasing ('gaining ground at the expense of', 'active and public transport').",
+        "start": 824,
+        "end": 959,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 9,
+      "analysis": "The writing displays a wide range of structures flexible enough to describe data precisely. Every sentence is completely error-free with accurate punctuation. Band 9 is the best fit.",
+      "evidence": [
+       {
+        "quote": "By 2020, the car's share had fallen by a third, to 30%.",
+        "observation": "Correctly employs the past perfect tense to describe changes up to a past date.",
+        "start": 479,
+        "end": 534,
+        "verified": true
+       },
+       {
+        "quote": "The biggest gains were made by cycling, which quadrupled to 20% and thus drew level with the bus, whose share had dipped slightly.",
+        "observation": "Combines complex relative clauses seamlessly and accurately.",
+        "start": 535,
+        "end": 665,
+        "verified": true
+       },
+       {
+        "quote": "Walking also declined, falling from a fifth of commuters to 15%.",
+        "observation": "Uses a non-finite participial structure accurately as a subordinate clause.",
+        "start": 715,
+        "end": 779,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 9.0
+   },
+   "latency_ms": 29236
+  }
+ ]
+}

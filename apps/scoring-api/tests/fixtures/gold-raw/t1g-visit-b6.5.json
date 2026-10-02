@@ -1,0 +1,159 @@
+{
+ "id": "t1g-visit-b6.5",
+ "runs": [
+  {
+   "task_type": "task1_general",
+   "features": {
+    "word_count": 219,
+    "word_floor": 150,
+    "below_word_floor": false,
+    "paragraph_count": 7,
+    "mean_paragraph_words": 31.3,
+    "has_overview": null,
+    "has_conclusion": null,
+    "has_salutation": true,
+    "has_sign_off": true,
+    "sentence_count": 12,
+    "mean_sentence_words": 18.25,
+    "sentence_length_variance": 77.02,
+    "subordinate_clause_rate": 0.667,
+    "type_token_ratio": 0.652,
+    "mattr": 0.828,
+    "cohesion_marker_count": 4,
+    "cohesion_markers_per_100_words": 1.83,
+    "distinct_cohesion_markers": 3,
+    "top_cohesion_marker_share": 0.5,
+    "spelling_error_count": 1,
+    "grammar_issue_count": 0,
+    "errors_per_100_words": 0.46,
+    "issues": [
+     {
+      "rule": "spelling",
+      "start": 758,
+      "end": 767,
+      "text": "jewellery"
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.8-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 9,
+      "analysis": "The letter fully satisfies all requirements of the task. Each bullet point is addressed with full and appropriate elaboration. The informal, friendly tone is completely consistent and natural throughout, well exceeding the minimum word count requirement.",
+      "evidence": [
+       {
+        "quote": "As for accommodation, I'd recommend staying somewhere on the left bank, near the Baiterek tower.",
+        "observation": "Clearly addresses the first bullet point by suggesting a specific area to stay, followed by practical details.",
+        "start": 141,
+        "end": 237,
+        "verified": true
+       },
+       {
+        "quote": "You should definitely go up the Baiterek for the view over the city, and the Khan Shatyr shopping centre is worth a visit",
+        "observation": "Directly and fully addresses the second bullet point with multiple, well-developed activity recommendations.",
+        "start": 501,
+        "end": 622,
+        "verified": true
+       },
+       {
+        "quote": "so bring a warm jacket even though it's May, and don't forget sunglasses, as the wind can be very strong and dusty.",
+        "observation": "Thoroughly addresses the third bullet point by specifying items to bring along with practical reasons.",
+        "start": 936,
+        "end": 1051,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 9,
+      "analysis": "Cohesion is managed so naturally throughout the letter that it attracts no negative attention. Ideas follow a logical sequence, referencing is clear and varied, and paragraphing is logical and skillful.",
+      "evidence": [
+       {
+        "quote": "Here are a few tips to help you make the most of your week.\n\nAs for accommodation",
+        "observation": "Transitions seamlessly from the warm opening into the first topic using an appropriate phrase.",
+        "start": 80,
+        "end": 161,
+        "verified": true
+       },
+       {
+        "quote": "Most of the modern sights are within walking distance there, and there are plenty of apartments which you can rent",
+        "observation": "Demonstrates smooth internal referencing and logical clause progression without mechanical linkers.",
+        "start": 238,
+        "end": 352,
+        "verified": true
+       },
+       {
+        "quote": "There's lots to keep you busy. You should definitely go up the Baiterek for the view over the city",
+        "observation": "Presents a clear topic sentence for the paragraph followed by well-sequenced supporting recommendations.",
+        "start": 470,
+        "end": 568,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 9,
+      "analysis": "A wide range of vocabulary is used flexibly and with natural, sophisticated control. Collocations and informal idioms are handled with ease, and there are no evident lexical errors or unnatural choices.",
+      "evidence": [
+       {
+        "quote": "make the most of your week.",
+        "observation": "Natural and idiomatic phrase used appropriately in an informal context.",
+        "start": 112,
+        "end": 139,
+        "verified": true
+       },
+       {
+        "quote": "within walking distance there, and there are plenty of apartments which you can rent for a reasonable price.",
+        "observation": "Displays strong collocation and natural phrasing ('within walking distance', 'reasonable price').",
+        "start": 268,
+        "end": 376,
+        "verified": true
+       },
+       {
+        "quote": "if only to see the giant tent-like building.",
+        "observation": "Employs descriptive and less common vocabulary flexibly to convey precise meaning.",
+        "start": 624,
+        "end": 668,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 9,
+      "analysis": "The script demonstrates a wide range of complex grammatical structures used with full flexibility and accuracy. Punctuation is consistently correct, and the text is entirely error-free.",
+      "evidence": [
+       {
+        "quote": "I'd offer you my sofa, but my flat is being renovated at the moment, so it's quite chaotic.",
+        "observation": "Combines a conditional modal, present continuous passive, and coordinating clauses accurately.",
+        "start": 377,
+        "end": 468,
+        "verified": true
+       },
+       {
+        "quote": "If you're interested in history, the National Museum has an excellent collection of gold jewellery.",
+        "observation": "Uses a conditional structure with accurate punctuation and agreement.",
+        "start": 669,
+        "end": 768,
+        "verified": true
+       },
+       {
+        "quote": "bring a warm jacket even though it's May, and don't forget sunglasses, as the wind can be very strong and dusty.",
+        "observation": "Effectively coordinates imperatives and subordinate concession and reason clauses without error.",
+        "start": 939,
+        "end": 1051,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 9.0
+   },
+   "latency_ms": 71190
+  }
+ ]
+}
