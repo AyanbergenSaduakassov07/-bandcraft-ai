@@ -3,13 +3,14 @@
 The reference is pair counts parsed from WikiText-103 (Wikipedia, CC BY-SA 3.0) by
 training/collocations.py in the collocations workflow. It's static data, loaded once: free,
 deterministic and offline. A pairing is flagged when both words are common but the pair is rare:
-had it been a normal pairing, chance alone would have put it in the corpus `min_expected` times.
-`max_count` and `min_expected` are tuned against the Gold Set (collocations.json, tuning).
+if the two words combined at random, seeing the pair this seldom would have probability below
+`alpha` (Poisson tail). `alpha` is tuned against the Gold Set (collocations.json, tuning).
 """
 
 import gzip
 import json
 import logging
+import math
 from collections.abc import Iterator
 from dataclasses import dataclass, field
 from functools import cache
@@ -24,7 +25,8 @@ DATA = Path(__file__).resolve().parents[1] / "data"
 PAIRS_FILE = DATA / "collocations.tsv.gz"
 META_FILE = DATA / "collocations.json"
 RELATIONS = ("dobj", "amod")  # verb + object noun, adjective + noun
-MAX_GAP = 5  # tokens between the two words; further apart and the quote stops reading as a pairing
+MAX_GAP = 5  # verb to object; further apart and the quote stops reading as a pairing
+MAX_ADJ_GAP = 2  # adjective before its noun, allowing one word between ("heavy summer rain")
 ANY = "*"
 
 
@@ -34,8 +36,7 @@ class Reference:
     partners: dict[tuple[str, str], int]  # (relation, partner) -> all pairings with that partner
     nouns: dict[tuple[str, str], int]  # (relation, noun) -> all pairings with that noun
     totals: dict[str, int]  # relation -> all pairings
-    max_count: int = 1
-    min_expected: float = 5.0
+    alpha: float = 0.01
     top: dict[tuple[str, str], list[str]] = field(default_factory=dict)  # usual partners per noun
 
     def count(self, rel: str, partner: str, noun: str) -> int:
@@ -48,11 +49,14 @@ class Reference:
             return 0.0
         return self.partners.get((rel, partner), 0) * self.nouns.get((rel, noun), 0) / total
 
-    def implausible(self, rel: str, partner: str, noun: str) -> bool:
-        return (
-            self.count(rel, partner, noun) <= self.max_count
-            and self.expected(rel, partner, noun) >= self.min_expected
+    def surprise(self, rel: str, partner: str, noun: str) -> float:
+        """P(count this low | random pairing). Pairs under MIN_STORED read as 1: maybe seen once."""
+        return poisson_cdf(
+            max(self.count(rel, partner, noun), 1), self.expected(rel, partner, noun)
         )
+
+    def implausible(self, rel: str, partner: str, noun: str) -> bool:
+        return self.surprise(rel, partner, noun) < self.alpha
 
     def alternatives(self, rel: str, noun: str, exclude: str, k: int = 3) -> list[str]:
         return [p for p in self.top.get((rel, noun), []) if p != exclude][:k]
@@ -91,9 +95,17 @@ def reference() -> Reference | None:
         ref = parse(f)
     if META_FILE.exists():
         tuned = json.loads(META_FILE.read_text()).get("thresholds", {})
-        ref.max_count = int(tuned.get("max_count", ref.max_count))
-        ref.min_expected = float(tuned.get("min_expected", ref.min_expected))
+        ref.alpha = float(tuned.get("alpha", ref.alpha))
     return ref
+
+
+def poisson_cdf(k: int, lam: float) -> float:
+    """P(X <= k) for X ~ Poisson(lam)."""
+    term = total = math.exp(-lam)
+    for i in range(1, k + 1):
+        term *= lam / i
+        total += term
+    return min(1.0, total)
 
 
 def lemma(t: Token) -> str:
@@ -112,7 +124,8 @@ def pairings(doc: Doc) -> Iterator[tuple[str, Token, Token]]:
             yield "dobj", t.head, t
         for child in t.children:
             if child.dep_ == "amod" and child.pos_ == "ADJ" and child.is_alpha:
-                yield "amod", child, t
+                if 0 < t.i - child.i <= MAX_ADJ_GAP:
+                    yield "amod", child, t
 
 
 def collocation_issues(doc: Doc, ref: Reference | None) -> list[Issue]:

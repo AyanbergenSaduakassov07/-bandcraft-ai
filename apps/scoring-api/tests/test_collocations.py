@@ -1,12 +1,13 @@
 """Collocation Feature with TOY reference counts; the real ones are built in CI (WikiText-103)."""
 
 import json
+import math
 
 import pytest
 from test_final import toy_rows
 
 from scoring_api.pipeline import collocations
-from scoring_api.pipeline.collocations import Reference, collocation_issues, parse
+from scoring_api.pipeline.collocations import Reference, collocation_issues, parse, poisson_cdf
 from scoring_api.pipeline.draft import normalise
 from scoring_api.pipeline.features import _nlp, extract_features
 from scoring_api.pipeline.final import feature_evidence
@@ -23,14 +24,14 @@ dobj\tprovide\tdistraction\t20
 amod\t*\t*\t5000
 amod\theavy\t*\t100
 amod\tstrong\t*\t400
-amod\t*\train\t50
+amod\t*\train\t80
 amod\theavy\train\t30
 """
 
 
 def toy() -> Reference:
     ref = parse(iter(TOY.splitlines(keepends=True)))
-    ref.max_count, ref.min_expected = 1, 3.0
+    ref.alpha = 0.05
     return ref
 
 
@@ -39,6 +40,9 @@ def test_reference_maths() -> None:
     assert ref.count("dobj", "cause", "distraction") == 35
     assert ref.count("dobj", "give", "distraction") == 0  # absent, or seen once and not stored
     assert ref.expected("dobj", "give", "distraction") == pytest.approx(800 * 60 / 10000)
+    assert ref.surprise("dobj", "give", "distraction") == pytest.approx(
+        poisson_cdf(1, 4.8)  # unseen reads as "maybe once"
+    )
     assert ref.implausible("dobj", "give", "distraction")
     assert not ref.implausible("dobj", "cause", "distraction")
     assert not ref.implausible("dobj", "give", "zebra")  # unknown noun: no expectation, no flag
@@ -55,6 +59,12 @@ def test_flags_quote_the_script_with_usual_partners() -> None:
     assert all(text[i.start : i.end] == i.text for i in issues)
     assert issues[0].suggestion and "cause, provide" in issues[0].suggestion
     assert issues[1].suggestion and "heavy" in issues[1].suggestion
+
+
+def test_poisson_tail() -> None:
+    assert poisson_cdf(0, 3.0) == pytest.approx(math.exp(-3))
+    assert poisson_cdf(2, 2.0) == pytest.approx(math.exp(-2) * (1 + 2 + 2))
+    assert poisson_cdf(5, 0.0) == 1.0
 
 
 def test_missing_reference_flags_nothing() -> None:

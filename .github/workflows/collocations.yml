@@ -9,7 +9,7 @@ on:
       max_words:
         description: Corpus words to parse
         type: number
-        default: 25000000
+        default: 120000000
   push:
     branches-ignore: [main]
     paths:
@@ -25,7 +25,7 @@ concurrency: collocations-${{ github.ref }}
 jobs:
   build:
     runs-on: ubuntu-24.04
-    timeout-minutes: 150
+    timeout-minutes: 240
     defaults:
       run:
         working-directory: apps/scoring-api
@@ -34,7 +34,7 @@ jobs:
       - uses: astral-sh/setup-uv@v10.2.0  # no floating major tags since v8; bump explicitly
       - run: uv sync --locked
       - name: Parse the corpus and count pairings
-        run: uv run --with pyarrow python -m scoring_api.training.collocations build --max-words "${{ inputs.max_words || 25000000 }}"
+        run: uv run --with pyarrow python -m scoring_api.training.collocations build --max-words "${{ inputs.max_words || 120000000 }}"
       - name: Tune thresholds on the Gold Set and probes
         run: uv run python -m scoring_api.training.collocations tune
       - name: Commit the reference

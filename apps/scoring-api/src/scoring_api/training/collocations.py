@@ -18,7 +18,6 @@ import urllib.request
 from collections import Counter
 from collections.abc import Iterator
 from datetime import UTC, datetime
-from itertools import product
 from pathlib import Path
 from typing import Any
 
@@ -44,7 +43,10 @@ SOURCE = {
     "name": "WikiText-103 (raw), train split",
     "url": "https://huggingface.co/datasets/Salesforce/wikitext",
     "license": "CC BY-SA 3.0 (text from English Wikipedia)",
-    "parquet": "https://huggingface.co/api/datasets/Salesforce/wikitext/parquet/wikitext-103-raw-v1/train/0.parquet",
+    "parquet": [
+        f"https://huggingface.co/api/datasets/Salesforce/wikitext/parquet/wikitext-103-raw-v1/train/{i}.parquet"
+        for i in (0, 1)
+    ],
 }
 MIN_STORED = 2  # pairs seen once are noise at this size; marginals still count them
 _DETOK = [(" @-@ ", "-"), (" @,@ ", ","), (" @.@ ", "."), (" , ", ", "), (" . ", ". ")]
@@ -52,37 +54,39 @@ _DETOK = [(" @-@ ", "-"), (" @,@ ", ","), (" @.@ ", "."), (" , ", ", "), (" . ",
 # Tuning constraints: the chosen thresholds catch as many probe errors as they can while flagging
 # at most this often on correct text.
 MAX_RIGHT_FLAGGED = 0.10  # share of the probes' correct sentences with any flag
-MAX_STRONG_PER_100 = 0.5  # flags per 100 words on Gold Scripts banded 7 or above
-GRID_MAX_COUNT = (1, 2, 3, 5)
-GRID_MIN_EXPECTED = (1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 35.0)
+MAX_STRONG_PER_100 = 0.25  # flags per 100 words on Gold Scripts banded 7 or above
+GRID_ALPHA = (0.0001, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.02, 0.05)
 
 
-def paragraphs_from_wikitext(path: Path, max_words: int) -> Iterator[str]:
+def paragraphs_from_wikitext(paths: list[Path], max_words: int) -> Iterator[str]:
     """Article paragraphs, detokenised, headings skipped, until the word budget is spent."""
     import pyarrow.parquet as pq  # build-time only: uv run --with pyarrow
 
     words = 0
-    for batch in pq.ParquetFile(path).iter_batches(columns=["text"], batch_size=4096):
-        for line in batch.column(0).to_pylist():
-            line = line.strip()
-            if not line or line.startswith("="):
-                continue
-            for a, b in _DETOK:
-                line = line.replace(a, b)
-            words += line.count(" ") + 1
-            yield line
-            if words >= max_words:
-                return
+    for path in paths:
+        for batch in pq.ParquetFile(path).iter_batches(columns=["text"], batch_size=4096):
+            for line in batch.column(0).to_pylist():
+                line = line.strip()
+                if not line or line.startswith("="):
+                    continue
+                for a, b in _DETOK:
+                    line = line.replace(a, b)
+                words += line.count(" ") + 1
+                yield line
+                if words >= max_words:
+                    return
 
 
 def build(max_words: int) -> dict[str, Any]:
     with tempfile.TemporaryDirectory() as tmp:
-        parquet = Path(tmp) / "train-0.parquet"
-        log.info("downloading %s", SOURCE["parquet"])
-        urllib.request.urlretrieve(SOURCE["parquet"], parquet)  # noqa: S310 - fixed https URL
+        parquets = []
+        for i, url in enumerate(SOURCE["parquet"]):
+            log.info("downloading %s", url)
+            parquets.append(Path(tmp) / f"train-{i}.parquet")
+            urllib.request.urlretrieve(url, parquets[-1])  # noqa: S310 - fixed https URL
         nlp = spacy.load("en_core_web_sm", disable=["ner"])
         counts: Counter[tuple[str, str, str]] = Counter()
-        texts = paragraphs_from_wikitext(parquet, max_words)
+        texts = paragraphs_from_wikitext(parquets, max_words)
         for i, doc in enumerate(nlp.pipe(texts, batch_size=256, n_process=os.cpu_count() or 1)):
             counts.update((rel, lemma(p), lemma(n)) for rel, p, n in pairings(doc))
             if i % 50_000 == 0:
@@ -122,24 +126,23 @@ def build(max_words: int) -> dict[str, Any]:
     return meta
 
 
-Stats = list[tuple[int, float]]  # (pair count, expected count) for each pairing in a text
+Stats = list[float]  # Poisson surprise for each pairing in a text
 
 
 def _stats(nlp: spacy.language.Language, text: str, ref: Reference) -> Stats:
     out = []
     for rel, p, n in pairings(nlp(text)):
         if abs(p.i - n.i) <= MAX_GAP:
-            a, b = lemma(p), lemma(n)
-            out.append((ref.count(rel, a, b), ref.expected(rel, a, b)))
+            out.append(ref.surprise(rel, lemma(p), lemma(n)))
     return out
 
 
-def _flags(stats: Stats, max_count: int, min_expected: float) -> int:
-    return sum(c <= max_count and e >= min_expected for c, e in stats)
+def _flags(stats: Stats, alpha: float) -> int:
+    return sum(s < alpha for s in stats)
 
 
 def tune(ref: Reference) -> dict[str, Any]:
-    """Grid over (max_count, min_expected) on the probes and the strong Gold Scripts."""
+    """Grid over alpha on the probes and the strong Gold Scripts."""
     nlp = spacy.load("en_core_web_sm")
     probes = json.loads(PROBES.read_text())["probes"]
     wrong = [_stats(nlp, p["wrong"], ref) for p in probes]
@@ -152,18 +155,13 @@ def tune(ref: Reference) -> dict[str, Any]:
     strong_words = sum(w for _, w in strong)
 
     grid = []
-    for max_count, min_expected in product(GRID_MAX_COUNT, GRID_MIN_EXPECTED):
+    for alpha in GRID_ALPHA:
         grid.append(
             {
-                "max_count": max_count,
-                "min_expected": min_expected,
-                "probe_recall": sum(_flags(s, max_count, min_expected) > 0 for s in wrong)
-                / len(wrong),
-                "right_flagged": sum(_flags(s, max_count, min_expected) > 0 for s in right)
-                / len(right),
-                "strong_per_100": 100
-                * sum(_flags(s, max_count, min_expected) for s, _ in strong)
-                / strong_words,
+                "alpha": alpha,
+                "probe_recall": sum(_flags(s, alpha) > 0 for s in wrong) / len(wrong),
+                "right_flagged": sum(_flags(s, alpha) > 0 for s in right) / len(right),
+                "strong_per_100": 100 * sum(_flags(s, alpha) for s, _ in strong) / strong_words,
             }
         )
     allowed = [
@@ -171,10 +169,9 @@ def tune(ref: Reference) -> dict[str, Any]:
         for g in grid
         if g["right_flagged"] <= MAX_RIGHT_FLAGGED and g["strong_per_100"] <= MAX_STRONG_PER_100
     ]
-    # Most recall; then fewest flags on strong essays; then the stricter (higher) expectation.
+    # Most recall; then fewest flags on strong essays; then the stricter (smaller) alpha.
     best = max(
-        allowed or grid,
-        key=lambda g: (g["probe_recall"], -g["strong_per_100"], g["min_expected"]),
+        allowed or grid, key=lambda g: (g["probe_recall"], -g["strong_per_100"], -g["alpha"])
     )
     return {
         "chosen": best,
@@ -198,11 +195,11 @@ def render(meta: dict[str, Any], tuning: dict[str, Any]) -> str:
         "> performs on real candidates.",
         "",
         f"Reference: {meta['source']['name']} ({meta['source']['license']}), first "
-        f"{meta['words']:,} words, parsed with spaCy `en_core_web_sm`. "
+        f"{meta['words']:,} words (or all of it), parsed with spaCy `en_core_web_sm`. "
         f"{meta['stored_pairs']:,} pairs stored (seen at least {meta['min_stored']} times).",
         "",
-        f"Chosen: flag a pairing seen at most **{b['max_count']}** times when chance alone "
-        f"predicts at least **{b['min_expected']:g}**. "
+        f"Chosen: flag a pairing when, if its words combined at random, seeing it this seldom "
+        f"would have probability below **{b['alpha']:g}** (Poisson tail). "
         + (
             "" if tuning["met_constraints"] else "No setting met both constraints; least bad shown."
         ),
@@ -222,7 +219,8 @@ def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("step", choices=["build", "tune"])
-    parser.add_argument("--max-words", type=int, default=25_000_000)
+    # All of WikiText-103 (~103M words): smaller samples lack the power to call a pair rare.
+    parser.add_argument("--max-words", type=int, default=120_000_000)
     args = parser.parse_args()
     if args.step == "build":
         meta = build(args.max_words)
@@ -232,7 +230,7 @@ def main() -> None:
     with gzip.open(PAIRS_FILE, "rt", encoding="utf-8") as f:
         ref = parse(f)
     tuning = tune(ref)
-    meta["thresholds"] = {k: tuning["chosen"][k] for k in ("max_count", "min_expected")}
+    meta["thresholds"] = {"alpha": tuning["chosen"]["alpha"]}
     meta["tuning"] = {k: v for k, v in tuning.items() if k != "grid"}
     META_FILE.write_text(json.dumps(meta, indent=2) + "\n")
     REPORT.write_text(render(meta, tuning))
