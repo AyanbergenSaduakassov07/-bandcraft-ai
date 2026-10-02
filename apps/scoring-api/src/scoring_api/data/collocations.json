@@ -1,0 +1,33 @@
+{
+  "source": {
+    "name": "WikiText-103 (raw), train split",
+    "url": "https://huggingface.co/datasets/Salesforce/wikitext",
+    "license": "CC BY-SA 3.0 (text from English Wikipedia)",
+    "parquet": "https://huggingface.co/api/datasets/Salesforce/wikitext/parquet/wikitext-103-raw-v1/train/0.parquet"
+  },
+  "words": 25000000,
+  "built_at": "2026-10-02T17:06:10+00:00",
+  "pairings": {
+    "amod": 1219510,
+    "dobj": 776775
+  },
+  "stored_pairs": 225363,
+  "min_stored": 2,
+  "thresholds": {
+    "max_count": 2,
+    "min_expected": 2.0
+  },
+  "tuning": {
+    "chosen": {
+      "max_count": 2,
+      "min_expected": 2.0,
+      "probe_recall": 0.3103448275862069,
+      "right_flagged": 0.034482758620689655,
+      "strong_per_100": 0.4781829049611476
+    },
+    "met_constraints": true,
+    "probes": 29,
+    "strong_essays": 7,
+    "strong_words": 1673
+  }
+}
