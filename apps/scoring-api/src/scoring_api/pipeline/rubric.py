@@ -6,6 +6,7 @@ import math
 import random
 import re
 
+import httpx
 from google import genai
 from google.genai import errors, types
 from pydantic import BaseModel, ValidationError
@@ -130,7 +131,7 @@ async def score_rubric(
             log.warning(
                 "gemini attempt %d/%d failed: %s %s", attempt, MAX_ATTEMPTS, e.code, e.message
             )
-        except (ValidationError, TimeoutError) as e:
+        except (ValidationError, TimeoutError, httpx.TransportError) as e:
             if attempt == MAX_ATTEMPTS:
                 raise RubricError(f"No valid judgement after {MAX_ATTEMPTS} attempts: {e}") from e
             log.warning(
