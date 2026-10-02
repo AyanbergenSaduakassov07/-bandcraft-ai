@@ -132,6 +132,26 @@ class OverallBand(BaseModel):
     band: float
 
 
+class OriginalityPathValues(BaseModel):
+    """The fifth path's breakdown, so the warning is never an opaque flag."""
+
+    similarity: float = Field(description="Closest template passage, cosine similarity.")
+    embedding: float = Field(description="Similarity path, calibrated to a 0-1 risk.")
+    classifier: float = Field(description="Templated-vs-organic classifier, calibrated 0-1 risk.")
+
+
+class OriginalityCheck(BaseModel):
+    """Pre-submit warning for template-heavy Task 2 Scripts. Never changes a band."""
+
+    risk: float = Field(ge=0, le=1, description="Mean of the two calibrated paths.")
+    template_heavy: bool
+    paths: OriginalityPathValues
+    evidence: list[EvidenceSpan] = Field(
+        description="Paragraphs closer to a template passage than the calibrated threshold."
+    )
+    embedding_model: str
+
+
 class FinalResponse(BaseModel):
     task_type: TaskType
     script: str = Field(description="The normalised Script; evidence offsets index into this.")
@@ -143,4 +163,10 @@ class FinalResponse(BaseModel):
     gemini_models: list[str]
     calibration_version: str
     features: FeatureVector
+    originality: OriginalityCheck | None = Field(
+        default=None, description="Task 2 only, and only once the template index is fitted."
+    )
+    embedding: list[float] | None = Field(
+        default=None, description="The Script's embedding, for storage. Not for display."
+    )
     latency_ms: int

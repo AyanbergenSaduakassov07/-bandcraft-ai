@@ -12,7 +12,7 @@ uv run --group train pytest                                        # tests
 
 ```
 src/scoring_api/
-├── main.py                 The API: POST /score/draft, POST /score/final, GET /health
+├── main.py                 The API: POST /score/draft, /score/final, /originality, GET /health
 ├── schemas.py              Request and response shapes
 ├── pipeline/               The scoring pipeline, one module per stage in SPEC.md
 │   ├── draft.py            Stage 1: clean the text; runs stages 2 and 3 in parallel
@@ -20,17 +20,22 @@ src/scoring_api/
 │   ├── rubric.py           Stage 3: Gemini scores each criterion, quoting evidence first
 │   ├── prompts.py          The exact instructions sent to Gemini
 │   ├── calibration.py      Stage 4: corrects Gemini's scale using the Gold Set
-│   ├── ensemble.py         Stage 5: combines four estimates into the final band
+│   ├── ensemble.py         Stage 5: combines four estimates into the final band, plus the originality path
+│   ├── originality.py      Originality Check I/O: Gemini embeddings, pgvector template index
 │   └── final.py            Stages 4-5 behind POST /score/final
 └── training/               Offline jobs, not part of the running API
     ├── record_gold.py      Records real Gemini runs for the Gold Set
-    └── train.py            Fits the stage 4-5 models and writes a benchmark report
+    ├── train.py            Fits the stage 4-5 models and writes a benchmark report
+    ├── template_index.py   Generates and embeds templated essays into pgvector (template-index workflow)
+    ├── originality.py      Fits the originality classifier and calibrators (calibrate workflow)
+    └── order_bias.py       Order-bias eval for the stage 3 prompt
 tests/
 ├── fixtures/gold/          The Gold Set: 18 labelled essays (see its README)
 ├── fixtures/gold-raw/      Recorded Gemini runs for those essays (input to training)
 ├── test_features.py        Stage 2
 ├── test_draft_api.py       Stage 3 helpers and POST /score/draft
 ├── test_final.py           Stages 4-5 and POST /score/final
+├── test_originality.py     The originality path, with toy vectors and a stub index
 └── test_gold_mae.py        Live Gemini accuracy run (opt-in: pytest -m gemini)
 artifacts/calibration/      Trained models, one folder per version (written by the calibrate workflow)
 ```
@@ -39,5 +44,6 @@ artifacts/calibration/      Trained models, one folder per version (written by t
 
 1. **Draft** (`/score/draft`): features and a raw Gemini band for each criterion, with quoted evidence.
 2. **Final** (`/score/final`): calibrate, then compare four estimates per criterion (raw, calibrated, features-only, ensemble). A disagreement of more than one band triggers a second Gemini pass.
+3. **Originality** (`/originality`, and inside `/score/final`): Task 2 only. Compares the Script's paragraphs with the pgvector template index and runs a templated-vs-organic classifier. It warns before submission and never changes a band.
 
 Training runs in GitHub Actions (Actions → calibrate). Details in `docs/adr/0003-small-cpu-fits-in-github-actions.md` and `docs/benchmarks/`.

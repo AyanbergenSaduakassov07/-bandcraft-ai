@@ -1,5 +1,6 @@
-"""Stages 4-5 on top of the draft: calibrate, ensemble, cross-check."""
+"""Stages 4-5 on top of the draft: calibrate, ensemble, cross-check, originality."""
 
+import asyncio
 import time
 
 from scoring_api.pipeline.draft import Scorer, draft_score, normalise
@@ -9,6 +10,7 @@ from scoring_api.pipeline.ensemble import (
     needs_second_pass,
     predict_paths,
 )
+from scoring_api.pipeline.originality import Checker, safe_check
 from scoring_api.pipeline.rubric import overall_band
 from scoring_api.schemas import (
     CRITERIA,
@@ -26,9 +28,15 @@ def _bands(rubric: RubricResult) -> dict[Criterion, float]:
     return {c: float(rubric.criteria[c].band) for c in CRITERIA}
 
 
-async def final_score(req: DraftRequest, scorer: Scorer, bundle: Bundle) -> FinalResponse:
+async def final_score(
+    req: DraftRequest, scorer: Scorer, bundle: Bundle, check: Checker | None = None
+) -> FinalResponse:
     started = time.perf_counter()
-    first = await draft_score(req, scorer)
+    # Originality runs alongside scoring and never feeds a band.
+    first, (originality, embedding) = await asyncio.gather(
+        draft_score(req, scorer),
+        safe_check(check if req.task_type == "task2" else None, normalise(req.script)),
+    )
     runs = [first.rubric]
     paths = predict_paths(bundle, first.features, req.task_type, [_bands(first.rubric)])
     second = needs_second_pass(paths)
@@ -62,5 +70,7 @@ async def final_score(req: DraftRequest, scorer: Scorer, bundle: Bundle) -> Fina
         gemini_models=sorted({r.model for r in runs}),
         calibration_version=bundle.version,
         features=first.features,
+        originality=originality,
+        embedding=embedding,
         latency_ms=round((time.perf_counter() - started) * 1000),
     )

@@ -129,3 +129,34 @@ def build_user_prompt(task_type: TaskType, prompt: str, script: str) -> str:
         grammar=GRAMMAR,
         first_name="Task Response" if task_type == "task2" else "Task Achievement",
     )
+
+
+# ── Template index (training/template_index.py) ─────────────────────────────
+
+TEMPLATE_PROMPT_VERSION = "templated-v1"
+
+TEMPLATE_SYSTEM_PROMPT = """You write example IELTS Writing Task 2 essays of one specific kind: templated, formulaic essays built from memorised frames that a candidate could reuse for any question. Use the stock moves such essays rely on: an opening that paraphrases the question with a ready-made frame ("In this day and age...", "It is often argued that..."), a thesis announcement ("This essay will discuss..."), stock body openers ("On the one hand", "Firstly", "Another key point is that"), generic examples that could fit any topic, and a conclusion that restates the introduction ("In conclusion, ..."). Vary which frames you use across essays, the way different template books do. Write 250-320 words per essay in 4-5 paragraphs separated by blank lines. Plain text only, no titles or headings."""
+
+TEMPLATE_USER_PROMPT = """Write {count} different templated essays answering this Task 2 question:
+
+{prompt}"""
+
+# Common Task 2 questions. The Gold Set's Task 2 prompts are added at run time, so the classifier
+# sees templated essays on the same questions as its organic examples and can't learn the topic.
+TEMPLATE_TOPICS: dict[str, str] = {
+    "technology-children": "Some people think that children today spend too much time on computers and phones. To what extent do you agree or disagree?",
+    "environment-individuals": "Some people believe that environmental problems are too big for individuals to solve. Others think individuals can make a difference. Discuss both views and give your opinion.",
+    "crime-punishment": "Some people think that the best way to reduce crime is to give longer prison sentences. Others believe there are better ways. Discuss both views and give your opinion.",
+    "online-learning": "Online courses are becoming more popular than traditional classroom learning. Do the advantages of this development outweigh the disadvantages?",
+    "tourism": "International tourism has brought enormous benefits to many places, but it also has drawbacks. Do the advantages outweigh the disadvantages?",
+    "public-health": "Some people think governments should spend money on public health campaigns, while others think it is better spent on hospitals and treatment. Discuss both views and give your opinion.",
+    "advertising": "Advertising encourages people to buy things they do not need. To what extent do you agree or disagree?",
+    "ageing-population": "In many countries the proportion of older people is increasing. Does this trend have more positive or negative effects?",
+    "space-exploration": "Some people think that money spent on space exploration should be spent on solving problems on Earth. To what extent do you agree or disagree?",
+    "university-subjects": "Some people believe universities should only offer subjects that are useful for future employment. To what extent do you agree or disagree?",
+    "remote-work": "More and more people are working from home. Is this a positive or negative development?",
+    "traffic-congestion": "Traffic congestion is a growing problem in many cities. What are the causes, and what measures could be taken to solve it?",
+    "fast-food": "The consumption of fast food is increasing around the world. What are the reasons for this, and what can be done about it?",
+    "museums": "Some people think museums should be free for everyone, while others think visitors should pay. Discuss both views and give your opinion.",
+    "team-sports": "Some people think that team sports are more beneficial for children than individual sports. To what extent do you agree or disagree?",
+}
