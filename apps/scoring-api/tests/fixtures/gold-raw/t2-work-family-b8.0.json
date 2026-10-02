@@ -1,0 +1,201 @@
+{
+ "id": "t2-work-family-b8.0",
+ "runs": [
+  {
+   "task_type": "task2",
+   "features": {
+    "word_count": 293,
+    "word_floor": 250,
+    "below_word_floor": false,
+    "paragraph_count": 4,
+    "mean_paragraph_words": 73.2,
+    "has_overview": null,
+    "has_conclusion": true,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 13,
+    "mean_sentence_words": 22.54,
+    "sentence_length_variance": 62.86,
+    "subordinate_clause_rate": 0.923,
+    "type_token_ratio": 0.652,
+    "mattr": 0.9,
+    "cohesion_marker_count": 8,
+    "cohesion_markers_per_100_words": 2.73,
+    "distinct_cohesion_markers": 7,
+    "top_cohesion_marker_share": 0.25,
+    "spelling_error_count": 2,
+    "grammar_issue_count": 0,
+    "errors_per_100_words": 0.68,
+    "collocation_issue_count": 3,
+    "issues": [
+     {
+      "rule": "spelling",
+      "start": 663,
+      "end": 667,
+      "text": "apps",
+      "suggestion": null
+     },
+     {
+      "rule": "collocation_amod",
+      "start": 776,
+      "end": 796,
+      "text": "standard working day",
+      "suggestion": "\u201cstandard \u2026 day\u201d is rare in the reference corpus. Usual partners for \u201cday\u201d: next, present, same."
+     },
+     {
+      "rule": "spelling",
+      "start": 855,
+      "end": 867,
+      "text": "presenteeism",
+      "suggestion": null
+     },
+     {
+      "rule": "collocation_amod",
+      "start": 1021,
+      "end": 1035,
+      "text": "several levels",
+      "suggestion": "\u201cseveral \u2026 level\u201d is rare in the reference corpus. Usual partners for \u201clevel\u201d: high, low, upper."
+     },
+     {
+      "rule": "collocation_dobj",
+      "start": 1844,
+      "end": 1857,
+      "text": "give families",
+      "suggestion": "\u201cgive \u2026 family\u201d is rare in the reference corpus. Usual partners for \u201cfamily\u201d: move, support, leave."
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 9,
+      "analysis": "The candidate fully addresses all parts of the task. A clear position is maintained throughout the response. The ideas are highly relevant, fully developed, and excellently supported with logical arguments and examples. There are no lapses in focus or under-developed points.",
+      "evidence": [
+       {
+        "quote": "This trend has economic and technological roots, but it can be reversed if both employers and individuals take deliberate action.",
+        "observation": "The candidate immediately establishes a clear, fully developed position that addresses both causes and solutions.",
+        "start": 141,
+        "end": 270,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "In cities where housing costs have risen far faster than wages, many households need two full-time incomes, and often overtime as well",
+        "observation": "The candidate provides a highly relevant and fully extended explanation of a financial cause.",
+        "start": 318,
+        "end": 452,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Governments could follow the example of countries such as France, which have introduced a legal 'right to disconnect'",
+        "observation": "A concrete, relevant, and well-supported example is used to fully develop the proposed governmental solution.",
+        "start": 1037,
+        "end": 1153,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 9,
+      "analysis": "The essay is organized logically with clear, seamless progression from start to finish. Cohesive devices are used so naturally that they do not attract attention. Each paragraph has a clear, distinct central topic, and the paragraphing is highly appropriate.",
+      "evidence": [
+       {
+        "quote": "This trend has economic and technological roots",
+        "observation": "The use of referencing ('This trend') seamlessly connects the sentence to the previous paragraph's topic.",
+        "start": 141,
+        "end": 188,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "A second, less visible, cause is the way",
+        "observation": "The candidate uses signposting naturally to sequence ideas logically within the paragraph.",
+        "start": 490,
+        "end": 530,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Addressing these causes requires action at several levels.",
+        "observation": "The candidate transitions smoothly between paragraphs by summarizing the previous topic while introducing the new central theme.",
+        "start": 978,
+        "end": 1036,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 9,
+      "analysis": "The candidate demonstrates a wide range of vocabulary used with fluent and sophisticated control. Collocations are exceptionally natural, and less common words are integrated seamlessly. No errors in spelling or word choice are present.",
+      "evidence": [
+       {
+        "quote": "working hours have crept steadily upwards, and the time people spend with their families has shrunk accordingly.",
+        "observation": "This shows an exceptionally natural, sophisticated control of collocations and verbs.",
+        "start": 28,
+        "end": 140,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "blurred the boundary between the office and the home.",
+        "observation": "This illustrates highly precise and flexible use of figurative language to convey precise meaning.",
+        "start": 554,
+        "end": 607,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "culture of presenteeism, in which staying late is treated as evidence of commitment",
+        "observation": "The candidate successfully uses precise, less common vocabulary appropriate to the context of workplace dynamics.",
+        "start": 844,
+        "end": 927,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 9,
+      "analysis": "The candidate showcases a wide range of grammatical structures with complete flexibility and accuracy. Every single sentence is entirely error-free, and punctuation is used masterfully throughout the text.",
+      "evidence": [
+       {
+        "quote": "Because employees can be reached by email or messaging apps at any hour, work increasingly spills into evenings and weekends",
+        "observation": "This shows flawless execution of a complex sentence featuring a subordinate clause and a passive construction.",
+        "start": 608,
+        "end": 732,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Governments could follow the example of countries such as France, which have introduced a legal 'right to disconnect'",
+        "observation": "An accurate non-defining relative clause is used to present a complex idea smoothly.",
+        "start": 1037,
+        "end": 1153,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "While no single measure will solve the problem, a combination of legal protection, smarter management and personal discipline could give families",
+        "observation": "The candidate accurately structures a complex concessive clause containing a compound subject.",
+        "start": 1712,
+        "end": 1857,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 9.0
+   },
+   "latency_ms": 63274
+  }
+ ]
+}

@@ -1,0 +1,250 @@
+{
+ "id": "t2-social-media-b4.5",
+ "runs": [
+  {
+   "task_type": "task2",
+   "features": {
+    "word_count": 221,
+    "word_floor": 250,
+    "below_word_floor": true,
+    "paragraph_count": 5,
+    "mean_paragraph_words": 44.2,
+    "has_overview": null,
+    "has_conclusion": true,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 15,
+    "mean_sentence_words": 14.73,
+    "sentence_length_variance": 18.33,
+    "subordinate_clause_rate": 0.667,
+    "type_token_ratio": 0.432,
+    "mattr": 0.729,
+    "cohesion_marker_count": 8,
+    "cohesion_markers_per_100_words": 3.62,
+    "distinct_cohesion_markers": 3,
+    "top_cohesion_marker_share": 0.5,
+    "spelling_error_count": 2,
+    "grammar_issue_count": 8,
+    "errors_per_100_words": 4.52,
+    "collocation_issue_count": 2,
+    "issues": [
+     {
+      "rule": "agreement",
+      "start": 90,
+      "end": 97,
+      "text": "it have",
+      "suggestion": null
+     },
+     {
+      "rule": "capitalisation",
+      "start": 162,
+      "end": 163,
+      "text": "s",
+      "suggestion": null
+     },
+     {
+      "rule": "agreement",
+      "start": 169,
+      "end": 177,
+      "text": "media is",
+      "suggestion": null
+     },
+     {
+      "rule": "spelling",
+      "start": 248,
+      "end": 257,
+      "text": "instagram",
+      "suggestion": null
+     },
+     {
+      "rule": "spelling",
+      "start": 262,
+      "end": 268,
+      "text": "tiktok",
+      "suggestion": null
+     },
+     {
+      "rule": "capitalisation",
+      "start": 324,
+      "end": 325,
+      "text": "m",
+      "suggestion": null
+     },
+     {
+      "rule": "agreement",
+      "start": 334,
+      "end": 340,
+      "text": "he use",
+      "suggestion": null
+     },
+     {
+      "rule": "agreement",
+      "start": 486,
+      "end": 499,
+      "text": "media also is",
+      "suggestion": null
+     },
+     {
+      "rule": "capitalisation",
+      "start": 552,
+      "end": 553,
+      "text": "y",
+      "suggestion": null
+     },
+     {
+      "rule": "collocation_amod",
+      "start": 849,
+      "end": 858,
+      "text": "good side",
+      "suggestion": "\u201cgood \u2026 side\u201d is rare in the reference corpus. Usual partners for \u201cside\u201d: other, south, west."
+     },
+     {
+      "rule": "capitalisation",
+      "start": 922,
+      "end": 923,
+      "text": "i",
+      "suggestion": null
+     },
+     {
+      "rule": "collocation_amod",
+      "start": 956,
+      "end": 965,
+      "text": "good side",
+      "suggestion": "\u201cgood \u2026 side\u201d is rare in the reference corpus. Usual partners for \u201cside\u201d: other, south, west."
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 5,
+      "analysis": "The candidate addresses the prompt and maintains a clear position throughout the essay. Relevant ideas are introduced (such as time-wasting, cyberbullying, and negative comparisons), but development is limited and often relies on personal anecdotes. Crucially, the essay is only 211 words long, which is significantly below the 250-word minimum and prevents full development of the topic, resulting in a penalty.",
+      "evidence": [
+       {
+        "quote": "I am agree with this opinion.",
+        "observation": "Shows a clear position in the introduction, although it contains grammatical inaccuracies.",
+        "start": 131,
+        "end": 160,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "But social media have also good side, you can talk with friends and find information for study.",
+        "observation": "Briefly addresses the opposing view but fails to extend or develop the ideas.",
+        "start": 822,
+        "end": 917,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "In conclusion social media is very bad for young people because they spend to much time and there is fake news and bullying.",
+        "observation": "Reiterates the main arguments in a basic summary conclusion.",
+        "start": 968,
+        "end": 1092,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 5,
+      "analysis": "The essay is organised into paragraphs, but the progression is weak. The paragraph discussing the positive aspects is underdeveloped and consists of only two sentences. Cohesive devices are basic and repetitive, and the link between ideas within sentences is sometimes faulty or absent.",
+      "evidence": [
+       {
+        "quote": "social media is bad for young people because they spend to much time on it.",
+        "observation": "Uses a basic cohesive device ('because') to establish a cause-and-effect relationship within a sentence.",
+        "start": 162,
+        "end": 237,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Also they dont talk with family, they only look the phone.",
+        "observation": "Employs 'Also' as a mechanical transition to introduce a new point.",
+        "start": 419,
+        "end": 477,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "But social media have also good side, you can talk with friends and find information for study.",
+        "observation": "Uses 'But' at the start of a paragraph to contrast, reflecting limited transitional devices.",
+        "start": 822,
+        "end": 917,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 5,
+      "analysis": "The lexical resource is limited and barely adequate for the task. The candidate relies heavily on simple, repetitive language ('bad', 'very tired', 'good side'). While there are attempts to use vocabulary appropriate to the topic ('bloggers', 'fake news'), word-choice, spelling, and collocation errors are noticeable.",
+      "evidence": [
+       {
+        "quote": "Some people make bullying on internet and the children feel very sad and they have depression.",
+        "observation": "Shows an attempt at topic-specific vocabulary ('depression', 'bullying') but uses an incorrect collocation ('make bullying').",
+        "start": 622,
+        "end": 716,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Also they compare them self with the bloggers who have beautiful life and they think there life is bad.",
+        "observation": "Demonstrates word formation and spelling errors ('them self', 'there life') in everyday vocabulary.",
+        "start": 717,
+        "end": 820,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "They look instagram and tiktok all day and they dont do homework and they dont sleep.",
+        "observation": "Relies on very basic, everyday words and fails to use the correct preposition ('look instagram').",
+        "start": 238,
+        "end": 323,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 4,
+      "analysis": "The candidate has a very limited grammatical range, relying almost entirely on simple sentences connected by 'and'. Subordinate or complex structures are rarely attempted and are plagued by errors when they do appear. Grammatical and punctuation mistakes (lack of capitalization, missing apostrophes in contractions like 'dont', article omissions) are highly frequent and predominate throughout the text.",
+      "evidence": [
+       {
+        "quote": "Some people think it have negative effect on young people. I am agree with this opinion.",
+        "observation": "Contains a subject-verb agreement error ('it have') and a verb-form error ('I am agree').",
+        "start": 72,
+        "end": 160,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "my friend he use phone until 3 in the night and in the morning he is very tired in the lesson.",
+        "observation": "Shows multiple errors: lack of capitalisation, double subject ('my friend he'), missing article ('use phone'), and subject-verb agreement error ('use').",
+        "start": 324,
+        "end": 418,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "But i think bad side is more big then good side.",
+        "observation": "Features a lower-case 'i', an incorrect comparative form ('more big'), a misspelling ('then' instead of 'than'), and missing articles.",
+        "start": 918,
+        "end": 966,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 5.0
+   },
+   "latency_ms": 43112
+  }
+ ]
+}

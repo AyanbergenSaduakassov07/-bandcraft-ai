@@ -1,0 +1,152 @@
+{
+ "id": "t1a-internet-b7.0",
+ "runs": [
+  {
+   "task_type": "task1_academic",
+   "features": {
+    "word_count": 165,
+    "word_floor": 150,
+    "below_word_floor": false,
+    "paragraph_count": 5,
+    "mean_paragraph_words": 33.0,
+    "has_overview": true,
+    "has_conclusion": null,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 8,
+    "mean_sentence_words": 20.62,
+    "sentence_length_variance": 34.48,
+    "subordinate_clause_rate": 0.75,
+    "type_token_ratio": 0.561,
+    "mattr": 0.82,
+    "cohesion_marker_count": 5,
+    "cohesion_markers_per_100_words": 3.03,
+    "distinct_cohesion_markers": 5,
+    "top_cohesion_marker_share": 0.2,
+    "spelling_error_count": 0,
+    "grammar_issue_count": 0,
+    "errors_per_100_words": 0.0,
+    "issues": []
+   },
+   "rubric": {
+    "model": "gemini-3.6-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 9,
+      "analysis": "The response covers all prompt requirements fully and accurately. A clear overview is provided, and key features are skilfully highlighted, compared, and fully developed without any factual inaccuracies or missing data.",
+      "evidence": [
+       {
+        "quote": "Overall, internet access rose substantially in all three countries. Poland had the highest rate throughout the period, while Kazakhstan saw the most dramatic growth",
+        "observation": "Shows a clear overview highlighting overall trends and key comparisons across all three countries.",
+        "start": 149,
+        "end": 313,
+        "verified": true
+       },
+       {
+        "quote": "In 2005, Poland was already well ahead, with 30% of households connected, compared with 15% in Brazil and only 10% in Kazakhstan.",
+        "observation": "Demonstrates precise selection and reporting of baseline key data points with accurate comparative figures.",
+        "start": 363,
+        "end": 492,
+        "verified": true
+       },
+       {
+        "quote": "By 2020, Kazakhstan had almost caught up with Poland, at 88% and 90% respectively, whereas Brazil lagged behind at 70%.",
+        "observation": "Illustrates full development of final data points with relevant comparisons across all three countries.",
+        "start": 770,
+        "end": 889,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 9,
+      "analysis": "Cohesion is natural and unobtrusive. The report is logically organized into well-structured paragraphs with clear progression and sophisticated referencing throughout.",
+      "evidence": [
+       {
+        "quote": "Over the next five years, all three figures rose sharply, reaching 55%, 35% and 30% respectively.",
+        "observation": "Uses seamless temporal transition and referencing to group data logically across sentences.",
+        "start": 493,
+        "end": 590,
+        "verified": true
+       },
+       {
+        "quote": "The period from 2010 to 2015 marked a turning point for Kazakhstan, where the figure more than doubled to 65%",
+        "observation": "Displays natural cohesion using relative clauses to connect timeframes to specific trends.",
+        "start": 592,
+        "end": 701,
+        "verified": true
+       },
+       {
+        "quote": "In short, although Poland remained the leader, the gap between the three countries narrowed considerably",
+        "observation": "Employs effective paragraphing and a clear concluding signpost to consolidate main findings logically.",
+        "start": 891,
+        "end": 995,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 9,
+      "analysis": "The candidate displays a wide lexical range with natural, sophisticated control of collocation and style. The script is entirely free of lexical or spelling errors.",
+      "evidence": [
+       {
+        "quote": "Poland had the highest rate throughout the period, while Kazakhstan saw the most dramatic growth, eventually overtaking Brazil by a wide margin.",
+        "observation": "Demonstrates a wide range of flexible, sophisticated collocations and precise vocabulary.",
+        "start": 217,
+        "end": 361,
+        "verified": true
+       },
+       {
+        "quote": "The period from 2010 to 2015 marked a turning point for Kazakhstan",
+        "observation": "Uses less common idiomatic phrasing appropriately in a report context.",
+        "start": 592,
+        "end": 658,
+        "verified": true
+       },
+       {
+        "quote": "By 2020, Kazakhstan had almost caught up with Poland, at 88% and 90% respectively, whereas Brazil lagged behind at 70%.",
+        "observation": "Employs precise, varied verbs and conjunctions to highlight differences and trends smoothly.",
+        "start": 770,
+        "end": 889,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 9,
+      "analysis": "The candidate uses a wide range of grammatical structures with full flexibility and complete accuracy throughout. There are no grammatical or punctuation errors.",
+      "evidence": [
+       {
+        "quote": "The table compares the proportion of households with internet access in Kazakhstan, Poland and Brazil at five-year intervals between 2005 and 2020.",
+        "observation": "Features an accurate sentence structure with prepositional phrases used correctly.",
+        "start": 0,
+        "end": 147,
+        "verified": true
+       },
+       {
+        "quote": "where the figure more than doubled to 65%, pushing it ahead of Brazil, which reached just half of households.",
+        "observation": "Demonstrates sophisticated use of participial phrases and relative clauses in an error-free complex structure.",
+        "start": 660,
+        "end": 769,
+        "verified": true
+       },
+       {
+        "quote": "In short, although Poland remained the leader, the gap between the three countries narrowed considerably, with Kazakhstan's growth being particularly rapid.",
+        "observation": "Shows seamless control over subordinate clauses and prepositions in complex sentence structures.",
+        "start": 891,
+        "end": 1047,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 9.0
+   },
+   "latency_ms": 13516
+  }
+ ]
+}

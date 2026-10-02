@@ -1,0 +1,201 @@
+{
+ "id": "t2-social-media-b6.5",
+ "runs": [
+  {
+   "task_type": "task2",
+   "features": {
+    "word_count": 265,
+    "word_floor": 250,
+    "below_word_floor": false,
+    "paragraph_count": 5,
+    "mean_paragraph_words": 53.0,
+    "has_overview": null,
+    "has_conclusion": true,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 14,
+    "mean_sentence_words": 18.93,
+    "sentence_length_variance": 55.64,
+    "subordinate_clause_rate": 0.643,
+    "type_token_ratio": 0.592,
+    "mattr": 0.868,
+    "cohesion_marker_count": 12,
+    "cohesion_markers_per_100_words": 4.53,
+    "distinct_cohesion_markers": 11,
+    "top_cohesion_marker_share": 0.167,
+    "spelling_error_count": 3,
+    "grammar_issue_count": 2,
+    "errors_per_100_words": 1.89,
+    "collocation_issue_count": 0,
+    "issues": [
+     {
+      "rule": "spelling",
+      "start": 323,
+      "end": 334,
+      "text": "influencers",
+      "suggestion": null
+     },
+     {
+      "rule": "spelling",
+      "start": 460,
+      "end": 473,
+      "text": "cyberbullying",
+      "suggestion": null
+     },
+     {
+      "rule": "spelling",
+      "start": 766,
+      "end": 770,
+      "text": "apps",
+      "suggestion": null
+     },
+     {
+      "rule": "agreement",
+      "start": 890,
+      "end": 928,
+      "text": "Teachers in my country often complains",
+      "suggestion": null
+     },
+     {
+      "rule": "agreement",
+      "start": 1077,
+      "end": 1086,
+      "text": "media has",
+      "suggestion": null
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 8,
+      "analysis": "The candidate fully addresses all parts of the prompt, establishing a clear and consistent position from start to finish. The main arguments are well-developed and illustrated with relevant examples, such as the references to school concentration and the isolation during the pandemic. The essay easily exceeds the minimum word count and is fully on-topic.",
+      "evidence": [
+       {
+        "quote": "While these platforms offer some benefits, I largely agree that their overall effect on young people has been negative.",
+        "observation": "This shows a clear, well-defined position stated in the introduction, directly answering the prompt.",
+        "start": 100,
+        "end": 219,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "The most serious problem is the impact on mental health.",
+        "observation": "This shows the introduction of a relevant main point, which is subsequently extended with specific details like self-esteem and cyberbullying.",
+        "start": 221,
+        "end": 277,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "it would be unfair to say social media has no advantages.",
+        "observation": "This shows the candidate presenting a balanced response by briefly exploring counter-arguments, which are then integrated back into their overall position.",
+        "start": 1044,
+        "end": 1101,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 8,
+      "analysis": "The essay is logically organized with a very clear overall progression. Ideas flow naturally from one paragraph to the next. Paragraphing is highly appropriate, with each body paragraph focusing on a distinct, well-signalled topic. Cohesive devices are used flexibly and naturally throughout, avoiding any sense of mechanical transition.",
+      "evidence": [
+       {
+        "quote": "Another negative effect is on concentration and sleep.",
+        "observation": "This shows smooth paragraph transition and clear central topic introduction.",
+        "start": 622,
+        "end": 676,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "On the other hand, it would be unfair to say social media has no advantages.",
+        "observation": "This shows effective use of a cohesive device to signal a shift to a contrasting paragraph.",
+        "start": 1025,
+        "end": 1101,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "In conclusion, although social media can connect people and provide information, I believe its effects on mental health, sleep and concentration make it",
+        "observation": "This shows a logical summary of points discussed in the body paragraphs, guiding the reader to a clear progression.",
+        "start": 1315,
+        "end": 1467,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 8,
+      "analysis": "The candidate displays a wide range of vocabulary with a high degree of naturalness and precision. Terms like \"low self-esteem,\" \"cyberbullying,\" \"anonymously,\" \"endless scrolling,\" and \"isolated\" are used with excellent control of collocation. There are no spelling or word-formation errors, and less common vocabulary is used fluently to convey precise meaning.",
+      "evidence": [
+       {
+        "quote": "Teenagers constantly compare themselves with influencers who present an edited, unrealistic version of their lives",
+        "observation": "This shows natural use of collocation and precise, topic-specific vocabulary (\"influencers\", \"edited, unrealistic version\").",
+        "start": 278,
+        "end": 392,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "endless scrolling that these apps are designed to encourage",
+        "observation": "This shows high-level modern vocabulary and collocation appropriate for the social media topic.",
+        "start": 737,
+        "end": 796,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "helped many students to feel less isolated.",
+        "observation": "This shows precise vocabulary choice used to accurately express psychological states.",
+        "start": 1270,
+        "end": 1313,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 8,
+      "analysis": "The candidate uses a wide range of grammatical structures, including complex sentences, relative clauses, and multi-clause compound sentences. The majority of the sentences are completely error-free. The only issues are two minor slips in subject-verb agreement (\"teachers... complains\" and \"communities who shares\"). These very occasional errors do not reduce communication in any way.",
+      "evidence": [
+       {
+        "quote": "In addition, cyberbullying has become more common, because it is easy for people to post cruel comments anonymously, and victims cannot escape it",
+        "observation": "This shows accurate use of complex and compound sentence structures.",
+        "start": 447,
+        "end": 592,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "Teachers in my country often complains that students find it difficult to focus on a long text because they are used to short videos.",
+        "observation": "This shows a minor subject-verb agreement error with \"Teachers... complains\".",
+        "start": 890,
+        "end": 1023,
+        "verified": true,
+        "source": "gemini"
+       },
+       {
+        "quote": "It allows young people to keep in touch with friends, to find communities who shares their interests and to learn about the world.",
+        "observation": "This shows a minor subject-verb agreement error in the relative clause \"communities who shares\".",
+        "start": 1102,
+        "end": 1232,
+        "verified": true,
+        "source": "gemini"
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 8.0
+   },
+   "latency_ms": 139489
+  }
+ ]
+}

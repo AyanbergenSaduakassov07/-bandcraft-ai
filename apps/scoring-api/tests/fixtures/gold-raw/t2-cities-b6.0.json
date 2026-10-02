@@ -1,0 +1,152 @@
+{
+ "id": "t2-cities-b6.0",
+ "runs": [
+  {
+   "task_type": "task2",
+   "features": {
+    "word_count": 252,
+    "word_floor": 250,
+    "below_word_floor": false,
+    "paragraph_count": 4,
+    "mean_paragraph_words": 63.0,
+    "has_overview": null,
+    "has_conclusion": true,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 13,
+    "mean_sentence_words": 19.38,
+    "sentence_length_variance": 56.54,
+    "subordinate_clause_rate": 0.692,
+    "type_token_ratio": 0.528,
+    "mattr": 0.822,
+    "cohesion_marker_count": 12,
+    "cohesion_markers_per_100_words": 4.76,
+    "distinct_cohesion_markers": 9,
+    "top_cohesion_marker_share": 0.25,
+    "spelling_error_count": 0,
+    "grammar_issue_count": 0,
+    "errors_per_100_words": 0.0,
+    "issues": []
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 7,
+      "analysis": "The candidate addresses all parts of the task. They outline a clear position throughout the essay ('partly agree') and support their main ideas with relevant explanations and examples. The writing is concise but complete, meeting the word count requirement (251 words) without being repetitive. It represents a clear Band 7.",
+      "evidence": [
+       {
+        "quote": "I partly agree with this idea.",
+        "observation": "This clearly establishes the candidate's position in response to the prompt's question.",
+        "start": 234,
+        "end": 264,
+        "verified": true
+       },
+       {
+        "quote": "moving some companies to rural areas could reduce pressure on big cities.",
+        "observation": "This introduces a relevant argument addressing the relocation of businesses.",
+        "start": 283,
+        "end": 356,
+        "verified": true
+       },
+       {
+        "quote": "The countryside often lacks good hospitals, universities and entertainment, so many young people would not want to live there.",
+        "observation": "This addresses the resident perspective and explores why relocation might not be successful for everyone.",
+        "start": 852,
+        "end": 978,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 7,
+      "analysis": "The essay is logically organized and shows a clear progression from introduction to conclusion. Paragraphing is appropriate, and each paragraph contains a clear central topic. A range of cohesive devices is used appropriately, although some transitions are slightly formulaic, which fits the descriptor for Band 7.",
+      "evidence": [
+       {
+        "quote": "On the one hand, moving some companies to rural areas could reduce pressure on big cities.",
+        "observation": "This cohesive phrase acts as a clear transition to introducing the positive aspects of the proposal.",
+        "start": 266,
+        "end": 356,
+        "verified": true
+       },
+       {
+        "quote": "Also, housing in the countryside is much cheaper, therefore families could buy bigger homes",
+        "observation": "Cohesive devices ('Also', 'therefore') are used appropriately to link ideas within the paragraph.",
+        "start": 521,
+        "end": 612,
+        "verified": true
+       },
+       {
+        "quote": "On the other hand, this solution is not suitable for everyone.",
+        "observation": "This signposts a clear transition to the contrasting view in the next paragraph.",
+        "start": 789,
+        "end": 851,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 7,
+      "analysis": "The candidate demonstrates a sufficient range of vocabulary to discuss the topic flexibly and clearly. There is some successful use of collocations. Spelling and word choice are generally accurate, and any minor errors do not interfere with communication. This corresponds to Band 7.",
+      "evidence": [
+       {
+        "quote": "causes problems such as traffic jam, pollution and expensive housing.",
+        "observation": "This shows an adequate range of topic-specific vocabulary to outline urban issues.",
+        "start": 82,
+        "end": 151,
+        "verified": true
+       },
+       {
+        "quote": "reduce pressure on big cities.",
+        "observation": "The use of 'reduce pressure' is an appropriate collocation in this context.",
+        "start": 326,
+        "end": 356,
+        "verified": true
+       },
+       {
+        "quote": "quality of life.",
+        "observation": "This is a natural and common collocation used correctly to describe living standards.",
+        "start": 631,
+        "end": 647,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 7,
+      "analysis": "The writer uses a good mix of simple and complex structures, including relative clauses and conditional sentences. A large proportion of sentences are error-free, and grammatical control is generally strong. The few grammatical slips (such as 'not develop' and the singular 'traffic jam' instead of 'traffic jams') do not impede understanding. This aligns with Band 7.",
+      "evidence": [
+       {
+        "quote": "If offices and factories are built in smaller towns, people would not need to travel to the city centre every day,",
+        "observation": "This shows a well-constructed complex conditional sentence used accurately.",
+        "start": 357,
+        "end": 471,
+        "verified": true
+       },
+       {
+        "quote": "this helped to develop a region which was not develop before.",
+        "observation": "This contains a grammatical error in the passive verb form ('not develop' instead of 'not developed').",
+        "start": 726,
+        "end": 787,
+        "verified": true
+       },
+       {
+        "quote": "moving them far away could make them less successful.",
+        "observation": "This is an error-free complex clause utilizing a gerund subject.",
+        "start": 1114,
+        "end": 1167,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 7.0
+   },
+   "latency_ms": 240037
+  }
+ ]
+}

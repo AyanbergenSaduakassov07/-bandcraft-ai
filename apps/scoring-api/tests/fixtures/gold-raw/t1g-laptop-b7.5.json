@@ -1,0 +1,152 @@
+{
+ "id": "t1g-laptop-b7.5",
+ "runs": [
+  {
+   "task_type": "task1_general",
+   "features": {
+    "word_count": 199,
+    "word_floor": 150,
+    "below_word_floor": false,
+    "paragraph_count": 7,
+    "mean_paragraph_words": 28.4,
+    "has_overview": null,
+    "has_conclusion": null,
+    "has_salutation": true,
+    "has_sign_off": true,
+    "sentence_count": 10,
+    "mean_sentence_words": 19.9,
+    "sentence_length_variance": 84.29,
+    "subordinate_clause_rate": 0.7,
+    "type_token_ratio": 0.642,
+    "mattr": 0.811,
+    "cohesion_marker_count": 3,
+    "cohesion_markers_per_100_words": 1.51,
+    "distinct_cohesion_markers": 3,
+    "top_cohesion_marker_share": 0.333,
+    "spelling_error_count": 0,
+    "grammar_issue_count": 0,
+    "errors_per_100_words": 0.0,
+    "issues": []
+   },
+   "rubric": {
+    "model": "gemini-3.6-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 9,
+      "analysis": "The candidate addresses all three prompt requirements fully and extends each bullet point with clear, realistic context. The purpose of the letter is clear from the opening sentence, and the tone remains appropriately formal and consistent throughout. The word count is well above the 150-word requirement.",
+      "evidence": [
+       {
+        "quote": "The item was a 14-inch Asus Zenbook in silver, with 16 GB of memory, which I bought for 520 euros specifically because your listing",
+        "observation": "Provides a precise and detailed description of the laptop purchased.",
+        "start": 163,
+        "end": 294,
+        "verified": true
+       },
+       {
+        "quote": "There was no protective padding inside the box, and the laptop's lid was dented in one corner.",
+        "observation": "Explains the problem and damage clearly and logically.",
+        "start": 498,
+        "end": 592,
+        "verified": true
+       },
+       {
+        "quote": "I would be grateful if you could send a replacement by express delivery, at no extra cost, so that it reaches me before I travel.",
+        "observation": "Clearly specifies the action expected from the shop.",
+        "start": 778,
+        "end": 907,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 9,
+      "analysis": "The message is logically sequenced with clear paragraphing, each centered on a distinct aspect of the letter. Cohesive devices are used naturally and unobtrusively, creating seamless flow between ideas and paragraphs without any mechanical linking.",
+      "evidence": [
+       {
+        "quote": "Unfortunately, when I opened the parcel, it was clear that it had been badly packed.",
+        "observation": "Transitions smoothly to the core topic of the complaint.",
+        "start": 413,
+        "end": 497,
+        "verified": true
+       },
+       {
+        "quote": "More seriously, the screen has a crack running across it, and although the computer switches on, the display flickers constantly, making it impossible to use.",
+        "observation": "Uses cohesive devices naturally to prioritize and describe multiple issues.",
+        "start": 593,
+        "end": 751,
+        "verified": true
+       },
+       {
+        "quote": "Given the circumstances, I would be grateful if you could send a replacement by express delivery, at no extra cost, so that it reaches me before I travel.",
+        "observation": "Links the problem description naturally to the requested resolution.",
+        "start": 753,
+        "end": 907,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 9,
+      "analysis": "The vocabulary is precise, natural, and highly suited to the task. The candidate uses a wide range of terms and collocations naturally without any evidence of error or awkward phrasing.",
+      "evidence": [
+       {
+        "quote": "arrived in an unusable condition.",
+        "observation": "Demonstrates appropriate and precise vocabulary choice for a formal complaint.",
+        "start": 128,
+        "end": 161,
+        "verified": true
+       },
+       {
+        "quote": "There was no protective padding inside the box, and the laptop's lid was dented in one corner.",
+        "observation": "Uses topic-specific vocabulary accurately ('protective padding', 'dented').",
+        "start": 498,
+        "end": 592,
+        "verified": true
+       },
+       {
+        "quote": "display flickers constantly, making it impossible to use.",
+        "observation": "Shows precise natural control of vocabulary and collocation.",
+        "start": 694,
+        "end": 751,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 9,
+      "analysis": "The script demonstrates a wide range of grammatical structures used with complete flexibility and accuracy. Punctuation is flawless throughout, and there are no grammatical errors.",
+      "evidence": [
+       {
+        "quote": "I am writing to complain about a laptop I ordered from your website on 12 March (order number 58231), which arrived in an unusable condition.",
+        "observation": "Complex structure featuring a relative clause, perfectly executed.",
+        "start": 20,
+        "end": 161,
+        "verified": true
+       },
+       {
+        "quote": "More seriously, the screen has a crack running across it, and although the computer switches on, the display flickers constantly, making it impossible to use.",
+        "observation": "Accurate compound-complex sentence incorporating a concessive clause and a participial clause.",
+        "start": 593,
+        "end": 751,
+        "verified": true
+       },
+       {
+        "quote": "If this is not possible, I would ask for a full refund, including the delivery charge, and for a courier to collect the damaged laptop.",
+        "observation": "Faultless conditional structure combined with polite formal requesting forms.",
+        "start": 908,
+        "end": 1043,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 9.0
+   },
+   "latency_ms": 16223
+  }
+ ]
+}

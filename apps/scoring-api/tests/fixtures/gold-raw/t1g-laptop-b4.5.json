@@ -1,0 +1,200 @@
+{
+ "id": "t1g-laptop-b4.5",
+ "runs": [
+  {
+   "task_type": "task1_general",
+   "features": {
+    "word_count": 135,
+    "word_floor": 150,
+    "below_word_floor": true,
+    "paragraph_count": 5,
+    "mean_paragraph_words": 27.0,
+    "has_overview": null,
+    "has_conclusion": null,
+    "has_salutation": true,
+    "has_sign_off": true,
+    "sentence_count": 12,
+    "mean_sentence_words": 11.25,
+    "sentence_length_variance": 24.35,
+    "subordinate_clause_rate": 0.583,
+    "type_token_ratio": 0.56,
+    "mattr": 0.717,
+    "cohesion_marker_count": 4,
+    "cohesion_markers_per_100_words": 2.96,
+    "distinct_cohesion_markers": 2,
+    "top_cohesion_marker_share": 0.75,
+    "spelling_error_count": 1,
+    "grammar_issue_count": 8,
+    "errors_per_100_words": 6.67,
+    "issues": [
+     {
+      "rule": "spelling",
+      "start": 25,
+      "end": 33,
+      "text": "writting"
+     },
+     {
+      "rule": "capitalisation",
+      "start": 63,
+      "end": 64,
+      "text": "i"
+     },
+     {
+      "rule": "capitalisation",
+      "start": 186,
+      "end": 187,
+      "text": "i"
+     },
+     {
+      "rule": "agreement",
+      "start": 261,
+      "end": 286,
+      "text": "screen of the laptop have"
+     },
+     {
+      "rule": "agreement",
+      "start": 309,
+      "end": 318,
+      "text": "laptop do"
+     },
+     {
+      "rule": "capitalisation",
+      "start": 334,
+      "end": 335,
+      "text": "i"
+     },
+     {
+      "rule": "agreement",
+      "start": 377,
+      "end": 391,
+      "text": "nothing happen"
+     },
+     {
+      "rule": "capitalisation",
+      "start": 418,
+      "end": 419,
+      "text": "i"
+     },
+     {
+      "rule": "capitalisation",
+      "start": 445,
+      "end": 446,
+      "text": "i"
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.5-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 5,
+      "analysis": "The letter addresses all three bullet points of the prompt. The formal tone is established with standard salutations but becomes overly direct and demanding in the body ('I want that you...'). Most importantly, the letter is under the minimum length requirement (approximately 135 words), which incurs a penalty under Task Achievement.",
+      "evidence": [
+       {
+        "quote": "I am writting to you about the laptop what i buy from your shop last week.",
+        "observation": "The candidate addresses the first bullet point by introducing the purchase made the previous week.",
+        "start": 20,
+        "end": 94,
+        "verified": true
+       },
+       {
+        "quote": "the screen of the laptop have a big crack. Also the laptop dont turn on when i press the button.",
+        "observation": "The candidate explains the problems with the laptop, covering the second bullet point.",
+        "start": 257,
+        "end": 353,
+        "verified": true
+       },
+       {
+        "quote": "I want that you give me new laptop or give back my money.",
+        "observation": "The candidate addresses the third bullet point, specifying the desired outcome (replacement or refund).",
+        "start": 468,
+        "end": 525,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 6,
+      "analysis": "The letter is logically organized into three distinct body paragraphs, each corresponding to a different prompt requirement. There is a clear overall progression. Cohesive devices are present but basic, and there is noticeable repetition of the word 'laptop' due to limited referencing skills.",
+      "evidence": [
+       {
+        "quote": "Also the laptop dont turn on when i press the button. I try to charge it but nothing happen.",
+        "observation": "Basic transitions ('Also', 'but', 'when') are used to connect ideas within and between sentences.",
+        "start": 300,
+        "end": 392,
+        "verified": true
+       },
+       {
+        "quote": "I was very angry because i need it for my exams",
+        "observation": "The subordinating conjunction 'because' is used to show a clear cause-and-effect relationship.",
+        "start": 393,
+        "end": 440,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 5,
+      "analysis": "The candidate's vocabulary is limited to very basic words ('broken', 'screen', 'crack', 'angry', 'phone', 'money') but is minimally adequate to convey the message. Spelling and word-formation errors do not prevent comprehension, but they highlight a lack of lexical control.",
+      "evidence": [
+       {
+        "quote": "I am writting to you about the laptop",
+        "observation": "There is a spelling error in the word 'writting' (writing).",
+        "start": 20,
+        "end": 57,
+        "verified": true
+       },
+       {
+        "quote": "It is a laptop Lenovo, black color, and it cost 400 dollars.",
+        "observation": "The phrasing 'laptop Lenovo' and 'black color' is slightly unnatural, indicating limited collocation skills.",
+        "start": 95,
+        "end": 155,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 5,
+      "analysis": "The candidate attempts a mix of simple and complex sentence structures, but complex forms are highly inaccurate. Grammatical errors predominate throughout the script, particularly with verb tenses, subject-verb agreement, missing articles, and the incorrect use of lowercase 'i'. While these errors do not completely obscure meaning, they are persistent.",
+      "evidence": [
+       {
+        "quote": "laptop what i buy from your shop last week.",
+        "observation": "There is an error in the relative pronoun ('what' instead of 'which/that') and tense control ('buy' instead of 'bought').",
+        "start": 51,
+        "end": 94,
+        "verified": true
+       },
+       {
+        "quote": "When the laptop come to my home, the box was broken and the screen of the laptop have a big crack.",
+        "observation": "Grammar mistakes include tense errors ('come' instead of 'came') and subject-verb agreement ('have' instead of 'has').",
+        "start": 201,
+        "end": 299,
+        "verified": true
+       },
+       {
+        "quote": "I try to charge it but nothing happen.",
+        "observation": "Past tense markers are missing in both verbs ('try' and 'happen').",
+        "start": 354,
+        "end": 392,
+        "verified": true
+       },
+       {
+        "quote": "because i am student.",
+        "observation": "The indefinite article is omitted ('a student'), and the personal pronoun 'i' is incorrectly left lowercase.",
+        "start": 178,
+        "end": 199,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 5.5
+   },
+   "latency_ms": 146578
+  }
+ ]
+}

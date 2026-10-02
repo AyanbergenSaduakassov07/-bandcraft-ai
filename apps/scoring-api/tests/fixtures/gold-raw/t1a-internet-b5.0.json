@@ -1,0 +1,171 @@
+{
+ "id": "t1a-internet-b5.0",
+ "runs": [
+  {
+   "task_type": "task1_academic",
+   "features": {
+    "word_count": 125,
+    "word_floor": 150,
+    "below_word_floor": true,
+    "paragraph_count": 5,
+    "mean_paragraph_words": 25.0,
+    "has_overview": false,
+    "has_conclusion": null,
+    "has_salutation": null,
+    "has_sign_off": null,
+    "sentence_count": 13,
+    "mean_sentence_words": 9.62,
+    "sentence_length_variance": 18.08,
+    "subordinate_clause_rate": 0.154,
+    "type_token_ratio": 0.327,
+    "mattr": 0.35,
+    "cohesion_marker_count": 0,
+    "cohesion_markers_per_100_words": 0.0,
+    "distinct_cohesion_markers": 0,
+    "top_cohesion_marker_share": 0.0,
+    "spelling_error_count": 0,
+    "grammar_issue_count": 3,
+    "errors_per_100_words": 2.4,
+    "issues": [
+     {
+      "rule": "agreement",
+      "start": 4,
+      "end": 14,
+      "text": "table show"
+     },
+     {
+      "rule": "agreement",
+      "start": 211,
+      "end": 222,
+      "text": "it increase"
+     },
+     {
+      "rule": "agreement",
+      "start": 471,
+      "end": 479,
+      "text": "it reach"
+     }
+    ]
+   },
+   "rubric": {
+    "model": "gemini-3.6-flash",
+    "criteria": {
+     "task_achievement_response": {
+      "band": 5,
+      "analysis": "The response attempts the task and includes an overview summarizing the general trends and comparisons at the end. However, the data is recounted mechanically sentence by sentence, contains a factual inaccuracy regarding Brazil's 2020 figure, and falls significantly short of the 150-word requirement at 125 words. Band 5 is the best fit.",
+      "evidence": [
+       {
+        "quote": "In 2015 it was 50% and in 2020 it reach 75%.",
+        "observation": "Shows an inaccurate report of the data (Brazil in 2020 was 70%, not 75%).",
+        "start": 440,
+        "end": 484,
+        "verified": true
+       },
+       {
+        "quote": "Poland was the higher in all years.",
+        "observation": "Shows an attempt to present an overview of main comparison points.",
+        "start": 486,
+        "end": 521,
+        "verified": true
+       },
+       {
+        "quote": "In 2005 there was 10% of households with internet. In 2010 it was 30%.",
+        "observation": "Shows mechanical, year-by-year reporting of individual data points.",
+        "start": 132,
+        "end": 202,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "coherence_cohesion": {
+      "band": 5,
+      "analysis": "Paragraphing is used logically by grouping information country by country, followed by an overview paragraph. However, cohesive devices are limited and repetitive, relying heavily on repeating 'In [year] it was [percentage]'. Overall progression exists, but cohesion within paragraphs is mechanical. Band 5 is the best fit.",
+      "evidence": [
+       {
+        "quote": "In Kazakhstan, in 2005 there was 10% of households with internet. In 2010 it was 30%.",
+        "observation": "Shows repetitive structure and basic cohesive devices.",
+        "start": 117,
+        "end": 202,
+        "verified": true
+       },
+       {
+        "quote": "In Poland, in 2005 it was 30%. In 2010 it was 55% and in 2015 it was 75%.",
+        "observation": "Shows a mechanical sentence-by-sentence progression with repetitive pronoun referencing.",
+        "start": 255,
+        "end": 328,
+        "verified": true
+       },
+       {
+        "quote": "Kazakhstan was lower than Brazil in 2005 but after that Kazakhstan was more high than Brazil.",
+        "observation": "Shows simple explicit linking between clauses.",
+        "start": 522,
+        "end": 615,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "lexical_resource": {
+      "band": 5,
+      "analysis": "The candidate relies on a limited vocabulary, mostly relying on simple words and prompt terminology. Attempts at comparative forms result in clear errors in word choice and formation ('the higher', 'more high'). Meaning remains clear, but the range is minimally adequate for the task. Band 5 fits best.",
+      "evidence": [
+       {
+        "quote": "Poland was the higher in all years.",
+        "observation": "Shows incorrect word choice ('higher' instead of 'highest').",
+        "start": 486,
+        "end": 521,
+        "verified": true
+       },
+       {
+        "quote": "after that Kazakhstan was more high than Brazil.",
+        "observation": "Shows incorrect word formation ('more high' instead of 'higher').",
+        "start": 567,
+        "end": 615,
+        "verified": true
+       },
+       {
+        "quote": "In 2020 it was 90%, it is the highest.",
+        "observation": "Shows basic vocabulary control when expressing superlative data.",
+        "start": 329,
+        "end": 367,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     },
+     "grammatical_range_accuracy": {
+      "band": 5,
+      "analysis": "The grammatical range is limited, consisting primarily of simple structures repeated throughout the text. Grammatical errors occur frequently, particularly subject-verb agreement and present vs past tense consistency ('show', 'increase', 'reach'). Despite the frequent errors, communication is not completely impeded. Band 5 fits best.",
+      "evidence": [
+       {
+        "quote": "The table show the percentage of households",
+        "observation": "Shows subject-verb agreement error ('table show').",
+        "start": 0,
+        "end": 43,
+        "verified": true
+       },
+       {
+        "quote": "In 2015 it increase to 65% and in 2020 it was 88%.",
+        "observation": "Shows incorrect past tense verb form ('it increase').",
+        "start": 203,
+        "end": 253,
+        "verified": true
+       },
+       {
+        "quote": "In 2020 it reach 75%.",
+        "observation": "Shows failure to use past tense ('it reach').",
+        "start": 463,
+        "end": 484,
+        "verified": true
+       }
+      ],
+      "evidence_verified": true
+     }
+    },
+    "overall_raw": 5.0
+   },
+   "latency_ms": 20415
+  }
+ ]
+}
