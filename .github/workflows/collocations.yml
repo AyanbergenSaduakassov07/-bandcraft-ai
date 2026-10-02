@@ -1,8 +1,9 @@
 name: collocations
 
 # Builds the collocation reference (pair counts parsed from WikiText-103 with spaCy) and tunes its
-# thresholds on the Gold Set. Parsing ~25M words runs here, never on a laptop (ADR-0003). On a
-# branch it commits the data to that branch; dispatched on main it opens a PR.
+# thresholds on the Gold Set. Parsing ~103M words (about an hour) runs here, never on a laptop
+# (ADR-0003). Dispatch-only: `gh workflow run collocations --ref <branch>` commits the data to that
+# branch; on main it opens a PR. Retuning alone (`... collocations tune`) takes seconds anywhere.
 on:
   workflow_dispatch:
     inputs:
@@ -10,11 +11,6 @@ on:
         description: Corpus words to parse
         type: number
         default: 120000000
-  push:
-    branches-ignore: [main]
-    paths:
-      - apps/scoring-api/src/scoring_api/training/collocations.py
-      - apps/scoring-api/tests/fixtures/collocations/**
 
 permissions:
   contents: write

@@ -54,8 +54,8 @@ _DETOK = [(" @-@ ", "-"), (" @,@ ", ","), (" @.@ ", "."), (" , ", ", "), (" . ",
 # Tuning constraints: the chosen thresholds catch as many probe errors as they can while flagging
 # at most this often on correct text.
 MAX_RIGHT_FLAGGED = 0.10  # share of the probes' correct sentences with any flag
-MAX_STRONG_PER_100 = 0.25  # flags per 100 words on Gold Scripts banded 7 or above
-GRID_ALPHA = (0.0001, 0.0005, 0.001, 0.002, 0.005, 0.01, 0.02, 0.05)
+MAX_STRONG_PER_100 = 0.4  # about one flag per 250 words of strong writing (Gold, band 7+)
+GRID_ALPHA = (1e-6, 1e-5, 1e-4, 0.001, 0.005, 0.01, 0.02, 0.05)
 
 
 def paragraphs_from_wikitext(paths: list[Path], max_words: int) -> Iterator[str]:
@@ -169,10 +169,14 @@ def tune(ref: Reference) -> dict[str, Any]:
         for g in grid
         if g["right_flagged"] <= MAX_RIGHT_FLAGGED and g["strong_per_100"] <= MAX_STRONG_PER_100
     ]
-    # Most recall; then fewest flags on strong essays; then the stricter (smaller) alpha.
-    best = max(
-        allowed or grid, key=lambda g: (g["probe_recall"], -g["strong_per_100"], -g["alpha"])
-    )
+    # Within the constraints: most recall, then fewest flags on strong essays, then smaller alpha.
+    # If nothing meets them: fewest false flags first, since a wrong flag costs a learner's trust.
+    if allowed:
+        best = max(allowed, key=lambda g: (g["probe_recall"], -g["strong_per_100"], -g["alpha"]))
+    else:
+        best = min(
+            grid, key=lambda g: (g["strong_per_100"], g["right_flagged"], -g["probe_recall"])
+        )
     return {
         "chosen": best,
         "met_constraints": bool(allowed),

@@ -27,6 +27,9 @@ META_FILE = DATA / "collocations.json"
 RELATIONS = ("dobj", "amod")  # verb + object noun, adjective + noun
 MAX_GAP = 5  # verb to object; further apart and the quote stops reading as a pairing
 MAX_ADJ_GAP = 2  # adjective before its noun, allowing one word between ("heavy summer rain")
+# "have" marks possession, not a collocation: "have more years" is free combination, and its
+# corpus counts would flag ordinary phrases. It's the one verb left out; everything else is data.
+LIGHT_PARTNERS = frozenset({"have"})
 ANY = "*"
 
 
@@ -120,12 +123,26 @@ def pairings(doc: Doc) -> Iterator[tuple[str, Token, Token]]:
     for t in doc:
         if t.pos_ != "NOUN" or not t.is_alpha:
             continue
-        if t.dep_ == "dobj" and t.head.pos_ == "VERB" and t.head.is_alpha:
+        if (
+            t.dep_ == "dobj"
+            and t.head.pos_ == "VERB"
+            and t.head.is_alpha
+            and lemma(t.head) not in LIGHT_PARTNERS
+            and not _first_of_two_objects(t)
+        ):
             yield "dobj", t.head, t
         for child in t.children:
             if child.dep_ == "amod" and child.pos_ == "ADJ" and child.is_alpha:
                 if 0 < t.i - child.i <= MAX_ADJ_GAP:
                     yield "amod", child, t
+
+
+def _first_of_two_objects(noun: Token) -> bool:
+    """'give families more time': the parser can tag the indirect object as dobj; skip it."""
+    return any(
+        c.dep_ in ("dobj", "dative") and c.i > noun.i and c.pos_ in ("NOUN", "PROPN")
+        for c in noun.head.children
+    )
 
 
 def collocation_issues(doc: Doc, ref: Reference | None) -> list[Issue]:

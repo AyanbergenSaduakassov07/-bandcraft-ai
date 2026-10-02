@@ -28,7 +28,7 @@ Invariants:
 
 - **In:** the normalised Script.
 - **Does:** compute Features with no model call: word count relative to the Word Floor, paragraph count, sentence-length distribution, lexical diversity, spelling-error rate, and the cohesive devices used.
-- **Collocations:** each verb-object and adjective-noun pairing is checked against pair counts parsed from WikiText-103 (Wikipedia, CC BY-SA 3.0), shipped as static data (`scoring_api/data/collocations.tsv.gz`). A pairing is flagged when both words are common but the pair is rare: seen at most `max_count` times where chance alone predicts at least `min_expected`. Both thresholds are tuned against the Gold Set and a probe set (`docs/benchmarks/collocations.md`). Each flag is an Issue quoting the Script, with the noun's usual partners from the corpus. The `collocations` workflow builds the data.
+- **Collocations:** each verb-object and adjective-noun pairing is checked against pair counts parsed from WikiText-103 (Wikipedia, CC BY-SA 3.0), shipped as static data (`scoring_api/data/collocations.tsv.gz`). A pairing is flagged when both words are common but the pair is rare: if the words combined at random, seeing the pair this seldom would have a Poisson-tail probability below `alpha`, which is tuned against the Gold Set and a probe set (`docs/benchmarks/collocations.md`). "Have" is left out as a partner, because possession isn't a collocation. Each flag is an Issue quoting the Script, with the noun's usual partners from the corpus. The `collocations` workflow builds the data.
 - **Out:** a Feature vector.
 - **Why it's separate:** Features cost nothing, are reproducible, and anchor Calibration. The Word Floor penalty is applied here as a hard rule, not left to the model.
 
