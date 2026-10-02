@@ -27,6 +27,7 @@ from datetime import date
 from pathlib import Path
 from typing import Any
 
+import httpx
 from google import genai
 from google.genai import errors
 from pydantic import BaseModel, ValidationError, create_model
@@ -103,7 +104,7 @@ async def _judge(client: genai.Client, model: str, contents: str, schema: type[B
             if e.code not in {429, 500, 502, 503, 504} or attempt == 6:
                 raise
             log.warning("attempt %d: %s", attempt, e.code)
-        except (ValidationError, TimeoutError) as e:
+        except (ValidationError, TimeoutError, httpx.TransportError) as e:
             if attempt == 6:
                 raise
             log.warning("attempt %d: %s", attempt, type(e).__name__)

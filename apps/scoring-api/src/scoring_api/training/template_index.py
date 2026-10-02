@@ -41,7 +41,7 @@ class _Essays(BaseModel):
 
 
 async def retry[T](fn: Callable[[], Awaitable[T]], attempts: int = 3) -> T:
-    """Exponential backoff on free-tier quota and overload errors (max 3 attempts)."""
+    """Exponential backoff on quota, overload and dropped-connection errors (max 3 attempts)."""
     for attempt in range(1, attempts + 1):
         try:
             return await fn()
@@ -49,6 +49,10 @@ async def retry[T](fn: Callable[[], Awaitable[T]], attempts: int = 3) -> T:
             if e.code not in {429, 500, 502, 503, 504} or attempt == attempts:
                 raise
             log.warning("attempt %d: %s", attempt, e.code)
+        except httpx.TransportError as e:  # dropped connections on long generations
+            if attempt == attempts:
+                raise
+            log.warning("attempt %d: %r", attempt, e)
         await asyncio.sleep(2**attempt * 5 + random.uniform(0, 3))  # noqa: S311 - jitter
     raise AssertionError("unreachable")
 
@@ -85,7 +89,7 @@ async def generate(client: genai.Client, prompt: str, count: int) -> tuple[list[
             )
             parsed = _Essays.model_validate_json(response.text or "")
             return [e.strip() for e in parsed.essays if len(e.split()) >= 150], model
-        except (errors.APIError, ValidationError) as e:
+        except (errors.APIError, httpx.TransportError, ValidationError) as e:
             log.warning("%s failed: %r", model, e)
             last = e
     raise RuntimeError(f"every generator model failed: {last!r}")

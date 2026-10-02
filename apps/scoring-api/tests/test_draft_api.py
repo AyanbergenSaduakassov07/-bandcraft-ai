@@ -2,11 +2,21 @@
 
 import asyncio
 
+import httpx
+import pytest
 from conftest import gold_by_id
 from fastapi.testclient import TestClient
 
 from scoring_api.main import app, get_scorer
-from scoring_api.pipeline.rubric import _Evidence, _Judgement, _to_score, locate, overall_band
+from scoring_api.pipeline import rubric
+from scoring_api.pipeline.rubric import (
+    _Evidence,
+    _Judgement,
+    _RubricJudgement,
+    _to_score,
+    locate,
+    overall_band,
+)
 from scoring_api.schemas import CRITERIA, CriterionScore, EvidenceSpan, RubricResult, TaskType
 
 
@@ -77,3 +87,25 @@ def test_score_draft_rejects_empty_script() -> None:
     finally:
         app.dependency_overrides.clear()
     assert response.status_code == 422
+
+
+def test_dropped_connection_is_retried(monkeypatch: pytest.MonkeyPatch) -> None:
+    """A free-tier connection reset mid-generation is retried, not surfaced as a 500."""
+    judgement = _Judgement(
+        evidence=[_Evidence(quote="Some", observation="x")], analysis="a", band=6
+    )
+    calls: list[int] = []
+
+    async def flaky(client: object, model: str, contents: str) -> _RubricJudgement:
+        calls.append(1)
+        if len(calls) == 1:
+            raise httpx.ReadError("connection reset")
+        return _RubricJudgement(**dict.fromkeys(CRITERIA, judgement))
+
+    monkeypatch.setattr(rubric, "_call", flaky)
+    real_sleep = asyncio.sleep
+    monkeypatch.setattr(asyncio, "sleep", lambda s: real_sleep(0))  # skip the backoff wait
+    result = asyncio.run(
+        rubric.score_rubric("task2", "P", "Some script.", client=None, model="m")  # type: ignore[arg-type]
+    )
+    assert len(calls) == 2 and result.criteria["lexical_resource"].band == 6
