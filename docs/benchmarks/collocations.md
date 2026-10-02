@@ -6,12 +6,12 @@
 > Scripts are author-written too. The rates show the check behaves sensibly, not how it
 > performs on real candidates.
 
-Reference: WikiText-103 (raw), train split (CC BY-SA 3.0 (text from English Wikipedia)), first 25,000,000 words, parsed with spaCy `en_core_web_sm`. 225,363 pairs stored (seen at least 2 times).
+Reference: WikiText-103 (raw), train split (CC BY-SA 3.0 (text from English Wikipedia)), first 120,000,000 words (or all of it), parsed with spaCy `en_core_web_sm`. 579,199 pairs stored (seen at least 2 times).
 
-Chosen: flag a pairing seen at most **2** times when chance alone predicts at least **2**. 
+Chosen: flag a pairing when, if its words combined at random, seeing it this seldom would have probability below **0.02** (Poisson tail). No setting met both constraints; least bad shown.
 
 | Probe errors caught | Correct probes flagged | Flags per 100 words, strong essays |
 |---|---|---|
-| 31% | 3% | 0.48 |
+| 38% | 3% | 0.54 |
 
-Constraints: correct probes flagged at most 10%, at most 0.5 flags per 100 words on Gold Scripts banded 7 or above (1,673 words).
+Constraints: correct probes flagged at most 10%, at most 0.25 flags per 100 words on Gold Scripts banded 7 or above (1,673 words).

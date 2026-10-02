@@ -3,29 +3,30 @@
     "name": "WikiText-103 (raw), train split",
     "url": "https://huggingface.co/datasets/Salesforce/wikitext",
     "license": "CC BY-SA 3.0 (text from English Wikipedia)",
-    "parquet": "https://huggingface.co/api/datasets/Salesforce/wikitext/parquet/wikitext-103-raw-v1/train/0.parquet"
+    "parquet": [
+      "https://huggingface.co/api/datasets/Salesforce/wikitext/parquet/wikitext-103-raw-v1/train/0.parquet",
+      "https://huggingface.co/api/datasets/Salesforce/wikitext/parquet/wikitext-103-raw-v1/train/1.parquet"
+    ]
   },
-  "words": 25000000,
-  "built_at": "2026-10-02T17:06:10+00:00",
+  "words": 120000000,
+  "built_at": "2026-10-02T18:09:31+00:00",
   "pairings": {
-    "amod": 1219510,
-    "dobj": 776775
+    "amod": 3906063,
+    "dobj": 2778782
   },
-  "stored_pairs": 225363,
+  "stored_pairs": 579199,
   "min_stored": 2,
   "thresholds": {
-    "max_count": 2,
-    "min_expected": 2.0
+    "alpha": 0.02
   },
   "tuning": {
     "chosen": {
-      "max_count": 2,
-      "min_expected": 2.0,
-      "probe_recall": 0.3103448275862069,
+      "alpha": 0.02,
+      "probe_recall": 0.3793103448275862,
       "right_flagged": 0.034482758620689655,
-      "strong_per_100": 0.4781829049611476
+      "strong_per_100": 0.5379557680812911
     },
-    "met_constraints": true,
+    "met_constraints": false,
     "probes": 29,
     "strong_essays": 7,
     "strong_words": 1673
