@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Eye, EyeOff, LoaderCircle, Timer } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, LoaderCircle, Timer, TriangleAlert } from "lucide-react";
 import type { TaskType } from "@bandcraft/shared";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { AnnotatedScript, ScoreReveal } from "@/components/write/results";
 import { Streak } from "@/components/write/streak";
-import { wordCount, type FinalResponse } from "@/lib/evidence";
+import { wordCount, type FinalResponse, type OriginalityCheck } from "@/lib/evidence";
 import { cn } from "@/lib/utils";
 
 const TASKS: { id: TaskType; label: string; minutes: number; floor: number; hint: string }[] = [
@@ -70,13 +70,52 @@ function TimerBar({ minutes }: { minutes: number }) {
   );
 }
 
+/** Pre-submit warning: the passages that read as templated, and both paths behind it. No band penalty. */
+function TemplateWarning({ check, onScore, onEdit }: { check: OriginalityCheck; onScore: () => void; onEdit: () => void }) {
+  const pct = (v: number) => `${Math.round(v * 100)}%`;
+  return (
+    <section aria-labelledby="template-warning" className="space-y-4 rounded-3xl bg-card p-6 ring-1 ring-border">
+      <h2 id="template-warning" className="flex items-center gap-2 font-semibold">
+        <TriangleAlert className="size-5 text-primary" aria-hidden /> This reads as template-heavy
+      </h2>
+      <p className="text-sm text-muted-foreground">
+        Examiners spot memorised frames, and they usually hold Task Response and Coherence down. This won’t change your bands. It’s a
+        chance to put these passages in your own words first.
+      </p>
+      {check.evidence.length > 0 && (
+        <ul className="space-y-3">
+          {check.evidence.map((e, i) => (
+            <li key={i}>
+              <blockquote className="border-l-2 border-primary pl-3 text-sm">{e.quote}</blockquote>
+              <p className="mt-1 pl-3 text-xs text-muted-foreground">{e.observation}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+      <p className="text-xs text-muted-foreground tabular-nums">
+        Template likelihood {pct(check.risk)}: closest-passage match {pct(check.paths.embedding)} (similarity{" "}
+        {check.paths.similarity.toFixed(2)}), classifier {pct(check.paths.classifier)}.
+      </p>
+      <div className="flex flex-wrap gap-3">
+        <Button type="button" onClick={onEdit}>
+          Keep editing
+        </Button>
+        <Button type="button" variant="outline" onClick={onScore}>
+          Score anyway
+        </Button>
+      </div>
+    </section>
+  );
+}
+
 export function WriteFlow({ practisedAt }: { practisedAt: string[] }) {
   const [draft, setDraft] = useState<Draft>({ task: "task2", prompt: "", script: "" });
-  const [phase, setPhase] = useState<"compose" | "scoring" | "result">("compose");
+  const [phase, setPhase] = useState<"compose" | "checking" | "scoring" | "result">("compose");
   const [result, setResult] = useState<FinalResponse | null>(null);
   const [savedId, setSavedId] = useState<string | null>(null);
   const [times, setTimes] = useState(practisedAt);
   const [error, setError] = useState<string | null>(null);
+  const [warning, setWarning] = useState<OriginalityCheck | null>(null);
 
   // Keep the draft across reloads: losing 40 minutes of writing to a refresh is not acceptable.
   useEffect(() => {
@@ -99,14 +138,35 @@ export function WriteFlow({ practisedAt }: { practisedAt: string[] }) {
   const task = TASKS.find((t) => t.id === draft.task)!;
   const words = wordCount(draft.script);
 
+  const request = () => JSON.stringify({ task_type: draft.task, prompt: draft.prompt, script: draft.script });
+
+  /** Task 2 gets a template check first. It only ever warns: any failure goes straight to scoring. */
   async function submit() {
+    setError(null);
+    setWarning(null);
+    if (draft.task === "task2") {
+      setPhase("checking");
+      const check = (await fetch("/api/originality", { method: "POST", headers: { "content-type": "application/json" }, body: request() })
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null)) as OriginalityCheck | null;
+      if (check?.template_heavy) {
+        setWarning(check);
+        setPhase("compose");
+        return;
+      }
+    }
+    await score();
+  }
+
+  async function score() {
     setPhase("scoring");
     setError(null);
+    setWarning(null);
     try {
       const res = await fetch("/api/score", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ task_type: draft.task, prompt: draft.prompt, script: draft.script }),
+        body: request(),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(typeof data.detail === "string" ? data.detail : `Scoring failed (${res.status}).`);
@@ -153,7 +213,7 @@ export function WriteFlow({ practisedAt }: { practisedAt: string[] }) {
       </div>
     );
 
-  const scoring = phase === "scoring";
+  const scoring = phase === "scoring" || phase === "checking";
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_20rem]">
       <form
@@ -205,6 +265,8 @@ export function WriteFlow({ practisedAt }: { practisedAt: string[] }) {
           </p>
         </div>
 
+        {warning && <TemplateWarning check={warning} onScore={score} onEdit={() => (setWarning(null), document.getElementById("script")?.focus())} />}
+
         {error && (
           <p role="alert" className="rounded-2xl bg-destructive/10 px-4 py-3 text-sm text-destructive">
             {error}
@@ -214,9 +276,9 @@ export function WriteFlow({ practisedAt }: { practisedAt: string[] }) {
         <div className="flex flex-wrap items-center gap-4">
           <Button type="submit" size="lg" disabled={scoring || !draft.prompt.trim() || !draft.script.trim()}>
             {scoring && <LoaderCircle className="animate-spin" />}
-            {scoring ? "Scoring…" : "Score my response"}
+            {phase === "checking" ? "Checking…" : scoring ? "Scoring…" : "Score my response"}
           </Button>
-          {scoring && <p className="text-sm text-muted-foreground">This usually takes 20–60 seconds. Hard cases get scored twice.</p>}
+          {phase === "scoring" && <p className="text-sm text-muted-foreground">This usually takes 20–60 seconds. Hard cases get scored twice.</p>}
         </div>
       </form>
       <Streak practisedAt={times} className="self-start" />
