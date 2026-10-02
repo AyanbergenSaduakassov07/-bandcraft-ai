@@ -24,6 +24,7 @@ from google import genai
 from google.genai import errors, types
 from pydantic import BaseModel, ValidationError
 
+from scoring_api.main import scoring_models
 from scoring_api.pipeline import prompts
 from scoring_api.pipeline.features import paragraphs
 from scoring_api.pipeline.originality import EMBEDDING_MODEL, gemini_embed
@@ -31,9 +32,12 @@ from scoring_api.pipeline.originality import EMBEDDING_MODEL, gemini_embed
 log = logging.getLogger(__name__)
 ROOT = Path(__file__).resolve().parents[3]
 GOLD = ROOT / "tests/fixtures/gold"
-GENERATOR_MODELS = ["gemini-3.6-flash", "gemini-3.7-flash", "gemini-flash-latest"]
 PER_CALL = 5
 PAGE = 1000  # PostgREST's default max rows per response on Supabase
+
+
+class QuotaSpent(RuntimeError):
+    """Every generator model refused, usually the free tier's daily cap. Resume tomorrow."""
 
 
 class _Essays(BaseModel):
@@ -77,7 +81,7 @@ async def generate(client: genai.Client, prompt: str, count: int) -> tuple[list[
     )
     contents = prompts.TEMPLATE_USER_PROMPT.format(count=count, prompt=prompt)
     last: Exception | None = None
-    for model in GENERATOR_MODELS:
+    for model in scoring_models():  # each free-tier model has its own daily quota
         try:
             response = await retry(
                 partial(
@@ -92,7 +96,7 @@ async def generate(client: genai.Client, prompt: str, count: int) -> tuple[list[
         except (errors.APIError, httpx.TransportError, ValidationError) as e:
             log.warning("%s failed: %r", model, e)
             last = e
-    raise RuntimeError(f"every generator model failed: {last!r}")
+    raise QuotaSpent(f"every generator model failed: {last!r}")
 
 
 def rest(url: str, key: str) -> httpx.Client:
@@ -127,7 +131,14 @@ async def run(count: int, batch: str) -> int:
     added = 0
     for call in range(-(-count // PER_CALL)):
         topic, prompt = questions[call % len(questions)]
-        essays, generator = await generate(client, prompt, min(PER_CALL, count - added))
+        try:
+            essays, generator = await generate(client, prompt, min(PER_CALL, count - added))
+        except QuotaSpent as e:
+            if not added:
+                raise
+            # The index grows by batches; keep what this run indexed rather than failing it.
+            log.warning("stopping at %d/%d: %s", added, count, e)
+            break
         for essay in essays:
             essay_id = f"{batch}-{added:03d}"
             paras = paragraphs(essay)
