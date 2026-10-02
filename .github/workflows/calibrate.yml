@@ -2,7 +2,11 @@ name: calibrate
 
 # Fits stage 4-5 models on the Gold Set and opens a PR with the versioned artifacts and benchmark
 # report. Free on GitHub's machines for this public repo; nothing runs on a developer laptop (ADR-0003).
+# Also refits after every successful template-index refresh, so the originality artifact tracks it.
 on:
+  workflow_run:
+    workflows: [template-index]
+    types: [completed]
   workflow_dispatch:
     inputs:
       calibrator:
@@ -17,7 +21,10 @@ permissions:
 
 jobs:
   fit:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-24.04
+    env:
+      CALIBRATOR: ${{ inputs.calibrator || 'isotonic' }}
     defaults:
       run:
         working-directory: apps/scoring-api
@@ -26,7 +33,13 @@ jobs:
       - uses: astral-sh/setup-uv@v10.2.0  # no floating major tags since v8; bump explicitly
       - run: uv sync --locked --group train
       - name: Fit, cross-validate and write the benchmark report
-        run: uv run --group train python -m scoring_api.training.train --calibrator "${{ inputs.calibrator }}"
+        run: uv run --group train python -m scoring_api.training.train --calibrator "$CALIBRATOR"
+      - name: Fit the originality paths against the template index
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+        run: uv run --group train python -m scoring_api.training.originality
       - name: Open a PR with the artifacts
         env:
           GH_TOKEN: ${{ github.token }}
@@ -36,7 +49,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
           git add artifacts/calibration ../../docs/benchmarks
-          git commit -m "Calibration ${{ github.run_id }} (${{ inputs.calibrator }})"
+          git commit -m "Calibration ${{ github.run_id }} ($CALIBRATOR)"
           git push -u origin "$branch"
           gh pr create --title "Calibration ${{ github.run_id }}" \
             --body "Fitted by the calibrate workflow run ${{ github.run_id }}. Benchmark report in docs/benchmarks/." \

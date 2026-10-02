@@ -76,6 +76,14 @@ _Avoid_: Gold data, sample essay, ground truth
 The fixed collection of labelled Scripts that every accuracy claim is measured against. Today it holds only author-labelled synthetic Scripts. Reference Scripts join it as they're sourced, and results are reported separately by provenance.
 _Avoid_: Test set, benchmark, ground truth
 
+**Template Index**:
+Gemini-generated templated Task 2 essays, split into passages and embedded in pgvector. It grows with every refresh. It's the reference the Originality Check compares a Script against, and its essays are never Gold Scripts.
+_Avoid_: Plagiarism database, corpus
+
+**Originality Check**:
+A pre-submit estimate of how templated a Task 2 Script reads, made from two paths (closest Template Index passage, and a classifier) with the passages that triggered it. It warns. It never changes a band.
+_Avoid_: Plagiarism score, penalty, AI detection
+
 **Evidence Span**:
 A passage quoted from the Script to justify a Criterion Band, located by character offsets. A quote that can't be found in the Script is unverified and doesn't count as evidence.
 _Avoid_: Citation, highlight, reference
