@@ -1,0 +1,52 @@
+name: speaking-calibrate
+
+# Calibrates both Pronunciation paths (hosted OpenPronounce and Gemini's audio judgment) against
+# speechocean762, leave-one-out (ADR-0005). Calls go to the hosted endpoint and Gemini over HTTPS;
+# nothing is inferred on this runner or on a laptop. Cached runs make quota-limited reruns add up.
+on:
+  workflow_dispatch:
+    inputs:
+      endpoint_n:
+        description: Utterances for the OpenPronounce endpoint
+        type: number
+        default: 200
+      gemini_n:
+        description: Utterances for Gemini (free tier caps ~20 per model per day)
+        type: number
+        default: 60
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    defaults:
+      run:
+        working-directory: apps/speaking-api
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      PRONUNCIATION_URL: ${{ secrets.PRONUNCIATION_URL }}
+      PRONUNCIATION_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0  # no floating major tags since v8; bump explicitly
+      - run: uv sync --locked --group calibrate
+      - name: Score speechocean762 on both paths and fit
+        run: uv run --group calibrate python -m speaking_api.calibrate --endpoint-n "${{ inputs.endpoint_n }}" --gemini-n "${{ inputs.gemini_n }}"
+      - name: Push the calibration for review
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="speaking-calibration/${{ github.run_id }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add artifacts ../../docs/benchmarks
+          git commit -m "Speaking pronunciation calibration ${{ github.run_id }}"
+          git push -u origin "$branch"
+          gh pr create --title "Speaking calibration ${{ github.run_id }}" --base main \
+            --body "Both Pronunciation paths against speechocean762 (train split, LOO). Report in docs/benchmarks/." \
+            || echo "::warning::Couldn't open the PR (Actions may not create PRs here); open one from $branch."

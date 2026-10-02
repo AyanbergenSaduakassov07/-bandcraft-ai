@@ -1,0 +1,38 @@
+name: pronunciation-endpoint
+
+# Deploys apps/pronunciation-endpoint to a private Hugging Face Space (Docker, free CPU tier).
+# Hugging Face builds the image; nothing is built or run on a laptop (ADR-0005).
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [apps/pronunciation-endpoint/**]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE: ${{ secrets.HF_SPACE }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0  # no floating major tags since v8; bump explicitly
+      - name: Upload to the Space
+        if: env.HF_TOKEN != '' && env.HF_SPACE != ''
+        run: |
+          uv run --no-project --with "huggingface_hub>=0.34" python - <<'EOF'
+          import os
+          from huggingface_hub import HfApi
+          api = HfApi(token=os.environ["HF_TOKEN"])
+          space = os.environ["HF_SPACE"]
+          api.create_repo(space, repo_type="space", space_sdk="docker", private=True, exist_ok=True)
+          api.upload_folder(folder_path="apps/pronunciation-endpoint", repo_id=space, repo_type="space",
+                            commit_message=f"Deploy {os.environ['GITHUB_SHA'][:7]}")
+          print(f"deployed to https://huggingface.co/spaces/{space}")
+          EOF
+      - name: Skip without credentials
+        if: env.HF_TOKEN == '' || env.HF_SPACE == ''
+        run: echo "::warning::Set the HF_TOKEN and HF_SPACE repo secrets to deploy the pronunciation endpoint."

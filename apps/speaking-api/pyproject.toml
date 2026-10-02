@@ -1,0 +1,49 @@
+[project]
+name = "speaking-api"
+version = "0.0.0"
+description = "BandCraft AI IELTS Speaking: real-time examiner and audio scoring (ADR-0005)"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi",
+    "google-genai>=2.25.0",
+    "httpx>=0.28.1",
+    "numpy>=2.0",
+    "pipecat-ai[google,webrtc]==1.12.0",
+    "python-dotenv>=1.2.3",
+    "uvicorn>=0.32.0",
+]
+
+[dependency-groups]
+dev = ["ruff", "black", "mypy", "pytest"]
+calibrate = ["scikit-learn>=1.9.1", "pyarrow>=17", "huggingface_hub>=0.34", "soundfile>=0.13"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/speaking_api"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "T20"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+# Prompt prose: rewrapping would change what the model sees.
+"src/speaking_api/prompts.py" = ["E501"]
+"src/speaking_api/questions.py" = ["E501"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["sklearn.*", "pyarrow.*", "pipecat.*", "soundfile.*", "huggingface_hub.*"]
+ignore_missing_imports = true

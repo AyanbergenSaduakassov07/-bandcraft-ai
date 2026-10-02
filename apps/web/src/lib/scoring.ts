@@ -8,14 +8,22 @@ export const fail = (status: number, detail: string) => Response.json({ detail }
 
 export type ScoringRequest = { task_type: TaskType; prompt: string; script: string };
 
-/** Signed-in adult with a valid body, or the error Response to return. Junk never costs a Gemini call. */
-export async function readScoringRequest(req: Request) {
+/** The signed-in adult's Supabase client and user id, or the error Response to return. */
+export async function requireAdult() {
   // Gemini API terms: users must be 18+. Only accounts that passed the signup gate have a profile.
   const supabase = await createClient();
   const { data: auth } = await supabase.auth.getClaims();
   if (!auth?.claims) return fail(401, "Sign in to score a response.");
   const { data: profile } = await supabase.from("profiles").select("id").maybeSingle();
   if (!profile) return fail(403, "Scoring is only available to accounts aged 18 and over.");
+  return { supabase, userId: String(auth.claims.sub) };
+}
+
+/** Signed-in adult with a valid body, or the error Response to return. Junk never costs a Gemini call. */
+export async function readScoringRequest(req: Request) {
+  const adult = await requireAdult();
+  if (adult instanceof Response) return adult;
+  const { supabase } = adult;
 
   const body = await req.json().catch(() => null);
   const { task_type, prompt, script } = (body ?? {}) as Record<string, unknown>;
