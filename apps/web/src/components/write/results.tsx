@@ -110,7 +110,9 @@ export function AnnotatedScript({ result }: { result: FinalResponse }) {
     <div className="grid overflow-hidden rounded-3xl bg-card ring-1 ring-border lg:grid-cols-[1.4fr_1fr]">
       <div className="p-6 sm:p-9">
         <h2 className="text-xl font-semibold">Your response, marked up</h2>
-        <p className="mt-1 text-sm text-muted-foreground">Each highlight is a passage the scorer quoted as evidence. Select one to see what it shows.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Each highlight is a passage the scorer quoted as evidence, or a word pairing our text check found rare. Select one to see what it shows.
+        </p>
         <div className="mt-6 text-[1.0625rem] leading-8 whitespace-pre-wrap">
           {parts.map((p, i) =>
             p.span ? (
@@ -175,6 +177,7 @@ export function AnnotatedScript({ result }: { result: FinalResponse }) {
                             <blockquote className="font-medium">“{e.quote}”</blockquote>
                           )}
                           <figcaption className="mt-1 text-muted-foreground">{e.observation}</figcaption>
+                          {e.source === "features" && <p className="mt-1 text-xs text-muted-foreground">Found by a text check against a large English corpus, no AI.</p>}
                           {!mark && <p className="mt-1 text-xs text-muted-foreground">Not found word for word in your response, so it doesn’t count as evidence.</p>}
                         </figure>
                       );

@@ -55,7 +55,7 @@ target-version = ["py312"]
 strict = true
 
 [[tool.mypy.overrides]]
-module = ["sklearn.*", "lightgbm.*"]
+module = ["sklearn.*", "lightgbm.*", "pyarrow.*"]
 ignore_missing_imports = true
 
 [tool.uv.sources]

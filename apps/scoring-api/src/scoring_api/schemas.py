@@ -33,6 +33,7 @@ class Issue(BaseModel):
     start: int
     end: int
     text: str
+    suggestion: str | None = None
 
 
 class FeatureVector(BaseModel):
@@ -74,6 +75,9 @@ class FeatureVector(BaseModel):
     spelling_error_count: int
     grammar_issue_count: int
     errors_per_100_words: float
+    collocation_issue_count: int = Field(
+        description="Verb-object or adjective-noun pairings rare in the reference corpus."
+    )
     issues: list[Issue]
 
 
@@ -85,6 +89,9 @@ class EvidenceSpan(BaseModel):
     )
     end: int | None
     verified: bool = Field(description="True when the quote was found in the Script.")
+    source: Literal["gemini", "features"] = Field(
+        default="gemini", description="Quoted by the language model, or by a deterministic check."
+    )
 
 
 class CriterionScore(BaseModel):

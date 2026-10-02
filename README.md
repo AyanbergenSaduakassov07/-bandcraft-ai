@@ -24,7 +24,7 @@ BandCraft AI scores Task 1 (Academic and General Training) and Task 2 responses 
 │   ├── adr/              Architecture decisions: why things are the way they are
 │   ├── benchmarks/       Accuracy reports, one per calibration run
 │   └── design-system/    Brand, tokens, motion and voice (MASTER.md, brand.md)
-└── .github/workflows/    ci.yml (lint, types, tests); calibrate.yml (fits models); template-index.yml
+└── .github/workflows/    ci.yml (lint, types, tests); calibrate.yml; template-index.yml; collocations.yml
 ```
 
 ## Run it
